@@ -2127,7 +2127,7 @@
   "ShopItemIcons.Config.HandleInclusionShop.Label": {
     "en": "Enable for Item Exchange (categorized)",
     "de": "Aktiviere für Handel mit Gegenständen (Kategorisiert)",
-    "zh": "启用物品交换"
+    "zh": "启用特殊物品交换"
   },
   "ShopItemIcons.Config.HandleInclusionShop.Description": {
     "en": "This applies to splendors vendors, the scrip exchange or the wolf mark quartermaster.",
