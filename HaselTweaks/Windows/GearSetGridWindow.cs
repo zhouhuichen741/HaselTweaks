@@ -137,7 +137,7 @@ public unsafe class GearSetGridWindow : LockableWindow
 
                 if (ImGui.Selectable("##Equip", gearsetIndex == raptureGearsetModule->CurrentGearsetIndex, ImGuiSelectableFlags.None, new Vector2(region.X, rowHeight)))
                 {
-                    UIGlobals.PlaySoundEffect(8);
+                    UIModule.PlaySound(8, 0, 0, 0);
                     raptureGearsetModule->EquipGearset(gearsetIndex);
                 }
                 if (ImGui.IsItemHovered())
