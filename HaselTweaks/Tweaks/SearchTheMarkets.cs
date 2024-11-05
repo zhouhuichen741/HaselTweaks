@@ -27,7 +27,7 @@ public unsafe class SearchTheMarkets(
     {
         MenuItem ??= new()
         {
-            Name = TextService.Translate("ItemContextMenu.SearchTheMarkets"),
+            Name = TextService.Translate("ItemContextMenu.SearchTheMarkets.Cn"),
             Prefix = SeIconChar.BoxedLetterH,
             PrefixColor = 32,
             OnClicked = (_) =>
@@ -64,7 +64,7 @@ public unsafe class SearchTheMarkets(
     private void OnLanguageChange(string langCode)
     {
         if (MenuItem != null)
-            MenuItem.Name = TextService.Translate("ItemContextMenu.SearchTheMarkets");
+            MenuItem.Name = TextService.Translate("ItemContextMenu.SearchTheMarkets.Cn");
     }
 
     private void ContextMenu_OnMenuOpened(IMenuOpenedArgs args)
