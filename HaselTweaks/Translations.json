@@ -1167,7 +1167,7 @@
   "FixInventoryOpenTab.Tweak.Description": {
     "en": "Automatically resets the inventory to the first tab when opened.",
     "de": "Setzt das Inventar beim Öffnen automatisch auf den ersten Tab zurück.",
-    "zh": "打开时自动将清单重置为第一个标签页。"
+    "zh": "打开时自动将背包重置为第一个标签页。"
   },
 
   "ForcedCutsceneMusic.Tweak.Name": {
