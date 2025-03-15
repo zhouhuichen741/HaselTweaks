@@ -1092,43 +1092,52 @@
   },
 
   "EnhancedTargetInfo.Tweak.Name": {
-    "en": "Enhanced Target Info"
+    "en": "Enhanced Target Info",
+    "zh": "目标信息增强"
   },
   "EnhancedTargetInfo.Tweak.Description": {
     "en": "Enhances the Target Info.",
-    "de": "Verbessert die Zielinfo."
+    "zh": "一些目标信息增强"
   },
   "EnhancedTargetInfo.Config.DisplayMountStatus.Label": {
     "en": "Display Mounted status",
-    "de": "Zeige Beritten-Status an"
+    "de": "Zeige Beritten-Status an",
+    "zh": "显示坐骑状态"
   },
   "EnhancedTargetInfo.Config.DisplayMountStatus.Description": {
     "en": "The tooltip shows the name of the mount.",
-    "de": "Der Tooltip zeigt den Namen des Mounts an."
+    "de": "Der Tooltip zeigt den Namen des Mounts an.",
+    "zh": "工具提示会显示坐骑名称。"
   },
   "EnhancedTargetInfo.Config.DisplayOrnamentStatus.Label": {
     "en": "Display Fashion Accessory status",
-    "de": "Zeige Modeaccessoire-Status an"
+    "de": "Zeige Modeaccessoire-Status an",
+    "zh": "显示时尚配饰状态"
   },
   "EnhancedTargetInfo.Config.DisplayOrnamentStatus.Description": {
     "en": "The tooltip shows the name of the fashion accessory.",
-    "de": "Der Tooltip zeigt den Namen des Modeaccessoires an."
+    "de": "Der Tooltip zeigt den Namen des Modeaccessoires an.",
+    "zh": "工具提示会显示时尚配饰的名称。"
   },
   "EnhancedTargetInfo.Config.RemoveLeadingZeroInHPPercentage.Label": {
     "en": "Remove leading zero in HP under 10%",
-    "de": "Führende Null bei HP unter 10 % ausblenden"
+    "de": "Führende Null bei HP unter 10 % ausblenden",
+    "zh": "删除生命值10%以下时前面的0"
   },
   "EnhancedTargetInfo.Config.RemoveLeadingZeroInHPPercentage.Description": {
     "en": "For example, instead of 06.7%, 6.7% will be displayed. The format depends on the client language, not on the language set in Dalamud.",
-    "de": "Als Beispiel, statt 06,7 % wird 6,7 % angezeigt. Das Format hängt von der Sprache des Spielclients ab, nicht von der in Dalamud eingestellen Sprache."
+    "de": "Als Beispiel, statt 06,7 % wird 6,7 % angezeigt. Das Format hängt von der Sprache des Spielclients ab, nicht von der in Dalamud eingestellen Sprache.",
+    "zh": "例如，将显示6.7%，而不是06.7%。格式取决于客户端语言，而不是 Dalamud 中设置的语言。"
   },
   "EnhancedTargetInfo.Unlocked": {
     "en": "\u2713 Unlocked",
-    "de": "\u2713 Freigeschaltet"
+    "de": "\u2713 Freigeschaltet",
+    "zh": "\u2713 已解锁"
   },
   "EnhancedTargetInfo.NotUnlocked": {
     "en": "\u2573 Not unlocked",
-    "de": "\u2573 Nicht freigeschaltet"
+    "de": "\u2573 Nicht freigeschaltet",
+    "zh": "\u2573 未解锁"
   },
 
   "ExpertDeliveries.Tweak.Name": {
@@ -1142,55 +1151,68 @@
   },
 
   "FastMouseClickFix.Tweak.Name": {
-    "en": "Fast Mouse Click Fix"
+    "en": "Fast Mouse Click Fix",
+    "zh": "快速鼠标点击修复"
   },
   "FastMouseClickFix.Tweak.Description": {
     "en": "The game does not fire UI events for single mouse clicks whenever a double click is detected. This tweak fixes it by always triggering the normal mouse click in addition to the double click.",
-    "de": "Das Spiel löst keine UI-Events für einzelne Mausklicks aus, wenn ein Doppelklick erkannt wird. Dieser Tweak behebt dies, indem er zusätzlich zum Doppelklick immer den normalen Mausklick auslöst."
+    "de": "Das Spiel löst keine UI-Events für einzelne Mausklicks aus, wenn ein Doppelklick erkannt wird. Dieser Tweak behebt dies, indem er zusätzlich zum Doppelklick immer den normalen Mausklick auslöst.",
+    "zh": "只要检测到鼠标双击，游戏就不会触发单击鼠标的 UI 事件。这项调整可以解决这个问题，因为除了双击之外，还总是触发普通鼠标单击。"
   },
 
   "FixInventoryOpenTab.Tweak.Name": {
-    "en": "Fix Inventory Open Tab"
+    "en": "Fix Inventory Open Tab",
+    "zh": "修复打开背包选项卡"
   },
   "FixInventoryOpenTab.Tweak.Description": {
     "en": "Automatically resets the inventory to the first tab when opened.",
-    "de": "Setzt das Inventar beim Öffnen automatisch auf den ersten Tab zurück."
+    "de": "Setzt das Inventar beim Öffnen automatisch auf den ersten Tab zurück.",
+    "zh": "打开时自动将清单重置为第一个标签页。"
   },
 
   "ForcedCutsceneMusic.Tweak.Name": {
-    "en": "Forced Cutscene Sounds"
+    "en": "Forced Cutscene Sounds",
+    "zh": "强制播放过场动画的声音"
   },
   "ForcedCutsceneMusic.Tweak.Description": {
     "en": "Automatically unmutes selected sound channels in cutscenes.",
-    "de": "Hebt automatisch die Stummschaltung von ausgewählten Audiokanälen in Zwischensequenzen auf."
+    "de": "Hebt automatisch die Stummschaltung von ausgewählten Audiokanälen in Zwischensequenzen auf.",
+    "zh": "自动取消场景中选定声道的静音。"
   },
   "ForcedCutsceneMusic.Config.HandleMaster.Label": {
     "en": "Unmute Master Volume",
-    "de": "Stummschaltung von Hauptlautstärke aufheben"
+    "de": "Stummschaltung von Hauptlautstärke aufheben",
+    "zh": "取消静音-整体音量"
   },
   "ForcedCutsceneMusic.Config.HandleBgm.Label": {
     "en": "Unmute BGM",
-    "de": "Stummschaltung von Hintergrundmusik aufheben"
+    "de": "Stummschaltung von Hintergrundmusik aufheben",
+    "zh": "取消静音-背景音乐"
   },
   "ForcedCutsceneMusic.Config.HandleSe.Label": {
     "en": "Unmute Sound Effects",
-    "de": "Stummschaltung von Soundeffekte aufheben"
+    "de": "Stummschaltung von Soundeffekte aufheben",
+    "zh": "取消静音-音效"
   },
   "ForcedCutsceneMusic.Config.HandleVoice.Label": {
     "en": "Unmute Voice",
-    "de": "Stummschaltung von Stimmen aufheben"
+    "de": "Stummschaltung von Stimmen aufheben",
+    "zh": "取消静音-语音"
   },
   "ForcedCutsceneMusic.Config.HandleEnv.Label": {
     "en": "Unmute Ambient Sounds",
-    "de": "Stummschaltung von Umgebungsgeräusche aufheben"
+    "de": "Stummschaltung von Umgebungsgeräusche aufheben",
+    "zh": "取消静音环-境音"
   },
   "ForcedCutsceneMusic.Config.HandleSystem.Label": {
     "en": "Unmute System Sounds",
-    "de": "Stummschaltung von Systemtöne aufheben"
+    "de": "Stummschaltung von Systemtöne aufheben",
+    "zh": "取消静音-系统音"
   },
   "ForcedCutsceneMusic.Config.HandlePerform.Label": {
     "en": "Unmute Performance",
-    "de": "Stummschaltung von Bardenkompositionen aufheben"
+    "de": "Stummschaltung von Bardenkompositionen aufheben",
+    "zh": "取消静音-乐器演奏"
   },
   "ForcedCutsceneMusic.Config.Restore.Label": {
     "en": "Restore mute state after cutscene",
@@ -1289,11 +1311,13 @@
   },
 
   "OutfitGlamourTryOn.Tweak.Name": {
-    "en": "Outfit Glamour Try On"
+    "en": "Outfit Glamour Try On",
+    "zh": "套装幻影化试穿"
   },
   "OutfitGlamourTryOn.Tweak.Description": {
     "en": "Adds a context menu entry to the items in the \"Outfit Glamour Creation\" window so you can try them on.",
-    "de": "Fügt einen Kontextmenüeintrag zu den Gegenständen im \"Setprojektion\"-Fenster hinzu, damit du sie anprobieren kannst."
+    "de": "Fügt einen Kontextmenüeintrag zu den Gegenständen im \"Setprojektion\"-Fenster hinzu, damit du sie anprobieren kannst.",
+    "zh": "为\"套装幻影化\"窗口中的项目添加右键菜单，以便你可以试穿。"
   },
 
   "HideMSQComplete.Tweak.Name": {
