@@ -2274,6 +2274,14 @@
     "de": "Löschen",
     "zh": "删除"
   },
+  
+  "ItemContextMenuCN.SearchTheMarkets": {
+    "en": "Search the markets",
+    "de": "Auf den Märkten suchen",
+    "fr": "Rechercher sur les marchés",
+    "ja": "市場で検索する",
+    "zh": "在市场布告板上搜索"
+  },
 
   "template": {
     "en": "",
