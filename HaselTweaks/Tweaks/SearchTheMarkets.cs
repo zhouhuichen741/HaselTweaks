@@ -30,7 +30,7 @@ public unsafe partial class SearchTheMarkets : ITweak
     {
         _menuItem ??= new()
         {
-            Name = _textService.Translate("ItemContextMenu.SearchTheMarkets"),
+            Name = _textService.Translate("ItemContextMenuCN.SearchTheMarkets"),
             Prefix = SeIconChar.BoxedLetterH,
             PrefixColor = 32,
             OnClicked = (_) =>
@@ -66,7 +66,7 @@ public unsafe partial class SearchTheMarkets : ITweak
     private void OnLanguageChange(string langCode)
     {
         if (_menuItem != null)
-            _menuItem.Name = _textService.Translate("ItemContextMenu.SearchTheMarkets");
+            _menuItem.Name = _textService.Translate("ItemContextMenuCN.SearchTheMarkets");
     }
 
     private void ContextMenu_OnMenuOpened(IMenuOpenedArgs args)
