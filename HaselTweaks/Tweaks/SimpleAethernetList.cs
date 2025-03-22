@@ -1,10 +1,10 @@
 using Dalamud.Hooking;
 using Dalamud.Plugin.Services;
+using FFXIVClientStructs.FFXIV.Client.UI;
 using FFXIVClientStructs.FFXIV.Client.UI.Agent;
 using FFXIVClientStructs.FFXIV.Component.GUI;
 using HaselTweaks.Enums;
 using HaselTweaks.Interfaces;
-using HaselTweaks.Structs;
 
 namespace HaselTweaks.Tweaks;
 
@@ -15,7 +15,6 @@ public unsafe partial class SimpleAethernetList : ITweak
 
     private Hook<AddonTeleportTown.Delegates.ReceiveEvent>? _receiveEventHook;
 
-    public string InternalName => nameof(SimpleAethernetList);
     public TweakStatus Status { get; set; } = TweakStatus.Uninitialized;
 
     public void OnInitialize()

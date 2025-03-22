@@ -23,11 +23,10 @@ public unsafe partial class CustomChatMessageFormats : IConfigurableTweak
     private readonly IGameInteropProvider _gameInteropProvider;
     private readonly ExcelService _excelService;
     private readonly TextureService _textureService;
-    private readonly SeStringEvaluatorService _seStringEvaluator;
+    private readonly SeStringEvaluator _seStringEvaluator;
 
     private Hook<HaselRaptureLogModule.Delegates.FormatLogMessage>? _formatLogMessageHook;
 
-    public string InternalName => nameof(CustomChatMessageFormats);
     public TweakStatus Status { get; set; } = TweakStatus.Uninitialized;
 
     public void OnInitialize()
@@ -92,7 +91,7 @@ public unsafe partial class CustomChatMessageFormats : IConfigurableTweak
         var tempParseMessage1 = raptureLogModule->TempParseMessage.GetPointer(1);
         tempParseMessage1->Clear();
 
-        if (!raptureLogModule->RaptureTextModule->TextModule.FormatString(message->StringPtr, null, tempParseMessage1))
+        if (!raptureLogModule->RaptureTextModule->TextModule.FormatString(message->StringPtr.Value, null, tempParseMessage1))
             return 0;
 
         var senderStr = new ReadOnlySeStringSpan(sender->AsSpan());

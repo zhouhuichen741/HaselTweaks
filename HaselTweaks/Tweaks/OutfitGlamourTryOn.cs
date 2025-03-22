@@ -5,7 +5,6 @@ using FFXIVClientStructs.FFXIV.Client.UI.Agent;
 using HaselCommon.Services;
 using HaselTweaks.Enums;
 using HaselTweaks.Interfaces;
-using HaselTweaks.Structs.Agents;
 
 namespace HaselTweaks.Tweaks;
 
@@ -16,7 +15,6 @@ public unsafe partial class OutfitGlamourTryOn : ITweak
     private readonly ItemService _itemService;
     private readonly TextService _textService;
 
-    public string InternalName => nameof(OutfitGlamourTryOn);
     public TweakStatus Status { get; set; } = TweakStatus.Uninitialized;
 
     public void OnInitialize() { }
@@ -46,7 +44,7 @@ public unsafe partial class OutfitGlamourTryOn : ITweak
         if (args.AddonName != "MiragePrismPrismSetConvert")
             return;
 
-        var agent = (HaselAgentMiragePrismPrismSetConvert*)AgentModule.Instance()->GetAgentByInternalId(AgentId.MiragePrismPrismSetConvert);
+        var agent = (AgentMiragePrismPrismSetConvert*)AgentModule.Instance()->GetAgentByInternalId(AgentId.MiragePrismPrismSetConvert);
         if (agent == null || agent->Data == null)
             return;
 

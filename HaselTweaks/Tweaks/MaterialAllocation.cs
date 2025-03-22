@@ -1,11 +1,11 @@
 using Dalamud.Game.Addon.Lifecycle;
 using Dalamud.Game.Addon.Lifecycle.AddonArgTypes;
 using Dalamud.Plugin.Services;
+using FFXIVClientStructs.FFXIV.Client.UI;
 using FFXIVClientStructs.FFXIV.Client.UI.Agent;
 using HaselTweaks.Config;
 using HaselTweaks.Enums;
 using HaselTweaks.Interfaces;
-using HaselTweaks.Structs;
 
 namespace HaselTweaks.Tweaks;
 
@@ -15,7 +15,6 @@ public unsafe partial class MaterialAllocation : IConfigurableTweak
     private readonly PluginConfig _pluginConfig;
     private readonly IAddonLifecycle _addonLifecycle;
 
-    public string InternalName => nameof(MaterialAllocation);
     public TweakStatus Status { get; set; } = TweakStatus.Uninitialized;
 
     private MaterialAllocationConfiguration Config => _pluginConfig.Tweaks.MaterialAllocation;

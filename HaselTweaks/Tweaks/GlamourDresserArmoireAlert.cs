@@ -20,11 +20,14 @@ public unsafe partial class GlamourDresserArmoireAlert : ITweak
     private readonly AddonObserver _addonObserver;
     private readonly ExcelService _excelService;
     private readonly WindowManager _windowManager;
+    private readonly TextureService _textureService;
+    private readonly LanguageProvider _languageProvider;
+    private readonly TextService _textService;
+    private readonly ImGuiContextMenuService _imGuiContextMenuService;
 
     private bool _isPrismBoxOpen;
     private uint[]? _lastItemIds = null;
 
-    public string InternalName => nameof(GlamourDresserArmoireAlert);
     public TweakStatus Status { get; set; } = TweakStatus.Uninitialized;
 
     public Dictionary<uint, Dictionary<uint, (Item Item, bool IsHq)>> Categories { get; } = [];
@@ -134,6 +137,6 @@ public unsafe partial class GlamourDresserArmoireAlert : ITweak
 
         _logger.LogTrace("Open!!!");
 
-        _windowManager.CreateOrOpen<GlamourDresserArmoireAlertWindow>();
+        _windowManager.CreateOrOpen(() => new GlamourDresserArmoireAlertWindow(_windowManager, _textService, _languageProvider, _textureService, _excelService, _imGuiContextMenuService, this));
     }
 }

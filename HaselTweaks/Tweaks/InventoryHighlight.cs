@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Dalamud.Game.Addon.Lifecycle;
 using Dalamud.Game.Addon.Lifecycle.AddonArgTypes;
-using Dalamud.Game.ClientState.Keys;
 using Dalamud.Game.Config;
 using Dalamud.Plugin.Services;
 using FFXIVClientStructs.FFXIV.Client.Game;
@@ -27,7 +26,6 @@ public unsafe partial class InventoryHighlight : IConfigurableTweak
     private readonly IClientState _clientState;
     private readonly IGameConfig _gameConfig;
     private readonly IGameGui _gameGui;
-    private readonly IKeyState _keyState;
     private readonly IAddonLifecycle _addonLifecycle;
 
     private uint _itemInventryWindowSizeType = 0;
@@ -35,7 +33,6 @@ public unsafe partial class InventoryHighlight : IConfigurableTweak
     private uint _hoveredItemId;
     private bool _wasHighlighting;
 
-    public string InternalName => nameof(InventoryHighlight);
     public TweakStatus Status { get; set; } = TweakStatus.Uninitialized;
 
     public void OnInitialize() { }
@@ -184,7 +181,7 @@ public unsafe partial class InventoryHighlight : IConfigurableTweak
 
     private bool IsHighlightActive()
     {
-        if (!_keyState[VirtualKey.SHIFT])
+        if (!UIInputData.Instance()->IsKeyDown(SeVirtualKey.SHIFT))
             return false;
 
         if (IsAddonOpen("Inventory"))
@@ -474,8 +471,8 @@ public unsafe partial class InventoryHighlight : IConfigurableTweak
         return container->GetInventorySlot(item->Slot);
     }
 
-    private uint NormalizeItemId(ExcelRowId<Item> itemId)
+    private uint NormalizeItemId(uint itemId)
         => Config.IgnoreQuality
-            ? itemId.GetBaseId()
+            ? GetBaseItemId(itemId)
             : itemId;
 }
