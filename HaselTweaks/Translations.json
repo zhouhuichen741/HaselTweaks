@@ -393,14 +393,17 @@
   },
 
   "CompanionColorPreview.Tweak.Name": {
-    "en": "Companion Color Preview"
+    "en": "Companion Color Preview",
+    "zh": "搭档毛色预览"
   },
   "CompanionColorPreview.Tweak.Description": {
     "en": "Shows a small drop-down menu above the \"Companion\" window to select the color of your own chocobo. This is just to preview the colors and will not be saved!",
-    "de": "Zeigt ein kleines Dropdown-Menü über dem \"MITSTREITER\"-Fenster an, um die Farbe des eigenen Chocobos auszuwählen. Dies dient nur zur Vorschau der Farben und wird nicht gespeichert!"
+    "de": "Zeigt ein kleines Dropdown-Menü über dem \"MITSTREITER\"-Fenster an, um die Farbe des eigenen Chocobos auszuwählen. Dies dient nur zur Vorschau der Farben und wird nicht gespeichert!",
+    "zh": "在\"搭档\"窗口上方显示一个小的下拉菜单，以选择并预览您搭档的毛色。这只是预览颜色，不会被保存！"
   },
   "CompanionColorPreviewWindow.Title": {
-    "en": "Companion Color Preview"
+    "en": "Companion Color Preview",
+    "zh": "搭档毛色预览"
   },
 
   "CastBarAetheryteNames.Tweak.Name": {
