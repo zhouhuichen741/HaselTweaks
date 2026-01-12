@@ -237,11 +237,13 @@
   },
 
   "AlwaysFaceCamera.Tweak.Name": {
-    "en": "Always Face Camera"
+    "en": "Always Face Camera",
+	"zh": "始终面向镜头"
   },
   "AlwaysFaceCamera.Tweak.Description": {
     "en": "This tweak makes your character look at the camera when facing it, mimicking the behavior of the \"/facecamera\" command, with the position updated every frame. Does not work in combat or when you have a target.",
-    "de": "Dieser Tweak lässt deinen Charakter zur Kamera schauen, wenn er ihr zugewandt ist, und ahmt dabei das Verhalten des Befehls \"/facecamera\" nach, wobei die Position mit jedem Frame aktualisiert wird. Funktioniert nicht im Kampf oder wenn du ein Ziel hast."
+    "de": "Dieser Tweak lässt deinen Charakter zur Kamera schauen, wenn er ihr zugewandt ist, und ahmt dabei das Verhalten des Befehls \"/facecamera\" nach, wobei die Position mit jedem Frame aktualisiert wird. Funktioniert nicht im Kampf oder wenn du ein Ziel hast.",
+	"zh": "让角色在面对镜头时始终注视它，模拟“/facecamera”指令的效果，每帧更新位置。在战斗或有目标时无效。"
   },
 
   "AutoOpenRecipe.Tweak.Name": {
@@ -375,11 +377,13 @@
   },
 
   "AutoSelectSoilAndSeed.Tweak.Name": {
-    "en": "Auto-select Soil and Seed"
+    "en": "Auto-select Soil and Seed",
+	"zh": "自动选择土壤和种子"
   },
   "AutoSelectSoilAndSeed.Tweak.Description": {
     "en": "Automatically selects the first available soil and seed from your inventory when opening the \"Gardening\" window.",
-    "de": "Wählt beim Öffnen des \"AUSSÄEN\"-Fensters automatisch die erste verfügbare Erde und den ersten Samen aus deinem Inventar aus."
+    "de": "Wählt beim Öffnen des \"AUSSÄEN\"-Fensters automatisch die erste verfügbare Erde und den ersten Samen aus deinem Inventar aus.",
+	"zh": "打开“园艺”窗口时自动从背包中选择第一个可用的土壤和种子"
   },
 
   "BackgroundMusicKeybind.Tweak.Name": {
@@ -408,59 +412,73 @@
   },
 
   "BiggerCharacterPreviews.Tweak.Name": {
-    "en": "Bigger Character Previews"
+    "en": "Bigger Character Previews",
+	"zh": "更大的角色预览"
   },
   "BiggerCharacterPreviews.Tweak.Description": {
     "en": "Increases the size of the character preview in various window.",
-    "de": "Vergrößert die Charaktervorschau in verschiedenen Fenstern."
+    "de": "Vergrößert die Charaktervorschau in verschiedenen Fenstern.",
+	"zh": "在多个窗口中增大角色预览的尺寸"
+  },
+  "BiggerCharacterPreviews.Config.SharpenCharacter.Label": {
+    "en": "Sharper preview images",
+    "de": "Schärfere Vorschaubilder",
+	"zh": "更清晰的预览图像"
+  },
+  "BiggerCharacterPreviews.Config.SharpenCharacterInspect.Label": {
+    "en": "Sharper preview images",
+    "de": "Schärfere Vorschaubilder",
+	"zh": "更清晰的预览图像"
+  },
+  "BiggerCharacterPreviews.Config.SharpenColorantColoring.Label": {
+    "en": "Sharper preview images",
+    "de": "Schärfere Vorschaubilder",
+	"zh": "更清晰的预览图像"
+  },
+  "BiggerCharacterPreviews.Config.SharpenTryon.Label": {
+    "en": "Sharper preview images",
+    "de": "Schärfere Vorschaubilder",
+	"zh": "更清晰的预览图像"
   },
   "BiggerCharacterPreviews.Config.EnableCharacter.Label": {
     "en": "Enable in Character",
-    "de": "Aktiviere für CHARAKTER"
+    "de": "Aktiviere für CHARAKTER",
+	"zh": "启用角色窗口"
   },
   "BiggerCharacterPreviews.Config.EnableCharacter.Description": {
     "en": "Only to the bottom edge. Window is 36px wider.",
-    "de": "Nur bis zum unteren Rand. Das Fenster ist 36px breiter."
-  },
-  "BiggerCharacterPreviews.Config.SharpenCharacter.Label": {
-    "en": "Sharper preview image",
-    "de": "Schärferes Vorschaubild"
+    "de": "Nur bis zum unteren Rand. Das Fenster ist 36px breiter.",
+	"zh": "仅扩展到底部边缘，窗口宽度增加36像素"
   },
   "BiggerCharacterPreviews.Config.EnableCharacterInspect.Label": {
     "en": "Enable in examine character window",
-    "de": "Aktiviere für Character untersuchen-Fenster"
+    "de": "Aktiviere für Character untersuchen-Fenster",
+	"zh": "启用角色调查窗口"
   },
   "BiggerCharacterPreviews.Config.EnableCharacterInspect.Description": {
     "en": "Window is 86px wider and 174px taller.",
-    "de": "Das Fenster ist 86px breiter und 174px höher."
-  },
-  "BiggerCharacterPreviews.Config.SharpenCharacterInspect.Label": {
-    "en": "Sharper preview image",
-    "de": "Schärferes Vorschaubild"
+    "de": "Das Fenster ist 86px breiter und 174px höher.",
+	"zh": "窗口宽度增加86像素，高度增加174像素"
   },
   "BiggerCharacterPreviews.Config.EnableColorantColoring.Label": {
     "en": "Enable in Item Dyeing",
-    "de": "Aktiviere für GEGENSTÄNDE FÄRBEN"
+    "de": "Aktiviere für GEGENSTÄNDE FÄRBEN",
+	"zh": "启用染色窗口"
   },
   "BiggerCharacterPreviews.Config.EnableColorantColoring.Description": {
     "en": "From top to bottom. Window is 106px wider.",
-    "de": "Von oben bis unten. Das Fenster ist 106px breiter."
-  },
-  "BiggerCharacterPreviews.Config.SharpenColorantColoring.Label": {
-    "en": "Sharper preview image",
-    "de": "Schärferes Vorschaubild"
+    "de": "Von oben bis unten. Das Fenster ist 106px breiter.",
+	"zh": "窗口从上到下扩展，宽度增加106像素"
   },
   "BiggerCharacterPreviews.Config.EnableTryon.Label": {
     "en": "Enable in Fitting Room",
-    "de": "Aktiviere für ANPROBIEREN"
+    "de": "Aktiviere für ANPROBIEREN",
+	"zh": "启用试穿窗口"
   },
   "BiggerCharacterPreviews.Config.EnableTryon.Description": {
     "en": "Window is 94px wider and 160px taller.",
-    "de": "Das Fenster ist 94px breiter und 160px höher."
-  },
-  "BiggerCharacterPreviews.Config.SharpenTryon.Label": {
-    "en": "Sharper preview image",
-    "de": "Schärferes Vorschaubild"
+    "de": "Das Fenster ist 94px breiter und 160px höher.",
+	"zh": "窗口宽度增加94像素，高度增加160像素"
   },
 
   "CompanionColorPreview.Tweak.Name": {
@@ -478,19 +496,23 @@
   },
 
   "CosmicResearchTodo.Tweak.Name": {
-    "en": "Cosmic Research in Duty List"
+    "en": "Cosmic Research in Duty List",
+	"zh": "任务列表中的宇宙研究进度"
   },
   "CosmicResearchTodo.Tweak.Description": {
     "en": "Displays the progress of Cosmic Research in the Duty List during Cosmic Exploration.",
-    "de": "Zeigt den Fortschritt der Kosmo-Forschung in der Aufgabenliste während der Kosmo-Erkundung an."
+    "de": "Zeigt den Fortschritt der Kosmo-Forschung in der Aufgabenliste während der Kosmo-Erkundung an.",
+	"zh": "宇宙探索时在任务列表中显示宇宙研究的进度"
   },
   "CosmicResearchTodo.Config.ShowCosmicToolScore.Label": {
     "en": "Show class score for achievements after completing Cosmic Research",
-    "de": "Zeige Wertungen für Errungenschaften nach Abschluss der Kosmo-Forschung an"
+    "de": "Zeige Wertungen für Errungenschaften nach Abschluss der Kosmo-Forschung an",
+	"zh": "在职业技巧点成就达成后继续显示职业技巧点"
   },
   "CosmicResearchTodo.Config.ShowCompletedAnalysis.Label": {
     "en": "Show completed datasets",
-    "de": "Zeige abgeschlossene Daten"
+    "de": "Zeige abgeschlossene Daten",
+	"zh": "显示已完成的宇宙数据"
   },
 
   "CastBarAetheryteNames.Tweak.Name": {
@@ -609,7 +631,8 @@
   },
   "Commands.Config.EnableReloadUICommand.Description": {
     "en": "Reloads the games UI. This is helpful for applying texture changes without using the Aesthetician or relogging.",
-    "de": "Läd das UI des Spiels neu. Dies ist hilfreich, um Texturänderungen anzuwenden, ohne den Kosmetiker rufen oder sich neu einloggen zu müssen."
+    "de": "Läd das UI des Spiels neu. Dies ist hilfreich, um Texturänderungen anzuwenden, ohne den Kosmetiker rufen oder sich neu einloggen zu müssen.",
+    "zh": "重新加载游戏UI。这有助于在不使用美容师传唤铃或重新登录的情况下应用材质更改。"
   },
   "Commands.ItemLink.ItemNotFound": {
     "en": "Item {0} not found.",
@@ -1208,31 +1231,38 @@
   },
 
   "EnhancedMonsterNote.Tweak.Name": {
-    "en": "Enhanced Hunting Log"
+    "en": "Enhanced Hunting Log",
+	"zh": "强化狩猎日志"
   },
   "EnhancedMonsterNote.Tweak.Description": {
     "en": "Enhances the Hunting Log.",
-    "de": "Verbessert das Bestiarium."
+    "de": "Verbessert das Bestiarium.",
+	"zh": "强化版狩猎日志。"
   },
   "EnhancedMonsterNote.Config.RememberTabSelection.Label": {
     "en": "Remember last selected class",
-    "de": "Zuletzt gewählte Klasse merken"
+    "de": "Zuletzt gewählte Klasse merken",
+	"zh": "记住上次选择的标签页"
   },
   "EnhancedMonsterNote.Config.RememberTabSelection.Description": {
     "en": "For the record, the game's default behaviour is to reset the window to the first tab.",
-    "de": "Die Standardeinstellung des Spiels ist es, das Fenster auf den ersten Tab zurückzusetzen."
+    "de": "Die Standardeinstellung des Spiels ist es, das Fenster auf den ersten Tab zurückzusetzen.",
+	"zh": "游戏的默认行为是将窗口重置到第一个标签页。"
   },
   "EnhancedMonsterNote.Config.OpenWithCurrentClass.Label": {
     "en": "Automatically select the current class",
-    "de": "Automatisch die aktuelle Klasse auswählen"
+    "de": "Automatisch die aktuelle Klasse auswählen",
+	"zh": "自动选择当前标签页"
   },
   "EnhancedMonsterNote.Config.OpenWithCurrentClass.Description": {
     "en": "Only works if a matching class was found. Overrides the option \"Remember last selected class\" in that case.",
-    "de": "Funktioniert nur wenn eine passende Klasse gefunden wurde. Überschreibt in diesem Fall die Option \"Zuletzt gewählte Klasse merken\"."
+    "de": "Funktioniert nur wenn eine passende Klasse gefunden wurde. Überschreibt in diesem Fall die Option \"Zuletzt gewählte Klasse merken\".",
+	"zh": "仅在找到匹配的标签页时生效。在这种情况下会覆盖“记住上次选择的标签页”选项。"
   },
   "EnhancedMonsterNote.Config.OpenWithIncompleteFilter.Label": {
     "en": "Automatically set the filter to \"Show Incomplete\"",
-    "de": "Automatisch den Filter auf \"Nur Unerledigte\" stellen"
+    "de": "Automatisch den Filter auf \"Nur Unerledigte\" stellen",
+	"zh": "自动将筛选器设置为“显示未完成”"
   },
 
   "EnhancedTargetInfo.Tweak.Name": {
@@ -1456,11 +1486,13 @@
   },
 
   "GlamourDresserKeyboardNavigation.Tweak.Name": {
-    "en": "Glamour Dresser Keyboard Navigation"
+    "en": "Glamour Dresser Keyboard Navigation",
+	"zh": "投影台物品键盘导航"
   },
   "GlamourDresserKeyboardNavigation.Tweak.Description": {
     "en": "Enables using arrow keys to select items in the Glamour Dresser.",
-    "de": "Ermöglicht es mit Pfeiltasten die Gegenstände in der Projektionskommode auszuwählen."
+    "de": "Ermöglicht es mit Pfeiltasten die Gegenstände in der Projektionskommode auszuwählen.",
+	"zh": "允许使用方向键和回车键操作投影台物品"
   },
 
   "OutfitGlamourTryOn.Tweak.Name": {
@@ -2176,11 +2208,13 @@
   },
   "ScrollableTabs.Config.SuppressQuickPanelSounds.Label": {
     "en": "Suppress sound effect when scrolling in Command Panel",
-    "de": "Soundeffekt beim scrollen in Kommandotafel unterdrücken"
+    "de": "Soundeffekt beim scrollen in Kommandotafel unterdrücken",
+    "zh": "在快捷面板滚动时抑制音效"
   },
   "ScrollableTabs.Config.SuppressQuickPanelSounds.Description": {
     "en": "Note: The game already integrated tab scrolling into the Command Panel.",
-    "de": "Hinweis: Das Spiel hat bereits Tab-Scrolling in die Kommandotafel integriert."
+    "de": "Hinweis: Das Spiel hat bereits Tab-Scrolling in die Kommandotafel integriert.",
+    "zh": "注：游戏已经将标签页滚动功能整合进了快捷面板。"
   },
   "ScrollableTabs.Config.HandleAetherCurrent.Label": {
     "en": "Enable in Aether Currents",
@@ -2259,7 +2293,8 @@
   },
   "ScrollableTabs.Config.HandleGlassSelect.Label": {
     "en": "Enable in Facewear",
-    "de": "Aktiviere für Gesichtsaccessoires"
+    "de": "Aktiviere für Gesichtsaccessoires",
+    "zh": "在面部配饰窗口启用"
   },
   "ScrollableTabs.Config.HandleGoldSaucerCardList.Label": {
     "en": "Enable in Gold Saucer -> Card List",
