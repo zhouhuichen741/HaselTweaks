@@ -38,10 +38,9 @@ public sealed class Plugin : IDalamudPlugin
 
     void IDisposable.Dispose()
     {
-        if (!isDev && _host != null)
-        {
-            _host.StopAsync().GetAwaiter().GetResult();
-            _host.Dispose();
-        }
+        if (isDev) 
+            return;
+        _host.StopAsync().GetAwaiter().GetResult();
+        _host.Dispose();
     }
 }
