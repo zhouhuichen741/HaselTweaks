@@ -8,7 +8,7 @@ using System;
 
 public sealed class Plugin : IDalamudPlugin
 {
-    private readonly IHost _host;
+    private readonly IHost? _host;
     private bool isDev;
 
     public Plugin(IDalamudPluginInterface pluginInterface, IPluginLog pluginLog, IFramework framework)
