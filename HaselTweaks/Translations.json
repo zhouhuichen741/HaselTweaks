@@ -1477,7 +1477,8 @@
   },
   "GlamourDresserArmoireAlert.Config.IgnoreOutfits.Label": {
     "en": "Ignore qualified items that are part of an outfit.",
-    "de": "Qualifizierte Gegenstände, die Teil eines Outfits sind, ignorieren"
+    "de": "Qualifizierte Gegenstände, die Teil eines Outfits sind, ignorieren",
+    "zh": "忽略已经套装化的物品。"
   },
   "GlamourDresserArmoireAlertWindow.Title": {
     "en": "[HaselTweaks] Glamour Dresser Armoire Alert",
