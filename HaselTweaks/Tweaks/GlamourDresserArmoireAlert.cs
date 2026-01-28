@@ -5,7 +5,7 @@ using HaselTweaks.Windows;
 namespace HaselTweaks.Tweaks;
 
 [RegisterSingleton<IHostedService>(Duplicate = DuplicateStrategy.Append), AutoConstruct]
-public unsafe partial class GlamourDresserArmoireAlert : Tweak
+public unsafe partial class GlamourDresserArmoireAlert : ConfigurableTweak<GlamourDresserArmoireAlertConfiguration>
 {
     private readonly IServiceProvider _serviceProvider;
     private readonly IGameInventory _gameInventory;
@@ -111,12 +111,15 @@ public unsafe partial class GlamourDresserArmoireAlert : Tweak
 
     private bool IsSetContainingCabinetItems(uint itemId)
     {
+        if (_config.IgnoreOutfits)
+            return false;
+
         if (!_excelService.TryGetRow<MirageStoreSetItem>(itemId, out var set))
             return false;
-        
+
         if (!set.TryGetSetItemBitArray(out var unlockArray, false))
             return false;
-        
+
         if (!set.Items.Where(setItem => setItem.RowId != 0).Any(setItem => _cabinetItems!.Contains(setItem.RowId)))
             return false;
 
