@@ -40,7 +40,11 @@ public sealed class Plugin : IDalamudPlugin
     {
         if (isDev) 
             return;
-        _host.StopAsync().GetAwaiter().GetResult();
-        _host.Dispose();
+            
+        if (_host != null) 
+        {
+            _host.StopAsync().GetAwaiter().GetResult();
+            _host.Dispose();
+        }
     }
 }
