@@ -81,7 +81,7 @@ public unsafe partial class AutoSelectSoilAndSeed : Tweak
                 else if (!isSeedSet
                     && itemRow.FilterGroup == (byte)ItemFilterGroup.GardeningSeed
                     && itemRow.AdditionalData.TryGetValue<GardeningSeed>(out var gardeningSeedRow)
-                    && (!isOutdoors || (isOutdoors && !gardeningSeedRow.Unknown1))) // Unknown1 = IsPlantPotFlowerSeed
+                    && (!isOutdoors || (isOutdoors && !gardeningSeedRow.IsPlantPotFlowerSeed)))
                 {
                     _logger.LogDebug("Selecting seed {inventoryType}#{slotIndex} ({itemId}) - {itemName}", inventoryType, slotIndex, baseItemId, itemRow.Name);
                     SelectItem(1, itemRow.RowId, itemRow.Icon, inventoryType, slotIndex);
