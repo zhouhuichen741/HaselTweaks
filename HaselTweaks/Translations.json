@@ -497,6 +497,18 @@
     "de": "Zeige abgeschlossene Daten"
   },
 
+  "CabinetQuickStore.Tweak.Name": {
+    "en": "Armoire Quick Store"
+  },
+  "CabinetQuickStore.Tweak.Description": {
+    "en": "Shows a button above the \"Armoire\" window to place the first item in the list into the armoire.",
+    "de": "Zeigt einen Button über dem \"AUSRÜSTUNG DEPONIEREN\"-Fenster an, um den ersten Gegenstand in der Liste ins Kostbarkeitenkabinett zu legen."
+  },
+  "CabinetQuickStoreWindow.Button.Label": {
+    "en": "Next Item",
+    "de": "Nächster Gegenstand"
+  },
+
   "CastBarAetheryteNames.Tweak.Name": {
     "en": "Cast Bar Aetheryte Names",
     "zh": "咏唱以太之光之名"

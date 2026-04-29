@@ -64,6 +64,10 @@ Increases the size of the character preview in the following windows:
 
 Also provides config options to make preview images sharper.
 
+### Armoire Quick Store
+
+Shows a button above the "Armoire" window to place the first item in the list into the armoire.
+
 ### Cast Bar Aetheryte Names
 
 Replaces the name of the action "Teleport" with the Aetheryte name of your destination.
