@@ -43,7 +43,8 @@ public unsafe partial class CabinetQuickStoreWindow : SimpleWindow
         Position = ImGui.GetMainViewport().Pos + addon->Position + offset;
 
         ref var items = ref UIState.Instance()->Cabinet.UnlockedItems;
-        if (_lastItems == null || !_lastItems.SequenceEqual(items)){
+        if (_lastItems == null || !_lastItems.SequenceEqual(items))
+        {
             _lastItems = [.. UIState.Instance()->Cabinet.UnlockedItems];
             _locked = false;
         }

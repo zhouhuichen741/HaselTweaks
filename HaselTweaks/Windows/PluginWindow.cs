@@ -113,7 +113,7 @@ public partial class PluginWindow : SimpleWindow
         DrawConfig();
     }
 
-#region Sidebar
+    #region Sidebar
 
     private static void DrawSidebarBackground()
     {
@@ -344,7 +344,7 @@ public partial class PluginWindow : SimpleWindow
 
     #endregion
 
-#region Content
+    #region Content
 
     private void DrawConfig()
     {

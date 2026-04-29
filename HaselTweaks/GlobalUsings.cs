@@ -12,6 +12,7 @@ global using Dalamud.Hooking;
 global using Dalamud.Interface;
 global using Dalamud.Interface.Utility;
 global using Dalamud.Interface.Utility.Raii;
+global using Dalamud.Interface.Windowing;
 global using Dalamud.Plugin;
 global using Dalamud.Plugin.Services;
 global using FFXIVClientStructs.Interop;
