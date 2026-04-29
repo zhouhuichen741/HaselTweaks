@@ -1,5 +1,23 @@
 # Changelog
 
+## [Unreleased]
+
+- Updated ClientStructs for Patch 7.45.
+- Slightly updated the main plugin window. It's now possible to search for tweaks.
+
+### New Tweak: Armoire Quick Store
+
+Shows a button above the "Armoire" window to place the first item in the list into the armoire.
+
+### Gear Set Grid
+
+- **Changed:** The soul crystals item level is now hidden. It's always 30.
+
+### Glamour Dresser Armoire Alert
+
+- **Added:** Outfits can now be withdrawn from the Glamour Dresser.  
+  Note: It will extract all items of an outfit. If you have the games setting enabled to store items in the inventory, make sure to have enough space or it will throw excess items into your Armoury.
+
 ## [41.1.9] (2026-03-24)
 
 - Updated ClientStructs for Patch 7.45 HotFix 2.
