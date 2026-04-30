@@ -520,15 +520,18 @@
   },
 
   "CabinetQuickStore.Tweak.Name": {
-    "en": "Armoire Quick Store"
+    "en": "Armoire Quick Store",
+	"zh": "收藏柜快速存放"
   },
   "CabinetQuickStore.Tweak.Description": {
     "en": "Shows a button above the \"Armoire\" window to place the first item in the list into the armoire.",
-    "de": "Zeigt einen Button über dem \"AUSRÜSTUNG DEPONIEREN\"-Fenster an, um den ersten Gegenstand in der Liste ins Kostbarkeitenkabinett zu legen."
+    "de": "Zeigt einen Button über dem \"AUSRÜSTUNG DEPONIEREN\"-Fenster an, um den ersten Gegenstand in der Liste ins Kostbarkeitenkabinett zu legen.",
+	"zh": "在“收藏柜”窗口上方显示一个按钮，点击即可将列表中的第一件物品存入收藏柜。"
   },
   "CabinetQuickStoreWindow.Button.Label": {
     "en": "Next Item",
-    "de": "Nächster Gegenstand"
+    "de": "Nächster Gegenstand",
+	"zh": "下一件物品"
   },
 
   "CastBarAetheryteNames.Tweak.Name": {
