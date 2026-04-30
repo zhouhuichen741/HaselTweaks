@@ -50,16 +50,16 @@ public abstract class ConfirmationDialog : IDialog
         }
         catch (Exception ex)
         {
-            ImGui.TextColored(Color.Red, ex.Message);
+            ImGui.TextColored(Color.ErrorForeground, ex.Message);
         }
 
         ImGui.Spacing();
 
-        var buttonSpacing = ImGui.GetStyle().ItemSpacing.X;
-        var buttonWidth = (int)Math.Max(80f, (ImGui.GetContentRegionAvail().X - buttonSpacing * (_buttons.Count - 1)) / _buttons.Count - 80);
+        var buttonSpacing = ImStyle.ItemSpacing.X;
+        var buttonWidth = (int)Math.Max(80f, (ImStyle.ContentRegionAvail.X - buttonSpacing * (_buttons.Count - 1)) / _buttons.Count - 80);
         var totalWidth = _buttons.Count * buttonWidth + buttonSpacing * (_buttons.Count - 1);
 
-        ImGui.SetCursorPosX((ImGui.GetWindowWidth() - totalWidth) / 2f);
+        ImCursor.X = (ImGui.GetWindowWidth() - totalWidth) / 2f;
 
         foreach (var (index, button) in _buttons.Index())
         {

@@ -64,7 +64,8 @@ public partial class ClipboardService : IDisposable
             return;
         }
 
-        await OpenClipboard();
+        if (!await OpenClipboard().ConfigureAwait(false))
+            return;
 
         try
         {
@@ -95,7 +96,8 @@ public partial class ClipboardService : IDisposable
 
     public async Task SetClipboardImage(Image<Rgba32> image)
     {
-        await OpenClipboard();
+        if (!await OpenClipboard().ConfigureAwait(false))
+            return;
 
         if (!PInvoke.EmptyClipboard())
             return;
@@ -106,13 +108,26 @@ public partial class ClipboardService : IDisposable
         PInvoke.CloseClipboard();
     }
 
-    private async Task OpenClipboard()
+    private async Task<bool> OpenClipboard()
     {
+        var start = DateTime.Now;
         HWND hwnd;
-        while (!(hwnd = GetWindowHandle()).IsNull && !PInvoke.OpenClipboard(hwnd))
+
+        while (!(hwnd = GetWindowHandle()).IsNull)
         {
-            await Task.Delay(100);
+            if (PInvoke.OpenClipboard(hwnd))
+                return true;
+
+            if (DateTime.Now - start > TimeSpan.FromSeconds(2))
+            {
+                _logger.LogError("Clipboard timeout: Could not open clipboard after 2 seconds.");
+                return false;
+            }
+
+            await Task.Delay(100).ConfigureAwait(false);
         }
+
+        return false;
     }
 
     private unsafe HWND GetWindowHandle()
@@ -172,7 +187,7 @@ public partial class ClipboardService : IDisposable
         bitmapInfo->bV5Height = -image.Height; // negative height for top-down image
         bitmapInfo->bV5Planes = 1;
         bitmapInfo->bV5BitCount = 32; // 4 bytes per pixel (Rgba32)
-        bitmapInfo->bV5Compression = 0; // BI_RGB
+        bitmapInfo->bV5Compression = BI_COMPRESSION.BI_RGB;
         bitmapInfo->bV5SizeImage = (uint)(image.Width * image.Height * sizeof(Bgra32));
         bitmapInfo->bV5XPelsPerMeter = 0;
         bitmapInfo->bV5YPelsPerMeter = 0;
@@ -201,7 +216,7 @@ public partial class ClipboardService : IDisposable
             pixel.A = 0; // rgbReserved of RGBQUAD "must be zero"
     }
 
-    private unsafe void SetPNG(Image<Rgba32> image)
+    private void SetPNG(Image<Rgba32> image)
     {
         var format = PInvoke.RegisterClipboardFormat("PNG");
         if (format == 0)

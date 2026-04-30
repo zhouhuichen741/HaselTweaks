@@ -43,7 +43,7 @@ public partial class EditPresetDialog
         var center = ImGui.GetMainViewport().GetCenter();
         ImGui.SetNextWindowPos(center, ImGuiCond.Appearing, new(0.5f, 0.5f));
 
-        using var modal = ImRaiiExt.PopupModal(title, ImGuiWindowFlags.AlwaysAutoResize);
+        using var modal = ImRaii.PopupModal(title, ImGuiWindowFlags.AlwaysAutoResize);
         if (!modal) return;
 
         ImGui.Text(_textService.Translate("PortraitHelperWindows.EditPresetDialog.Name.Label"));
@@ -97,11 +97,11 @@ public partial class EditPresetDialog
         ImGui.Separator();
         ImGui.Spacing();
 
-        var combinedButtonWidths = ImGui.GetStyle().ItemSpacing.X
+        var combinedButtonWidths = ImStyle.ItemSpacing.X
             + MathF.Max(Constants.DialogButtonMinWidth, ImGuiHelpers.GetButtonSize(_textService.Translate("ConfirmationButtonWindow.Save")).X)
             + MathF.Max(Constants.DialogButtonMinWidth, ImGuiHelpers.GetButtonSize(_textService.Translate("ConfirmationButtonWindow.Cancel")).X);
 
-        ImGuiUtils.PushCursorX((ImGui.GetContentRegionAvail().X - combinedButtonWidths) / 2f);
+        ImCursor.X += (ImStyle.ContentRegionAvail.X - combinedButtonWidths) / 2f;
 
         using (ImRaii.Disabled(disabled))
         {

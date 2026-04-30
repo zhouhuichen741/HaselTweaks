@@ -31,15 +31,16 @@ public partial class DTR
             {
                 if (ImGui.IsMouseDown(ImGuiMouseButton.Left))
                 {
-                    _framework.RunOnTick(OpenSettings, delayTicks: 2);
+                    _ = _framework.RunOnTick(OpenSettings, delayTicks: 2);
                     return;
                 }
 
                 _dalamudPluginInterface.OpenDalamudSettingsTo(SettingsOpenKind.ServerInfoBar);
             }
-            _framework.RunOnTick(OpenSettings, delayTicks: 2);
+
+            _ = _framework.RunOnTick(OpenSettings, delayTicks: 2);
         }
-        ImGuiUtils.SameLineSpace();
+        ImCursor.SameLineSpace();
         ImGui.Text(_textService.Translate("DTR.Config.Explanation.Post"));
 
         ImGui.Spacing();
@@ -51,7 +52,7 @@ public partial class DTR
         ImGui.Spacing();
         ImGui.Text(_textService.Translate("DTR.Config.Format.Example.Label"));
 
-        var size = new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetStyle().WindowPadding.Y * 2 + ImGui.GetTextLineHeight() + 2);
+        var size = new Vector2(ImStyle.ContentRegionAvail.X, ImStyle.WindowPadding.Y * 2 + ImStyle.TextLineHeight + 2);
         using var child = ImRaii.Child("##FormatExample", size, true);
         if (!child) return;
 
@@ -64,7 +65,7 @@ public partial class DTR
         }
         catch (FormatException)
         {
-            using (Color.Red.Push(ImGuiCol.Text))
+            using (Color.ErrorForeground.Push(ImGuiCol.Text))
                 ImGui.Text(_textService.Translate("DTR.Config.FpsFormat.Invalid"));
         }
     }

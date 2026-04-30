@@ -13,15 +13,21 @@ public abstract unsafe partial class Overlay : SimpleWindow, IDisposable, IOverl
     private readonly ExcelService _excelService;
     private readonly MenuBarState _state;
 
-    private readonly ImRaii.Style _windowPadding = new();
-    private readonly ImRaii.Color _windowBg = new();
-    private readonly ImRaii.Color _windowText = new();
+    private readonly ImRaii.StyleDisposable _windowPadding = new();
 
     protected uint DefaultImGuiTextColor { get; set; }
 
     private bool _isDisposed;
 
-    public bool IsWindow { get; set; }
+    public bool IsWindow
+    {
+        get; set
+        {
+            field = value;
+            AllowBackgroundBlur = value;
+        }
+    }
+
     public virtual OverlayType Type => OverlayType.Full;
 
     [AutoPostConstruct]
@@ -47,8 +53,6 @@ public abstract unsafe partial class Overlay : SimpleWindow, IDisposable, IOverl
     public override void OnClose()
     {
         _windowPadding.Dispose();
-        _windowBg.Dispose();
-        _windowText.Dispose();
 
         ToggleUiVisibility(true);
 
@@ -76,7 +80,7 @@ public abstract unsafe partial class Overlay : SimpleWindow, IDisposable, IOverl
         if (!IsOpen)
             return;
 
-        IsWindow = ImGuiHelpers.GlobalScale > 1;
+        IsWindow = ImStyle.Scale > 1;
 
         var agent = AgentBannerEditor.Instance();
         var isCloseDialogOpen =
@@ -96,24 +100,18 @@ public abstract unsafe partial class Overlay : SimpleWindow, IDisposable, IOverl
             if (Type == OverlayType.LeftPane)
                 _windowPadding.Push(ImGuiStyleVar.WindowPadding, Vector2.Zero);
 
-            if (Misc.IsLightTheme && _excelService.TryGetRow<UIColor>(2, out var uiColor))
-                _windowText.Push(ImGuiCol.Text, Color.FromABGR(uiColor.Dark).ToUInt());
-
-            _windowBg.Push(ImGuiCol.WindowBg, 0);
+            WindowColor
+                .Push(ImGuiCol.Text, GetLabelColor())
+                .Push(ImGuiCol.WindowBg, 0);
         }
 
         UpdateWindow();
+        base.PreDraw();
     }
 
     public override void Draw()
     {
         _windowPadding.Dispose();
-        _windowBg.Dispose();
-    }
-
-    public override void PostDraw()
-    {
-        _windowText.Dispose();
     }
 
     private void UpdateWindow()
@@ -186,5 +184,17 @@ public abstract unsafe partial class Overlay : SimpleWindow, IDisposable, IOverl
             addon->GetNodeById(134)->ToggleVisibility(visible); // CloseButton
             addon->GetNodeById(136)->ToggleVisibility(visible); // LowerHorizontalLine
         }
+    }
+
+    protected Color GetSectionColor()
+    {
+        return !Misc.IsLightTheme || IsWindow ? Color.Gold : Color.FromUIColor(3, true, Color.Gold);
+    }
+
+    protected Color GetLabelColor(bool isEnabled = true)
+    {
+        return IsWindow
+            ? (isEnabled ? Color.Text : Color.Text700)
+            : (isEnabled ? Color.FromUIColor(2, true, Color.Text) : Color.FromUIColor(3, true, Color.Text700));
     }
 }

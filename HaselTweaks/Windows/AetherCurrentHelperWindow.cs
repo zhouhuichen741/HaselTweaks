@@ -39,18 +39,17 @@ public unsafe partial class AetherCurrentHelperWindow : SimpleWindow
     }
 
     public override bool DrawConditions()
-        => CompFlgSet.HasValue && _clientState.IsLoggedIn && !RaptureAtkUnitManager.Instance()->UiFlags.HasFlag(UIModule.UiFlags.ActionBars);
+        => CompFlgSet.HasValue && _clientState.IsLoggedIn && !RaptureAtkUnitManager.Instance()->IsUiFlagsSet(UiFlags.ActionBars);
 
-    public override unsafe void Draw()
+    public override void Draw()
     {
         DrawMainCommandButton();
 
-        var placeName = CompFlgSet!.Value.Territory.Value.PlaceName.Value.Name.ToString();
-
+        var placeName = _textService.GetPlaceName(CompFlgSet!.Value.Territory.Value.PlaceName.RowId);
         var textSize = ImGui.CalcTextSize(placeName);
-        var availableSize = ImGui.GetContentRegionAvail();
-        var style = ImGui.GetStyle();
-        var startPos = ImGui.GetCursorPos();
+
+        var availableSize = ImStyle.ContentRegionAvail;
+        var startPos = ImCursor.Position;
 
         ImGui.Checkbox("##HideUnlocked", ref _hideUnlocked);
         if (ImGui.IsItemHovered())
@@ -60,9 +59,9 @@ public unsafe partial class AetherCurrentHelperWindow : SimpleWindow
             ImGui.EndTooltip();
         }
 
-        ImGui.SetCursorPos(startPos + new Vector2(availableSize.X / 2 - textSize.X / 2, style.ItemSpacing.Y));
+        ImCursor.Position = startPos + new Vector2(availableSize.X / 2 - textSize.X / 2, ImStyle.ItemSpacing.Y);
         ImGui.Text(placeName);
-        ImGui.SetCursorPos(startPos + new Vector2(0, textSize.Y + style.ItemSpacing.Y * 4));
+        ImCursor.Position = startPos + new Vector2(0, textSize.Y + ImStyle.ItemSpacing.Y * 4);
 
         using var cellPadding = ImRaii.PushStyle(ImGuiStyleVar.CellPadding, new Vector2(4));
         using var table = ImRaii.Table($"##Table", 3, ImGuiTableFlags.NoSavedSettings | ImGuiTableFlags.BordersInnerH | ImGuiTableFlags.NoPadOuterX);
@@ -111,10 +110,10 @@ public unsafe partial class AetherCurrentHelperWindow : SimpleWindow
             // hacky, but it looks the best
             ImGui.TableNextColumn();
             ImGui.TableNextColumn();
-            startPos = ImGui.GetCursorPos() + new Vector2(-startPos.X - 4, 0);
+            startPos = ImCursor.Position + new Vector2(-startPos.X - 4, 0);
             var text = _textService.Translate("AetherCurrentHelperWindow.AllAetherCurrentsAttuned");
             textSize = ImGui.CalcTextSize(text);
-            ImGui.SetCursorPos(startPos + new Vector2(availableSize.X / 2 - textSize.X / 2, style.ItemSpacing.Y));
+            ImCursor.Position = startPos + new Vector2(availableSize.X / 2 - textSize.X / 2, ImStyle.ItemSpacing.Y);
             ImGui.Text(text);
             ImGui.TableNextColumn();
         }
@@ -123,17 +122,15 @@ public unsafe partial class AetherCurrentHelperWindow : SimpleWindow
             Flags |= ImGuiWindowFlags.NoFocusOnAppearing;
     }
 
-    private unsafe bool DrawMainCommandButton()
+    private bool DrawMainCommandButton()
     {
         if (IsAddonOpen(AgentId.AetherCurrent))
             return false;
 
-        var startPos = ImGui.GetCursorPos();
-        var windowSize = ImGui.GetContentRegionAvail();
-        var style = ImGui.GetStyle();
-        var iconSize = ImGui.GetFrameHeight();
+        var startPos = ImCursor.Position;
+        var iconSize = ImStyle.FrameHeight;
 
-        ImGui.SetCursorPosX(windowSize.X + style.WindowPadding.X - iconSize - 1);
+        ImCursor.X = ImStyle.ContentRegionAvail.X + ImStyle.WindowPadding.X - iconSize - 1;
 
         _textureProvider.DrawIcon(64, iconSize);
 
@@ -149,7 +146,7 @@ public unsafe partial class AetherCurrentHelperWindow : SimpleWindow
             AgentAetherCurrent.Instance()->Show();
         }
 
-        ImGui.SetCursorPos(startPos);
+        ImCursor.Position = startPos;
 
         return true;
     }
@@ -197,7 +194,7 @@ public unsafe partial class AetherCurrentHelperWindow : SimpleWindow
         // Actions
         ImGui.TableNextColumn();
         var selected = false;
-        ImGui.Selectable($"##aetherCurrent-{aetherCurrent.RowId}", ref selected, ImGuiSelectableFlags.SpanAllColumns, new Vector2(0, (ImGui.GetTextLineHeight() + ImGui.GetStyle().FramePadding.Y) * 2));
+        ImGui.Selectable($"##aetherCurrent-{aetherCurrent.RowId}", ref selected, ImGuiSelectableFlags.SpanAllColumns, new Vector2(0, (ImStyle.TextLineHeight + ImStyle.FramePadding.Y) * 2));
         if (selected)
         {
             _mapService.OpenMap(quest.IssuerLocation.Value);
@@ -239,7 +236,7 @@ public unsafe partial class AetherCurrentHelperWindow : SimpleWindow
         // Actions
         ImGui.TableNextColumn();
         var selected = false;
-        ImGui.Selectable($"##AetherCurrent_{aetherCurrent.RowId}", ref selected, ImGuiSelectableFlags.SpanAllColumns, new Vector2(0, (ImGui.GetTextLineHeight() + ImGui.GetStyle().FramePadding.Y) * 2));
+        ImGui.Selectable($"##AetherCurrent_{aetherCurrent.RowId}", ref selected, ImGuiSelectableFlags.SpanAllColumns, new Vector2(0, (ImStyle.TextLineHeight + ImStyle.FramePadding.Y) * 2));
         if (selected)
         {
             _mapService.OpenMap(level);
@@ -254,7 +251,7 @@ public unsafe partial class AetherCurrentHelperWindow : SimpleWindow
     private void DrawUnlockStatus(bool isUnlocked, Level level)
     {
         var isSameTerritory = level.Territory.RowId == _clientState.TerritoryType;
-        ImGuiUtils.PushCursorY(11);
+        ImCursor.Y += 11;
 
         if (isUnlocked && !Config.AlwaysShowDistance)
         {
@@ -272,7 +269,7 @@ public unsafe partial class AetherCurrentHelperWindow : SimpleWindow
 
                     if (Config.CenterDistance)
                     {
-                        ImGuiUtils.PushCursorX(ImGui.GetContentRegionAvail().X / 2 - ImGui.CalcTextSize(text).X / 2);
+                        ImCursor.X += ImStyle.ContentRegionAvail.X / 2 - ImGui.CalcTextSize(text).X / 2;
                     }
 
                     if (isUnlocked)
@@ -291,9 +288,9 @@ public unsafe partial class AetherCurrentHelperWindow : SimpleWindow
             }
             else
             {
-                ImGuiUtils.PushCursorX(2);
+                ImCursor.X += 2;
                 using var iconFont = ImRaii.PushFont(UiBuilder.IconFont);
-                ImGui.TextColored(Color.Grey4, FontAwesomeIcon.Times.ToIconString());
+                ImGui.TextColored(Color.Text200, FontAwesomeIcon.Times.ToIconString());
             }
         }
     }
@@ -305,7 +302,7 @@ public unsafe partial class AetherCurrentHelperWindow : SimpleWindow
 
         if (isSameTerritory && Config.CenterDistance)
         {
-            ImGuiUtils.PushCursorX(ImGui.GetContentRegionAvail().X / 2 - ImGui.CalcTextSize(icon).X / 2);
+            ImCursor.X += ImStyle.ContentRegionAvail.X / 2 - ImGui.CalcTextSize(icon).X / 2;
         }
 
         ImGui.TextColored(Color.Green, icon);

@@ -38,6 +38,10 @@
     "de": "Unterstütze mich auf Ko-fi",
     "zh": "在Ko-fi支持我"
   },
+  "HaselTweaks.Config.Search.Hint": {
+    "en": "Search for Tweaks...",
+    "de": "Nach Tweaks suchen..."
+  },
   "HaselTweaks.Config.SectionTitle.IncompatibilityWarning": {
     "en": "Incompatibility Warning",
     "de": "Inkompatibilitätswarnung",
@@ -105,10 +109,10 @@
     "de": "Veraltet",
     "zh": "过时的"
   },
-  "HaselTweaks.Config.TweakStatus.InitializationFailed": {
-    "en": "Initialization failed",
-    "de": "Initialisierung fehlgeschlagen",
-    "zh": "初始化失败"
+  "HaselTweaks.Config.TweakStatus.Error": {
+    "en": "Error",
+    "de": "Fehler",
+    "zh": "错误"
   },
   "HaselTweaks.Config.TweakStatus.Enabled": {
     "en": "Enabled",
@@ -513,6 +517,18 @@
     "en": "Show completed datasets",
     "de": "Zeige abgeschlossene Daten",
 	"zh": "显示已完成的宇宙数据"
+  },
+
+  "CabinetQuickStore.Tweak.Name": {
+    "en": "Armoire Quick Store"
+  },
+  "CabinetQuickStore.Tweak.Description": {
+    "en": "Shows a button above the \"Armoire\" window to place the first item in the list into the armoire.",
+    "de": "Zeigt einen Button über dem \"AUSRÜSTUNG DEPONIEREN\"-Fenster an, um den ersten Gegenstand in der Liste ins Kostbarkeitenkabinett zu legen."
+  },
+  "CabinetQuickStoreWindow.Button.Label": {
+    "en": "Next Item",
+    "de": "Nächster Gegenstand"
   },
 
   "CastBarAetheryteNames.Tweak.Name": {

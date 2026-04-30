@@ -3,7 +3,7 @@ using HaselTweaks.Windows;
 namespace HaselTweaks.Tweaks;
 
 [RegisterSingleton<IHostedService>(Duplicate = DuplicateStrategy.Append), AutoConstruct]
-public partial class CompanionColorPreview : Tweak
+public partial class CabinetQuickStore : Tweak
 {
     private readonly AddonObserver _addonObserver;
     private readonly WindowManager _windowManager;
@@ -13,8 +13,8 @@ public partial class CompanionColorPreview : Tweak
         _addonObserver.AddonOpen += OnAddonOpen;
         _addonObserver.AddonClose += OnAddonClose;
 
-        if (_addonObserver.IsAddonVisible("Buddy"))
-            _windowManager.CreateOrOpen<CompanionColorPreviewWindow>();
+        if (_addonObserver.IsAddonVisible("Cabinet"))
+            _windowManager.CreateOrOpen<CabinetQuickStoreWindow>();
     }
 
     public override void OnDisable()
@@ -22,22 +22,22 @@ public partial class CompanionColorPreview : Tweak
         _addonObserver.AddonOpen -= OnAddonOpen;
         _addonObserver.AddonClose -= OnAddonClose;
 
-        _windowManager.Close<CompanionColorPreviewWindow>();
+        _windowManager.Close<CabinetQuickStoreWindow>();
     }
 
     private void OnAddonOpen(string addonName)
     {
-        if (addonName != "Buddy")
+        if (addonName != "Cabinet")
             return;
 
-        _windowManager.CreateOrOpen<CompanionColorPreviewWindow>();
+        _windowManager.CreateOrOpen<CabinetQuickStoreWindow>();
     }
 
     private void OnAddonClose(string addonName)
     {
-        if (addonName != "Buddy")
+        if (addonName != "Cabinet")
             return;
 
-        _windowManager.Close<CompanionColorPreviewWindow>();
+        _windowManager.Close<CabinetQuickStoreWindow>();
     }
 }

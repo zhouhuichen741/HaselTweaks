@@ -29,14 +29,14 @@ public partial class CustomChatTimestamp
                 ReloadChat();
             }
 
-            using var col = Color.Grey.Push(ImGuiCol.Text);
+            using var col = Color.Text700.Push(ImGuiCol.Text);
             ImGui.Text(_textService.Translate("CustomChatTimestamp.Config.Format.DateTimeLink.Pre"));
-            ImGuiUtils.SameLineSpace();
+            ImCursor.SameLineSpace();
             using (Color.White.Push(ImGuiCol.Text))
             {
                 ImGuiUtils.DrawLink("DateTime.ToString()", _textService.Translate("CustomChatTimestamp.Config.Format.DateTimeLink.Tooltip"), "https://docs.microsoft.com/dotnet/standard/base-types/custom-date-and-time-format-strings");
             }
-            ImGuiUtils.SameLineSpace();
+            ImCursor.SameLineSpace();
             ImGui.Text(_textService.Translate("CustomChatTimestamp.Config.Format.DateTimeLink.Post"));
         }
 
@@ -64,7 +64,7 @@ public partial class CustomChatTimestamp
                 colorParty = 0xFF000000u | (blue << 16) | (green << 8) | red;
             }
 
-            var size = new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetStyle().WindowPadding.Y * 2 + ImGui.GetTextLineHeight() + 2);
+            var size = new Vector2(ImStyle.ContentRegionAvail.X, ImStyle.WindowPadding.Y * 2 + ImStyle.TextLineHeight + 2);
             using var child = ImRaii.Child("##FormatExample", size, true);
             if (!child) return;
 
@@ -75,12 +75,12 @@ public partial class CustomChatTimestamp
         catch (FormatException)
         {
             using var indent = ImRaii.PushIndent();
-            ImGui.TextColoredWrapped(Color.Red, _textService.Translate("CustomChatTimestamp.Config.Format.Invalid"));
+            ImGui.TextColoredWrapped(Color.ErrorForeground, _textService.Translate("CustomChatTimestamp.Config.Format.Invalid"));
         }
         catch (Exception e)
         {
             using var indent = ImRaii.PushIndent();
-            ImGui.TextColoredWrapped(Color.Red, e.Message);
+            ImGui.TextColoredWrapped(Color.ErrorForeground, e.Message);
         }
     }
 }

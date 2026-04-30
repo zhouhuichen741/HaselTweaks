@@ -42,7 +42,7 @@ public partial class DeletePresetDialog
         var center = ImGui.GetMainViewport().GetCenter();
         ImGui.SetNextWindowPos(center, ImGuiCond.Appearing, new(0.5f, 0.5f));
 
-        using var modal = ImRaiiExt.PopupModal(title, ImGuiWindowFlags.AlwaysAutoResize);
+        using var modal = ImRaii.PopupModal(title, ImGuiWindowFlags.AlwaysAutoResize);
         if (!modal) return;
 
         ImGui.Text(_textService.Translate("PortraitHelperWindows.DeletePresetDialog.Prompt", _preset.Name));
@@ -51,11 +51,11 @@ public partial class DeletePresetDialog
         ImGui.Separator();
         ImGui.Spacing();
 
-        var combinedButtonWidths = ImGui.GetStyle().ItemSpacing.X
+        var combinedButtonWidths = ImStyle.ItemSpacing.X
             + MathF.Max(Constants.DialogButtonMinWidth, ImGuiHelpers.GetButtonSize(_textService.Translate("ConfirmationButtonWindow.Delete")).X)
             + MathF.Max(Constants.DialogButtonMinWidth, ImGuiHelpers.GetButtonSize(_textService.Translate("ConfirmationButtonWindow.Cancel")).X);
 
-        ImGuiUtils.PushCursorX((ImGui.GetContentRegionAvail().X - combinedButtonWidths) / 2f);
+        ImCursor.X += (ImStyle.ContentRegionAvail.X - combinedButtonWidths) / 2f;
 
         if (ImGui.Button(_textService.Translate("ConfirmationButtonWindow.Delete"), new Vector2(120, 0)))
         {

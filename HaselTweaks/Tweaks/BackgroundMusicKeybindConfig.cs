@@ -7,7 +7,7 @@ public class BackgroundMusicKeybindConfiguration
     public VirtualKey[] Keybind = [VirtualKey.CONTROL, VirtualKey.M];
 }
 
-public unsafe partial class BackgroundMusicKeybind
+public partial class BackgroundMusicKeybind
 {
     public override void DrawConfig()
     {
@@ -78,7 +78,7 @@ public unsafe partial class BackgroundMusicKeybind
         if (hasKey)
             previewValue = key.GetFancyName();
 
-        ImGui.SetNextItemWidth(ImGui.GetContentRegionAvail().X);
+        ImGui.SetNextItemWidth(ImStyle.ContentRegionAvail.X);
         using var combo = ImRaii.Combo("##Key", previewValue);
         if (!combo)
             return;

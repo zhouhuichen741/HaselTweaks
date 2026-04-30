@@ -1,6 +1,5 @@
 using System.Globalization;
 using Dalamud.Interface.ImGuiSeStringRenderer;
-using static Dalamud.Interface.Utility.Raii.ImRaii;
 
 namespace HaselTweaks.Config;
 
@@ -14,17 +13,17 @@ public partial class ConfigGui
 
     private IConfigurableTweak? _tweak = null;
 
-    public ImRaii.IEndObject PushContext(IConfigurableTweak tweak)
+    public DisposableAction PushContext(IConfigurableTweak tweak)
     {
         _tweak = tweak;
 
         var disabled = ImRaii.Disabled(tweak.Status == TweakStatus.Outdated);
 
-        return new EndUnconditionally(() =>
+        return new DisposableAction(() =>
         {
             _tweak = null;
             disabled.Dispose();
-        }, true);
+        });
     }
 
     public void DrawConfigurationHeader(string labelKey = "HaselTweaks.Config.SectionTitle.Configuration")
@@ -39,14 +38,13 @@ public partial class ConfigGui
 
         using var id = ImRaii.PushId(fieldName);
 
-        var itemSpacing = ImGui.GetStyle().ItemSpacing;
         var result = false;
 
         using (var table = ImRaii.Table(fieldName, 2, ImGuiTableFlags.NoSavedSettings))
         {
             if (table)
             {
-                ImGui.TableSetupColumn("Checkbox", ImGuiTableColumnFlags.WidthFixed, ImGui.GetFrameHeight());
+                ImGui.TableSetupColumn("Checkbox", ImGuiTableColumnFlags.WidthFixed, ImStyle.FrameHeight);
                 ImGui.TableSetupColumn("Text", ImGuiTableColumnFlags.WidthStretch);
 
                 ImGui.TableNextRow();
@@ -68,7 +66,7 @@ public partial class ConfigGui
 
                 if (_textService.TryGetTranslation($"{_tweak.InternalName}.Config.{fieldName}.Description", out var description))
                 {
-                    ImGuiHelpers.SeStringWrapped(ReadOnlySeString.FromText(description), new SeStringDrawParams() { Color = Color.Grey.ToUInt() });
+                    ImGuiHelpers.SeStringWrapped(ReadOnlySeString.FromText(description), new SeStringDrawParams() { Color = Color.Text700.ToUInt() });
                 }
 
                 drawAfterDescription?.Invoke();
@@ -76,7 +74,7 @@ public partial class ConfigGui
         }
 
         if (!noFixSpaceAfter)
-            ImGuiUtils.PushCursorY(-itemSpacing.Y / 2);
+            ImCursor.Y += -ImStyle.ItemSpacing.Y / 2;
 
         if (result)
         {
@@ -132,7 +130,9 @@ public partial class ConfigGui
         }
 
         if (_textService.TryGetTranslation($"{_tweak.InternalName}.Config.{fieldName}.Description", out var description))
-            ImGui.TextColoredWrapped(Color.Grey, description);
+        {
+            ImGui.TextColoredWrapped(Color.Text700, description);
+        }
 
         return result;
     }
@@ -163,7 +163,7 @@ public partial class ConfigGui
         }
 
         if (_textService.TryGetTranslation($"{_tweak.InternalName}.Config.{fieldName}.Description", out var description))
-            ImGui.TextColoredWrapped(Color.Grey, description);
+            ImGui.TextColoredWrapped(Color.Text700, description);
 
         return result;
     }
@@ -195,7 +195,7 @@ public partial class ConfigGui
         if (_textService.TryGetTranslation($"{_tweak.InternalName}.Config.{fieldName}.Description", out var description))
         {
             using var descriptionIndent = ImGuiUtils.ConfigIndent();
-            ImGui.TextColoredWrapped(Color.Grey, description);
+            ImGui.TextColoredWrapped(Color.Text700, description);
         }
 
         return result;
@@ -223,7 +223,7 @@ public partial class ConfigGui
 
         _textureProvider.DrawIcon(60073, 24);
         ImGui.SameLine();
-        var cursorPosX = ImGui.GetCursorPosX();
+        var cursorPosX = ImCursor.X;
 
         string getConfigName(string tweakName, string configName)
             => _textService.Translate($"HaselTweaks.Config.IncompatibilityWarning.Plugin.{tweakName}.Config.{configName}");
@@ -237,43 +237,43 @@ public partial class ConfigGui
             {
                 if (entry.ConfigNames.Length == 0)
                 {
-                    ImGui.TextColoredWrapped(Color.Grey2, _textService.Translate("HaselTweaks.Config.IncompatibilityWarning.Single.Plugin", pluginName));
+                    ImGui.TextWrapped(_textService.Translate("HaselTweaks.Config.IncompatibilityWarning.Single.Plugin", pluginName));
                 }
                 else if (entry.ConfigNames.Length == 1)
                 {
                     var configName = getConfigName(entry.InternalName, entry.ConfigNames[0]);
-                    ImGui.TextColoredWrapped(Color.Grey2, _textService.Translate("HaselTweaks.Config.IncompatibilityWarning.Single.PluginSetting", configName, pluginName));
+                    ImGui.TextWrapped(_textService.Translate("HaselTweaks.Config.IncompatibilityWarning.Single.PluginSetting", configName, pluginName));
                 }
                 else if (entry.ConfigNames.Length > 1)
                 {
                     var configNames = entry.ConfigNames.Select((configName) => _textService.Translate($"HaselTweaks.Config.IncompatibilityWarning.Plugin.{entry.InternalName}.Config.{configName}"));
-                    ImGui.TextColoredWrapped(Color.Grey2, _textService.Translate("HaselTweaks.Config.IncompatibilityWarning.Single.PluginSettings", pluginName) + $"\n- {string.Join("\n- ", configNames)}");
+                    ImGui.TextWrapped(_textService.Translate("HaselTweaks.Config.IncompatibilityWarning.Single.PluginSettings", pluginName) + $"\n- {string.Join("\n- ", configNames)}");
                 }
             }
         }
         else if (warnings.Length > 1)
         {
-            ImGui.TextColoredWrapped(Color.Grey2, _textService.Translate("HaselTweaks.Config.IncompatibilityWarning.Multi.Preface"));
+            ImGui.TextWrapped(_textService.Translate("HaselTweaks.Config.IncompatibilityWarning.Multi.Preface"));
 
             foreach (var (entry, isLoaded) in warnings.Where(tuple => tuple.IsLoaded))
             {
                 var pluginName = _textService.Translate($"HaselTweaks.Config.IncompatibilityWarning.Plugin.{entry.InternalName}.Name");
 
-                ImGui.SetCursorPosX(cursorPosX);
+                ImCursor.X = cursorPosX;
 
                 if (entry.ConfigNames.Length == 0)
                 {
-                    ImGui.TextColoredWrapped(Color.Grey2, _textService.Translate("HaselTweaks.Config.IncompatibilityWarning.Multi.Plugin", pluginName));
+                    ImGui.TextWrapped(_textService.Translate("HaselTweaks.Config.IncompatibilityWarning.Multi.Plugin", pluginName));
                 }
                 else if (entry.ConfigNames.Length == 1)
                 {
                     var configName = _textService.Translate($"HaselTweaks.Config.IncompatibilityWarning.Plugin.{entry.InternalName}.Config.{entry.ConfigNames[0]}");
-                    ImGui.TextColoredWrapped(Color.Grey2, _textService.Translate("HaselTweaks.Config.IncompatibilityWarning.Multi.PluginSetting", configName, pluginName));
+                    ImGui.TextWrapped(_textService.Translate("HaselTweaks.Config.IncompatibilityWarning.Multi.PluginSetting", configName, pluginName));
                 }
                 else if (entry.ConfigNames.Length > 1)
                 {
                     var configNames = entry.ConfigNames.Select((configName) => _textService.Translate($"HaselTweaks.Config.IncompatibilityWarning.Plugin.{entry.InternalName}.Config.{configName}"));
-                    ImGui.TextColoredWrapped(Color.Grey2, _textService.Translate("HaselTweaks.Config.IncompatibilityWarning.Multi.PluginSettings", pluginName) + $"\n    - {string.Join("\n    - ", configNames)}");
+                    ImGui.TextWrapped(_textService.Translate("HaselTweaks.Config.IncompatibilityWarning.Multi.PluginSettings", pluginName) + $"\n    - {string.Join("\n    - ", configNames)}");
                 }
             }
         }

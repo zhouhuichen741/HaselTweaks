@@ -75,9 +75,9 @@ public partial class CustomChatMessageFormats
         _cachedLogKindRows ??= GenerateLogKindCache();
         _cachedTextColor ??= GenerateTextColor();
 
-        var ItemInnerSpacing = ImGui.GetStyle().ItemInnerSpacing;
+        var ItemInnerSpacing = ImStyle.ItemInnerSpacing;
 
-        using var cellpadding = ImRaii.PushStyle(ImGuiStyleVar.CellPadding, ItemInnerSpacing * ImGuiHelpers.GlobalScale);
+        using var cellpadding = ImRaii.PushStyle(ImGuiStyleVar.CellPadding, ItemInnerSpacing * ImStyle.Scale);
         using var table = ImRaii.Table("##Table", 3, ImGuiTableFlags.NoSavedSettings | ImGuiTableFlags.NoPadOuterX);
         if (!table)
             return;
@@ -118,11 +118,11 @@ public partial class CustomChatMessageFormats
             // Channel Name and Format
             ImGui.TableNextColumn();
             {
-                ImGuiUtils.PushCursorY(-2 * ImGuiHelpers.GlobalScale);
+                ImCursor.Y += -2 * ImStyle.Scale;
 
                 if (!isValid)
                 {
-                    ImGuiUtils.Icon(FontAwesomeIcon.ExclamationCircle, Color.Red.ToUInt());
+                    ImGuiUtils.Icon(FontAwesomeIcon.ExclamationCircle, Color.ErrorForeground.ToUInt());
 
                     if (ImGui.IsItemHovered())
                     {
@@ -131,7 +131,7 @@ public partial class CustomChatMessageFormats
                         ImGui.EndTooltip();
                     }
 
-                    ImGuiUtils.SameLineSpace();
+                    ImCursor.SameLineSpace();
                 }
 
                 ImGui.Text(GetLogKindlabel(logKindId));
@@ -140,7 +140,7 @@ public partial class CustomChatMessageFormats
 
                 if (entry.EditMode)
                 {
-                    ImGuiUtils.PushCursorY(3 * ImGuiHelpers.GlobalScale);
+                    ImCursor.Y += 3 * ImStyle.Scale;
                     DrawEditMode(entry);
                 }
             }
@@ -185,7 +185,7 @@ public partial class CustomChatMessageFormats
             }
         }
 
-        table?.Dispose();
+        table.Dispose();
 
         if (entryToEdit != 0)
         {
@@ -211,18 +211,20 @@ public partial class CustomChatMessageFormats
                 var i = 0;
                 foreach (var entry in entries)
                 {
-                    if (ImGui.Selectable($"{GetLogKindlabel(entry.LogKind.RowId)}##LogKind{entry.LogKind.RowId}", false, ImGuiSelectableFlags.None, new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetTextLineHeight() * 2)))
+                    if (ImGui.Selectable($"{GetLogKindlabel(entry.LogKind.RowId)}##LogKind{entry.LogKind.RowId}", false, ImGuiSelectableFlags.None, new Vector2(ImStyle.ContentRegionAvail.X, ImStyle.TextLineHeight * 2)))
                     {
                         _config.FormatOverrides.Add(entry.LogKind.RowId, new(entry.Format));
                         SaveAndReloadChat();
                     }
 
-                    var afterCursor = ImGui.GetCursorPos();
+                    var afterCursor = ImCursor.Position;
 
-                    ImGuiUtils.PushCursor(14 * ImGuiHelpers.GlobalScale, -ImGui.GetTextLineHeight() - ImGui.GetStyle().ItemSpacing.Y);
+                    ImCursor.X += 14 * ImStyle.Scale;
+                    ImCursor.Y += -ImStyle.TextLineHeight - ImStyle.ItemSpacing.Y;
+
                     DrawExample(entry.Format);
 
-                    ImGui.SetCursorPos(afterCursor);
+                    ImCursor.Position = afterCursor;
 
                     if (i < entriesCount - 1)
                         ImGui.Separator();
@@ -256,7 +258,7 @@ public partial class CustomChatMessageFormats
         if (!payloadTable)
             return;
 
-        var ItemInnerSpacing = ImGui.GetStyle().ItemInnerSpacing;
+        var ItemInnerSpacing = ImStyle.ItemInnerSpacing;
         var ArrowUpButtonSize = ImGuiUtils.GetIconButtonSize(FontAwesomeIcon.ArrowUp);
         var ArrowDownButtonSize = ImGuiUtils.GetIconButtonSize(FontAwesomeIcon.ArrowDown);
         var TrashButtonSize = ImGuiUtils.GetIconButtonSize(FontAwesomeIcon.Trash);
@@ -286,7 +288,7 @@ public partial class CustomChatMessageFormats
             // Payload
             ImGui.TableNextColumn();
             {
-                ImGuiUtils.PushCursorY(2f * ImGuiHelpers.GlobalScale);
+                ImCursor.Y += 2f * ImStyle.Scale;
 
                 if (payload.Type == ReadOnlySePayloadType.Text)
                     ImGui.Text("Text");
@@ -299,13 +301,13 @@ public partial class CustomChatMessageFormats
             // Value
             ImGui.TableNextColumn();
             {
-                ImGuiUtils.PushCursorY(2f * ImGuiHelpers.GlobalScale);
+                ImCursor.Y += 2f * ImStyle.Scale;
 
                 if (payload.Type == ReadOnlySePayloadType.Text)
                 {
-                    var text = Encoding.UTF8.GetString(payload.Body.ToArray());
+                    var text = Encoding.UTF8.GetString(payload.Body.Span);
                     ImGui.SetNextItemWidth(-1);
-                    ImGuiUtils.PushCursorY(-ImGui.GetStyle().CellPadding.Y);
+                    ImCursor.Y += -ImStyle.CellPadding.Y;
                     if (ImGui.InputText($"##TextPayload{i}", ref text, 255))
                     {
                         var sb = new SeStringBuilder();
@@ -344,19 +346,22 @@ public partial class CustomChatMessageFormats
                                 if (iconSelectMenu)
                                 {
                                     var maxLineWidth = 20 * 20;
-                                    var posStart = ImGui.GetCursorPosX();
+                                    var posStart = ImCursor.X;
 
                                     foreach (var selectorGfdEntry in _gfdService.Entries)
                                     {
                                         if (selectorGfdEntry.IsEmpty || selectorGfdEntry.Id is 69 or 123)
                                             continue;
 
-                                        var startPos = ImGui.GetCursorPos();
-                                        using var buttonColor = ImRaii.PushColor(ImGuiCol.Button, 0);
-                                        using var buttonActiveColor = ImRaii.PushColor(ImGuiCol.ButtonActive, 0xAAFFFFFF);
-                                        using var buttonHoveredColor = ImRaii.PushColor(ImGuiCol.ButtonHovered, 0x77FFFFFF);
-                                        using var buttonRounding = ImRaii.PushStyle(ImGuiStyleVar.FrameRounding, 0);
+                                        var startPos = ImCursor.Position;
                                         var size = selectorGfdEntry.Size * 2f;
+
+                                        using var color = ImRaii.PushColor(ImGuiCol.Button, 0)
+                                            .Push(ImGuiCol.ButtonActive, 0xAAFFFFFF)
+                                            .Push(ImGuiCol.ButtonHovered, 0x77FFFFFF);
+
+                                        using var style = ImRaii.PushStyle(ImGuiStyleVar.FrameRounding, 0);
+
                                         if (ImGui.Button($"##Icon{selectorGfdEntry.Id}", size))
                                         {
                                             var sb = new SeStringBuilder();
@@ -373,12 +378,12 @@ public partial class CustomChatMessageFormats
                                             SaveAndReloadChat();
                                         }
 
-                                        ImGui.SetCursorPos(startPos);
+                                        ImCursor.Position = startPos;
                                         _gfdService.Draw(selectorGfdEntry.Id, size);
 
                                         ImGui.SameLine();
 
-                                        if (ImGui.GetCursorPosX() - posStart > maxLineWidth)
+                                        if (ImCursor.X - posStart > maxLineWidth)
                                             ImGui.NewLine();
                                     }
                                 }
@@ -433,7 +438,7 @@ public partial class CustomChatMessageFormats
                                 if (eColor.TryGetUInt(out eColorVal))
                                 {
                                     ImGui.SetNextItemWidth(-1);
-                                    ImGuiUtils.PushCursorY(-ImGui.GetStyle().CellPadding.Y);
+                                    ImCursor.Y += -ImStyle.CellPadding.Y;
                                     var hexColor = Color.FromBGRA(eColorVal).ToVector();
                                     if (ImGui.ColorEdit4("##ColorPicker", ref hexColor, ImGuiColorEditFlags.NoAlpha))
                                     {
@@ -552,7 +557,7 @@ public partial class CustomChatMessageFormats
 
             i++;
         }
-        payloadTable?.Dispose();
+        payloadTable.Dispose();
 
         if (entryToMoveUp != -1)
         {
@@ -705,7 +710,7 @@ public partial class CustomChatMessageFormats
 
     private void DrawExample(ReadOnlySeString format)
     {
-        using var textColor = new ImRaii.Color();
+        using var textColor = new ImRaii.ColorDisposable();
 
         var resolved = _seStringEvaluator.Evaluate(format, [
             _textService.Translate("CustomChatMessageFormats.Config.LStr1.Label"), // "Player Name"
@@ -716,7 +721,7 @@ public partial class CustomChatMessageFormats
         {
             if (payload.Type == ReadOnlySePayloadType.Text)
             {
-                ImGui.Text(Encoding.UTF8.GetString(payload.Body.ToArray()));
+                ImGui.Text(Encoding.UTF8.GetString(payload.Body.Span));
                 ImGui.SameLine(0, 0);
                 continue;
             }

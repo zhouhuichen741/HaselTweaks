@@ -58,7 +58,7 @@ public partial class PresetBrowserOverlay : Overlay
 
         DrawPresetBrowserSidebar();
 
-        var paddingX = ImGui.GetStyle().ItemSpacing.X;
+        var paddingX = ImStyle.ItemSpacing.X;
         ImGui.SameLine(0, paddingX * 2);
 
         var separatorStartPos = ImGui.GetWindowPos() + new Vector2(SidebarWidth + paddingX, 0);
@@ -166,14 +166,14 @@ public partial class PresetBrowserOverlay : Overlay
         }
 
         ImGui.SameLine();
-        ImGui.SetCursorPosX(4);
+        ImCursor.X = 4;
         DrawTagIcon();
     }
 
     private void DrawPresetBrowserSidebar()
     {
         using var framePadding = ImRaii.PushStyle(ImGuiStyleVar.FramePadding, Vector2.Zero);
-        using var child = ImRaii.Child("PresetBrowser_SideBar", new Vector2(SidebarWidth - ImGui.GetStyle().ItemSpacing.X, -1));
+        using var child = ImRaii.Child("PresetBrowser_SideBar", new Vector2(SidebarWidth - ImStyle.ItemSpacing.X, -1));
         if (!child) return;
         framePadding?.Dispose();
 
@@ -183,7 +183,7 @@ public partial class PresetBrowserOverlay : Overlay
         ImGuiUtils.DrawSection(
             _textService.Translate("PortraitHelperWindows.PresetBrowserOverlay.Sidebar.Tags.Title"),
             pushDown: false,
-            respectUiTheme: !IsWindow);
+            GetSectionColor());
 
         using var framePaddingChild = ImRaii.PushStyle(ImGuiStyleVar.FramePadding, Vector2.Zero);
         using var tagsChild = ImRaii.Child("PresetBrowser_Content_Tags");
@@ -241,7 +241,7 @@ public partial class PresetBrowserOverlay : Overlay
         }
 
         ImGui.SameLine();
-        ImGui.SetCursorPosX(4);
+        ImCursor.X = 4;
         DrawTagIcon();
     }
 
@@ -286,47 +286,43 @@ public partial class PresetBrowserOverlay : Overlay
         ImGuiUtils.DrawSection(
             _textService.Translate("PortraitHelperWindows.PresetBrowserOverlay.Sidebar.Presets.Title"),
             pushDown: false,
-            respectUiTheme: !IsWindow);
+            GetSectionColor());
 
-        var style = ImGui.GetStyle();
-        ImGuiUtils.PushCursorY(style.ItemSpacing.Y);
+        ImCursor.Y += ImStyle.ItemSpacing.Y;
 
         using var framePaddingChild = ImRaii.PushStyle(ImGuiStyleVar.FramePadding, Vector2.Zero);
         using var presetCardsChild = ImRaii.Child("PresetBrowser_Content_PresetCards");
         if (!presetCardsChild) return;
         framePaddingChild?.Dispose();
 
-        using var indentSpacing = ImRaii.PushStyle(ImGuiStyleVar.IndentSpacing, style.ItemSpacing.X);
+        using var indentSpacing = ImRaii.PushStyle(ImGuiStyleVar.IndentSpacing, ImStyle.ItemSpacing.X);
         using var indent = ImRaii.PushIndent();
 
         var presetsPerRow = 3;
-        var availableWidth = ImGui.GetContentRegionAvail().X - style.ItemInnerSpacing.X * presetsPerRow;
+        var availableWidth = ImStyle.ContentRegionAvail.X - ImStyle.ItemInnerSpacing.X * presetsPerRow;
 
         var presetWidth = availableWidth / presetsPerRow;
         var scale = presetWidth / PortraitSize.X;
-
-        var clipper = ImGui.ImGuiListClipper();
 
         var presets = _pluginConfig.Tweaks.PortraitHelper.Presets
             .Where((preset) => (SelectedTagId == null || preset.Tags.Contains(SelectedTagId.Value)) && preset.Preset != null);
 
         var presetCount = presets.Count();
+        var itemsCount = (int)Math.Ceiling(presetCount / (float)presetsPerRow);
+        var itemsHeight = PortraitSize.Y * scale;
 
-        clipper.Begin((int)Math.Ceiling(presetCount / (float)presetsPerRow), PortraitSize.Y * scale);
-        while (clipper.Step())
+        using var clipper = new ImRaiiListClipper(itemsCount, itemsHeight);
+
+        foreach (var row in clipper)
         {
-            for (var row = clipper.DisplayStart; row < clipper.DisplayEnd; row++)
+            for (int i = 0, index = row * presetsPerRow; i < presetsPerRow && index < presetCount; i++, index++)
             {
-                for (int i = 0, index = row * presetsPerRow; i < presetsPerRow && index < presetCount; i++, index++)
-                {
-                    DrawPresetCard(presets.ElementAt(index), scale, DefaultImGuiTextColor);
+                DrawPresetCard(presets.ElementAt(index), scale, DefaultImGuiTextColor);
 
-                    if (i < presetsPerRow - 1 && index + 1 < presetCount)
-                        ImGui.SameLine(0, style.ItemInnerSpacing.X);
-                }
+                if (i < presetsPerRow - 1 && index + 1 < presetCount)
+                    ImGui.SameLine(0, ImStyle.ItemInnerSpacing.X);
             }
         }
-        clipper.Destroy();
     }
 
     private void DrawPresetCard(SavedPreset preset, float scale, uint defaultImGuiTextColor)
@@ -343,15 +339,13 @@ public partial class PresetBrowserOverlay : Overlay
         var isBannerDecorationUnlocked = _bannerService.IsBannerDecorationUnlocked(preset.Preset.BannerDecoration);
 
         var hasErrors = !isBannerTimelineUnlocked || !isBannerBgUnlocked || !isBannerFrameUnlocked || !isBannerDecorationUnlocked;
-        var style = ImGui.GetStyle();
 
-        using var _id = ImRaii.PushId(preset.Id.ToString());
+        using var id = ImRaii.PushId(preset.Id.ToString());
 
-        var cursorPos = ImGui.GetCursorPos();
+        var cursorPos = ImCursor.Position;
         var center = cursorPos + PortraitSize * scale / 2f;
-
         _textureProvider.DrawIcon(190009, PortraitSize * scale);
-        ImGui.SetCursorPos(cursorPos);
+        ImCursor.Position = cursorPos;
 
         var path = _thumbnailService.GetPortraitThumbnailPath(preset.Id);
 
@@ -366,22 +360,22 @@ public partial class PresetBrowserOverlay : Overlay
         {
             if (textureWrap != null)
             {
-                ImGui.SetCursorPos(cursorPos);
+                ImCursor.Position = cursorPos;
                 ImGui.Image(textureWrap.Handle, PortraitSize * scale);
             }
             else if (exception != null)
             {
                 using var font = ImRaii.PushFont(UiBuilder.IconFont);
-                using var color = Color.Red.Push(ImGuiCol.Text);
-                ImGui.SetCursorPos(center - ImGui.CalcTextSize(FontAwesomeIcon.Times.ToIconString()) / 2f);
+                using var color = Color.ErrorForeground.Push(ImGuiCol.Text);
+                ImCursor.Position = center - ImGui.CalcTextSize(FontAwesomeIcon.Times.ToIconString()) / 2f;
                 ImGui.Text(FontAwesomeIcon.Times.ToIconString());
             }
         }
         else if (!exists)
         {
             using var font = ImRaii.PushFont(UiBuilder.IconFont);
-            using var color = Color.Red.Push(ImGuiCol.Text);
-            ImGui.SetCursorPos(center - ImGui.CalcTextSize(FontAwesomeIcon.FileImage.ToIconString()) / 2f);
+            using var color = Color.ErrorForeground.Push(ImGuiCol.Text);
+            ImCursor.Position = center - ImGui.CalcTextSize(FontAwesomeIcon.FileImage.ToIconString()) / 2f;
             ImGui.Text(FontAwesomeIcon.FileImage.ToIconString());
         }
         else
@@ -391,23 +385,23 @@ public partial class PresetBrowserOverlay : Overlay
 
         if (bannerFrameImage != 0)
         {
-            ImGui.SetCursorPos(cursorPos);
+            ImCursor.Position = cursorPos;
             _textureProvider.DrawIcon(bannerFrameImage, PortraitSize * scale);
         }
 
         if (bannerDecorationImage != 0)
         {
-            ImGui.SetCursorPos(cursorPos);
+            ImCursor.Position = cursorPos;
             _textureProvider.DrawIcon(bannerDecorationImage, PortraitSize * scale);
         }
 
         if (hasErrors)
         {
-            ImGui.SetCursorPos(cursorPos + new Vector2(PortraitSize.X - 190, 10) * scale);
+            ImCursor.Position = cursorPos + new Vector2(PortraitSize.X - 190, 10) * scale;
             _textureProvider.Draw("ui/uld/Warning_hr1.tex", 160 * scale);
         }
 
-        ImGui.SetCursorPos(cursorPos);
+        ImCursor.Position = cursorPos;
 
         {
             using var color = ImRaii.PushColor(ImGuiCol.Button, 0)
@@ -461,7 +455,7 @@ public partial class PresetBrowserOverlay : Overlay
                 {
                     ImGui.Separator();
 
-                    using (Color.Red.Push(ImGuiCol.Text))
+                    using (Color.ErrorForeground.Push(ImGuiCol.Text))
                     {
                         ImGui.Text(_textService.Translate("PortraitHelperWindows.PresetCard.Tooltip.ElementsNotApplied.Title"));
 
@@ -523,21 +517,21 @@ public partial class PresetBrowserOverlay : Overlay
             _editPresetDialog.Open(preset);
 
         if (ImGui.MenuItem(_textService.Translate("PortraitHelperWindows.PresetCard.ContextMenu.ExportToClipboard.Label")))
-            Task.Run(() => _clipboardService.SetClipboardPortraitPreset(preset.Preset));
+            _ = Task.Run(() => _clipboardService.SetClipboardPortraitPreset(preset.Preset));
 
         if (hasThumbnailResult && ImGui.BeginMenu(_textService.Translate("PortraitHelperWindows.PresetCard.ContextMenu.CopyImage.Label")))
         {
             if (ImGui.MenuItem(_textService.Translate("PortraitHelperWindows.PresetCard.ContextMenu.CopyImage.Everything.Label")))
-                Task.Run(() => CopyImage(preset, path));
+                _ = Task.Run(() => CopyImage(preset, path));
 
             if (ImGui.MenuItem(_textService.Translate("PortraitHelperWindows.PresetCard.ContextMenu.CopyImage.WithoutFrame.Label")))
-                Task.Run(() => CopyImage(preset, path, CopyImageFlags.NoFrame));
+                _ = Task.Run(() => CopyImage(preset, path, CopyImageFlags.NoFrame));
 
             if (ImGui.MenuItem(_textService.Translate("PortraitHelperWindows.PresetCard.ContextMenu.CopyImage.WithoutDecoration.Label")))
-                Task.Run(() => CopyImage(preset, path, CopyImageFlags.NoDecoration));
+                _ = Task.Run(() => CopyImage(preset, path, CopyImageFlags.NoDecoration));
 
             if (ImGui.MenuItem(_textService.Translate("PortraitHelperWindows.PresetCard.ContextMenu.CopyImage.WithoutFrameAndDecoration.Label")))
-                Task.Run(() => CopyImage(preset, path, CopyImageFlags.NoFrame | CopyImageFlags.NoDecoration));
+                _ = Task.Run(() => CopyImage(preset, path, CopyImageFlags.NoFrame | CopyImageFlags.NoDecoration));
 
             ImGui.EndMenu();
         }
@@ -572,7 +566,7 @@ public partial class PresetBrowserOverlay : Overlay
 
     private async Task CopyImage(SavedPreset preset, string filePath, CopyImageFlags flags = CopyImageFlags.None)
     {
-        using var tempImage = await Image.LoadAsync<Rgba32>(filePath);
+        using var tempImage = await Image.LoadAsync<Rgba32>(filePath).ConfigureAwait(false);
 
         if (!flags.HasFlag(CopyImageFlags.NoFrame) && _excelService.TryGetRow<BannerFrame>(preset.Preset!.BannerFrame, out var bannerFrameRow) && bannerFrameRow.Image != 0)
         {
@@ -602,6 +596,6 @@ public partial class PresetBrowserOverlay : Overlay
             }
         }
 
-        await _clipboardService.SetClipboardImage(tempImage);
+        await _clipboardService.SetClipboardImage(tempImage).ConfigureAwait(false);
     }
 }

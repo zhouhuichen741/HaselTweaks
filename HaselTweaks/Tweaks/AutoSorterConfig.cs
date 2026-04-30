@@ -29,7 +29,7 @@ public partial class AutoSorter
         if (!table)
             return;
 
-        var ItemInnerSpacing = ImGui.GetStyle().ItemInnerSpacing;
+        var ItemInnerSpacing = ImStyle.ItemInnerSpacing;
         var ArrowUpButtonSize = ImGuiUtils.GetIconButtonSize(FontAwesomeIcon.ArrowUp);
         var ArrowDownButtonSize = ImGuiUtils.GetIconButtonSize(FontAwesomeIcon.ArrowDown);
         var TrashButtonSize = ImGuiUtils.GetIconButtonSize(FontAwesomeIcon.Trash);
@@ -256,7 +256,7 @@ public partial class AutoSorter
             i++;
         }
 
-        table?.Dispose();
+        table.Dispose();
 
         if (ImGui.Button(_textService.Translate("AutoSorter.Config.AddButton.Label")))
         {

@@ -25,7 +25,7 @@ public unsafe partial class AdvancedImportOverlay : Overlay
         }
 
         if (IsWindow)
-            ImGuiUtils.PushCursorY(ImGui.GetStyle().ItemSpacing.Y * 2);
+            ImCursor.Y += ImStyle.ItemSpacing.Y * 2;
 
         var state = AgentBannerEditor.Instance()->EditorState;
         var unknown = _textService.GetAddonText(624) ?? "Unknown";
@@ -46,7 +46,7 @@ public unsafe partial class AdvancedImportOverlay : Overlay
             _state.CloseOverlay();
         }
 
-        ImGuiUtils.DrawSection(_textService.GetAddonText(14684) ?? "Design", respectUiTheme: !IsWindow);
+        ImGuiUtils.DrawSection(_textService.GetAddonText(14684) ?? "Design", true, GetSectionColor());
 
         var isBannerBgUnlocked = _bannerService.IsBannerBgUnlocked(_clipboardService.ClipboardPreset.BannerBg);
         DrawImportSetting(
@@ -61,7 +61,7 @@ public unsafe partial class AdvancedImportOverlay : Overlay
 
                 if (!isBannerBgUnlocked)
                 {
-                    ImGui.TextColored(Color.Red, _textService.Translate("PortraitHelperWindows.AdvancedImportOverlay.NotUnlocked"));
+                    ImGui.TextColored(Color.ErrorForeground, _textService.Translate("PortraitHelperWindows.AdvancedImportOverlay.NotUnlocked"));
                 }
             },
             isBannerBgUnlocked
@@ -80,7 +80,7 @@ public unsafe partial class AdvancedImportOverlay : Overlay
 
                 if (!isBannerFrameUnlocked)
                 {
-                    ImGui.TextColored(Color.Red, _textService.Translate("PortraitHelperWindows.AdvancedImportOverlay.NotUnlocked"));
+                    ImGui.TextColored(Color.ErrorForeground, _textService.Translate("PortraitHelperWindows.AdvancedImportOverlay.NotUnlocked"));
                 }
             },
             isBannerFrameUnlocked
@@ -99,7 +99,7 @@ public unsafe partial class AdvancedImportOverlay : Overlay
 
                 if (!isBannerDecorationUnlocked)
                 {
-                    ImGui.TextColored(Color.Red, _textService.Translate("PortraitHelperWindows.AdvancedImportOverlay.NotUnlocked"));
+                    ImGui.TextColored(Color.ErrorForeground, _textService.Translate("PortraitHelperWindows.AdvancedImportOverlay.NotUnlocked"));
                 }
             },
             isBannerDecorationUnlocked
@@ -117,7 +117,7 @@ public unsafe partial class AdvancedImportOverlay : Overlay
             () => ImGui.Text(_clipboardService.ClipboardPreset.ImageRotation.ToString())
         );
 
-        ImGuiUtils.DrawSection(_textService.GetAddonText(14685) ?? "Character", respectUiTheme: !IsWindow);
+        ImGuiUtils.DrawSection(_textService.GetAddonText(14685) ?? "Character", true, GetSectionColor());
 
         var isBannerTimelineUnlocked = _bannerService.IsBannerTimelineUnlocked(_clipboardService.ClipboardPreset.BannerTimeline);
         DrawImportSetting(
@@ -129,7 +129,7 @@ public unsafe partial class AdvancedImportOverlay : Overlay
 
                 if (!isBannerTimelineUnlocked)
                 {
-                    ImGui.TextColored(Color.Red, _textService.Translate("PortraitHelperWindows.AdvancedImportOverlay.NotUnlocked"));
+                    ImGui.TextColored(Color.ErrorForeground, _textService.Translate("PortraitHelperWindows.AdvancedImportOverlay.NotUnlocked"));
                 }
             },
             isBannerTimelineUnlocked
@@ -197,7 +197,7 @@ public unsafe partial class AdvancedImportOverlay : Overlay
             () => DrawHalfVector2(_clipboardService.ClipboardPreset.EyeDirection)
         );
 
-        ImGuiUtils.DrawSection(_textService.GetAddonText(14692) ?? "Ambient Lighting", respectUiTheme: !IsWindow);
+        ImGuiUtils.DrawSection(_textService.GetAddonText(14692) ?? "Ambient Lighting", true, GetSectionColor());
 
         var labelBrightness = _textService.GetAddonText(14694) ?? "Brightness";
         var labelColor = _textService.GetAddonText(7008) ?? "Color";
@@ -218,7 +218,7 @@ public unsafe partial class AdvancedImportOverlay : Overlay
             )
         );
 
-        ImGuiUtils.DrawSection(_textService.GetAddonText(14693) ?? "Directional Lighting", respectUiTheme: !IsWindow);
+        ImGuiUtils.DrawSection(_textService.GetAddonText(14693) ?? "Directional Lighting", true, GetSectionColor());
 
         DrawImportSetting(
             labelBrightness,
@@ -249,18 +249,18 @@ public unsafe partial class AdvancedImportOverlay : Overlay
         );
 
         if (IsWindow)
-            ImGuiUtils.PushCursorY(ImGui.GetStyle().ItemSpacing.Y);
+            ImCursor.Y += ImStyle.ItemSpacing.Y;
     }
 
-    private void DrawImportSetting(string label, ImportFlags flag, System.Action drawFn, bool isUnlocked = true)
+    private void DrawImportSetting(string label, ImportFlags flag, Action drawFn, bool isUnlocked = true)
     {
         using var id = ImRaii.PushId(flag.ToString());
 
         ImGui.Columns(2, "##Columns", false);
 
         var isEnabled = isUnlocked && _clipboardService.CurrentImportFlags.HasFlag(flag);
-        using var _textColor = !isEnabled ? (Color.From(ImGuiCol.Text) with { A = 0.5f }).Push(ImGuiCol.Text) : null;
-        using var _disabled = ImRaii.Disabled(!isUnlocked);
+        using var textColor = GetLabelColor(isEnabled).Push(ImGuiCol.Text);
+        using var disabled = ImRaii.Disabled(!isUnlocked);
 
         if (ImGui.Checkbox(label + "##Checkbox", ref isEnabled))
         {
@@ -270,8 +270,8 @@ public unsafe partial class AdvancedImportOverlay : Overlay
                 _clipboardService.CurrentImportFlags &= ~flag;
         }
 
-        _disabled?.Dispose();
-        _textColor?.Dispose();
+        disabled?.Dispose();
+        textColor?.Dispose();
 
         using (ImRaii.Disabled(!isEnabled))
         {
@@ -289,7 +289,7 @@ public unsafe partial class AdvancedImportOverlay : Overlay
         if (!table)
             return;
 
-        var scale = ImGuiHelpers.GlobalScale;
+        var scale = ImStyle.Scale;
         ImGui.TableSetupColumn("Preview", ImGuiTableColumnFlags.WidthFixed, 26 * scale);
         ImGui.TableSetupColumn("R", ImGuiTableColumnFlags.WidthFixed, 40 * scale);
         ImGui.TableSetupColumn("G", ImGuiTableColumnFlags.WidthFixed, 40 * scale);
@@ -307,7 +307,7 @@ public unsafe partial class AdvancedImportOverlay : Overlay
             ImGui.Text(label);
 
             var valueStr = _textService.Translate("PortraitHelperWindows.AdvancedImportOverlay.ColorInput.ValueFormat", value);
-            ImGui.SameLine(0, ImGui.GetContentRegionAvail().X - labelWidth - ImGui.CalcTextSize(valueStr).X);
+            ImGui.SameLine(0, ImStyle.ContentRegionAvail.X - labelWidth - ImGui.CalcTextSize(valueStr).X);
             ImGui.Text(valueStr);
         }
 
@@ -322,7 +322,7 @@ public unsafe partial class AdvancedImportOverlay : Overlay
         if (!table)
             return;
 
-        var scale = ImGuiHelpers.GlobalScale;
+        var scale = ImStyle.Scale;
         ImGui.TableSetupColumn("X", ImGuiTableColumnFlags.WidthFixed, 50 * scale);
         ImGui.TableSetupColumn("Y", ImGuiTableColumnFlags.WidthFixed, 50 * scale);
 
@@ -336,7 +336,7 @@ public unsafe partial class AdvancedImportOverlay : Overlay
             ImGui.Text(label);
 
             var valueStr = _textService.Translate("PortraitHelperWindows.AdvancedImportOverlay.VectorInput.ValueFormat", value);
-            ImGui.SameLine(0, ImGui.GetContentRegionAvail().X - labelWidth - ImGui.CalcTextSize(valueStr).X);
+            ImGui.SameLine(0, ImStyle.ContentRegionAvail.X - labelWidth - ImGui.CalcTextSize(valueStr).X);
             ImGui.Text(valueStr);
         }
 
@@ -350,7 +350,7 @@ public unsafe partial class AdvancedImportOverlay : Overlay
         if (!table)
             return;
 
-        var scale = ImGuiHelpers.GlobalScale;
+        var scale = ImStyle.Scale;
         ImGui.TableSetupColumn("X", ImGuiTableColumnFlags.WidthFixed, 50 * scale);
         ImGui.TableSetupColumn("Y", ImGuiTableColumnFlags.WidthFixed, 50 * scale);
         ImGui.TableSetupColumn("Z", ImGuiTableColumnFlags.WidthFixed, 50 * scale);
@@ -366,7 +366,7 @@ public unsafe partial class AdvancedImportOverlay : Overlay
             ImGui.Text(label);
 
             var valueStr = _textService.Translate("PortraitHelperWindows.AdvancedImportOverlay.VectorInput.ValueFormat", value);
-            ImGui.SameLine(0, ImGui.GetContentRegionAvail().X - labelWidth - ImGui.CalcTextSize(valueStr).X);
+            ImGui.SameLine(0, ImStyle.ContentRegionAvail.X - labelWidth - ImGui.CalcTextSize(valueStr).X);
             ImGui.Text(valueStr);
         }
 
