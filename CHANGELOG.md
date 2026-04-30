@@ -1,8 +1,10 @@
 # Changelog
 
-## [Unreleased]
+## [42.0.0] (2026-04-30)
 
-- Updated ClientStructs for Patch 7.45.
+### HaselTweaks
+
+- Updated for Patch 7.45.
 - Slightly updated the main plugin window. It's now possible to search for tweaks.
 
 ### New Tweak: Armoire Quick Store
@@ -16,7 +18,7 @@ Shows a button above the "Armoire" window to place the first item in the list in
 ### Glamour Dresser Armoire Alert
 
 - **Added:** Outfits can now be withdrawn from the Glamour Dresser.  
-  Note: It will extract all items of an outfit. If you have the games setting enabled to store items in the inventory, make sure to have enough space or it will throw excess items into your Armoury.
+  Note: It will extract all items of an outfit. If you have the game's setting enabled to store items in the Inventory, make sure to have enough space or it will throw excess items into your Armoury.
 
 ## [41.1.9] (2026-03-24)
 
@@ -2437,7 +2439,8 @@ Refreshes the material list and recipe tree when you've crafted or gathered an i
 
 Opens duty finder for the duty you clicked on in the Wondrous Tails Journal.
 
-[unreleased]: https://github.com/Haselnussbomber/HaselTweaks/compare/v41.1.9...main
+[unreleased]: https://github.com/Haselnussbomber/HaselTweaks/compare/v42.0.0...main
+[42.0.0]: https://github.com/Haselnussbomber/HaselTweaks/compare/v41.1.9...v442.0.0
 [41.1.9]: https://github.com/Haselnussbomber/HaselTweaks/compare/v41.1.8...v41.1.9
 [41.1.8]: https://github.com/Haselnussbomber/HaselTweaks/compare/v41.1.7...v41.1.8
 [41.1.7]: https://github.com/Haselnussbomber/HaselTweaks/compare/v41.1.6...v41.1.7

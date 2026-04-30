@@ -98,15 +98,14 @@ public unsafe partial class CharacterClassSwitcher : ConfigurableTweak<Character
 
         for (var i = 0; i < addon->ClassComponents.Length; i++)
         {
-            // skip crafters as they already have ButtonClick events
-            if (IsCrafter(i))
+            var component = addon->ClassComponents.GetPointer(i)->Value;
+            if (component == null)
                 continue;
 
-            var node = addon->ClassComponents.GetPointer(i)->Value;
-            if (node == null)
+            if (component->GetComponentType() == ComponentType.Button) // crafters are buttons already
                 continue;
 
-            var collisionNode = node->UldManager.RootNode;
+            var collisionNode = component->UldManager.RootNode;
             if (collisionNode == null)
                 continue;
 
@@ -136,7 +135,7 @@ public unsafe partial class CharacterClassSwitcher : ConfigurableTweak<Character
                 continue;
 
             // skip crafters as they already have Cursor Pointer flags
-            if (IsCrafter(i))
+            if (component->GetComponentType() == ComponentType.Button)
             {
                 // but ensure the button is enabled, even though the player might not have desynthesis unlocked
                 component->SetEnabledState(true);
@@ -158,10 +157,7 @@ public unsafe partial class CharacterClassSwitcher : ConfigurableTweak<Character
 
             // if job is unlocked, it has full alpha
             var isUnlocked = imageNode->Color.A == 255;
-            if (isUnlocked)
-                rootNode->DrawFlags |= 1 << 20; // add Cursor Pointer flag
-            else
-                rootNode->DrawFlags &= ~(uint)(1 << 20); // remove Cursor Pointer flag
+            rootNode->IsClickableCursorOnHover = isUnlocked;
         }
     }
 
@@ -197,7 +193,7 @@ public unsafe partial class CharacterClassSwitcher : ConfigurableTweak<Character
             return;
 
         // special handling for crafters
-        if (IsCrafter(args.EventParam - 2))
+        if (component->GetComponentType() == ComponentType.Button)
         {
             var isClick =
                 eventType is AtkEventType.MouseClick or AtkEventType.ButtonClick ||
@@ -254,11 +250,7 @@ public unsafe partial class CharacterClassSwitcher : ConfigurableTweak<Character
 
             // if job is unlocked, it has full alpha
             var isUnlocked = entry->Icon->Color.A == 255;
-
-            if (isUnlocked)
-                rootNode->DrawFlags |= 1 << 20; // add Cursor Pointer flag
-            else
-                rootNode->DrawFlags &= ~(uint)(1 << 20); // remove Cursor Pointer flag
+            rootNode->IsClickableCursorOnHover = isUnlocked;
         }
     }
 
@@ -374,10 +366,5 @@ public unsafe partial class CharacterClassSwitcher : ConfigurableTweak<Character
 
         _logger.LogInformation("Equipping gearset #{selectedGearsetId}", selectedGearset.Id);
         gearsetModule->EquipGearset(selectedGearset.Id - 1);
-    }
-
-    private static bool IsCrafter(int id)
-    {
-        return id >= 22 && id <= 29;
     }
 }
