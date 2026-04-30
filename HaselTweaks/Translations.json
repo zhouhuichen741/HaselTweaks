@@ -40,7 +40,8 @@
   },
   "HaselTweaks.Config.Search.Hint": {
     "en": "Search for Tweaks...",
-    "de": "Nach Tweaks suchen..."
+    "de": "Nach Tweaks suchen...",
+    "zh": "搜索调整项..."
   },
   "HaselTweaks.Config.SectionTitle.IncompatibilityWarning": {
     "en": "Incompatibility Warning",
