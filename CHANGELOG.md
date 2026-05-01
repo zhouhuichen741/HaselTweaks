@@ -1,5 +1,11 @@
 # Changelog
 
+## [42.1.0] (2026-05-01)
+
+### Tweak removed: Outfit Glamour Try On
+
+It was added to the game!
+
 ## [42.0.1] (2026-05-01)
 
 ### Character Class Switcher
@@ -2449,7 +2455,8 @@ Refreshes the material list and recipe tree when you've crafted or gathered an i
 
 Opens duty finder for the duty you clicked on in the Wondrous Tails Journal.
 
-[unreleased]: https://github.com/Haselnussbomber/HaselTweaks/compare/v42.0.1...main
+[unreleased]: https://github.com/Haselnussbomber/HaselTweaks/compare/v42.1.0...main
+[42.1.0]: https://github.com/Haselnussbomber/HaselTweaks/compare/v42.1.0...v42.1.0
 [42.0.1]: https://github.com/Haselnussbomber/HaselTweaks/compare/v42.0.0...v42.0.1
 [42.0.0]: https://github.com/Haselnussbomber/HaselTweaks/compare/v41.1.9...v42.0.0
 [41.1.9]: https://github.com/Haselnussbomber/HaselTweaks/compare/v41.1.8...v41.1.9
