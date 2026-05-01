@@ -201,7 +201,7 @@ public unsafe partial class CharacterClassSwitcher : ConfigurableTweak<Character
 
             if (isClick && !UIInputData.Instance()->IsKeyDown(SeVirtualKey.SHIFT))
             {
-                SwitchClassJob(8 + (uint)eventParam - 24);
+                SwitchClassJob(8 + (uint)eventParam - 25);
                 args.PreventOriginal();
                 return;
             }
