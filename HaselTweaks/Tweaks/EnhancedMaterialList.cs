@@ -377,7 +377,7 @@ public unsafe partial class EnhancedMaterialList : ConfigurableTweak<EnhancedMat
             {
                 foreach (var teleportInfo in Telepo.Instance()->TeleportList)
                 {
-                    if (teleportInfo.AetheryteId == p!.TerritoryType.Value!.Aetheryte.RowId && (cost == 0 || teleportInfo.GilCost < cost))
+                    if (teleportInfo.AetheryteId == p.TerritoryType.Value.Aetheryte.RowId && (cost == 0 || teleportInfo.GilCost < cost))
                     {
                         cost = teleportInfo.GilCost;
                         point = p;

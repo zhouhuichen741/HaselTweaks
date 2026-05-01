@@ -23,7 +23,7 @@ public partial class PasteButton : MenuBarButton
 
     public override void OnClick()
     {
-        _bannerService.ImportPresetToState(_clipboardService.ClipboardPreset!);
+        _bannerService.ImportPresetToState(_clipboardService.ClipboardPreset);
         _state.CloseOverlay();
     }
 }

@@ -61,7 +61,7 @@ public partial class EditPresetDialog
             ImGui.Spacing();
             ImGui.Text(_textService.Translate("PortraitHelperWindows.EditPresetDialog.Tags.Label"));
 
-            var tagNames = _tags!
+            var tagNames = _tags
                 .Select(id => availableTags.FirstOrDefault((t) => t.Id == id)?.Name ?? string.Empty)
                 .Where(name => !string.IsNullOrEmpty(name));
 
@@ -73,7 +73,7 @@ public partial class EditPresetDialog
             {
                 foreach (var tag in availableTags)
                 {
-                    var isSelected = _tags!.Contains(tag.Id);
+                    var isSelected = _tags.Contains(tag.Id);
 
                     if (ImGui.Selectable($"{tag.Name}##PresetTag{tag.Id}", isSelected))
                     {
