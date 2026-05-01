@@ -146,12 +146,7 @@ public unsafe partial class CharacterClassSwitcher : ConfigurableTweak<Character
             if (rootNode == null)
                 continue;
 
-            var imageNode = component->GetComponentType() switch
-            {
-                ComponentType.Button => component->GetImageNodeById(6),
-                ComponentType.Base => component->GetImageNodeById(4),
-                _ => null
-            };
+            var imageNode = component->GetImageNodeById(4);
             if (imageNode == null)
                 continue;
 
@@ -178,7 +173,8 @@ public unsafe partial class CharacterClassSwitcher : ConfigurableTweak<Character
         if (component == null || component->OwnerNode == null)
             return;
 
-        var imageNode = component->GetComponentType() switch
+        var componentType = component->GetComponentType();
+        var imageNode = componentType switch
         {
             ComponentType.Button => component->GetImageNodeById(6),
             ComponentType.Base => component->GetImageNodeById(4),
@@ -193,7 +189,7 @@ public unsafe partial class CharacterClassSwitcher : ConfigurableTweak<Character
             return;
 
         // special handling for crafters
-        if (component->GetComponentType() == ComponentType.Button)
+        if (componentType == ComponentType.Button)
         {
             var isClick =
                 eventType is AtkEventType.MouseClick or AtkEventType.ButtonClick ||
