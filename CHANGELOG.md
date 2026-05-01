@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Enhanced Material List
+
+- **Fixed:** Hidden gathering items now also show the zone where they can be gathered.
+
 ## [42.0.0] (2026-04-30)
 
 ### HaselTweaks
