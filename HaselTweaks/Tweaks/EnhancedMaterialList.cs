@@ -345,23 +345,7 @@ public unsafe partial class EnhancedMaterialList : ConfigurableTweak<EnhancedMat
         isSameZone = default;
         placeName = default;
 
-        var gatheringItems = _itemService.GetGatheringItems(itemId);
-        if (gatheringItems.Count == 0)
-            return false;
-
-        // TODO: rethink this
-        var gatheringPointSheet = _excelService.GetSheet<GatheringPoint>();
-        var gatheringPoints = _excelService.GetSheet<GatheringPointBase>()
-            .Where(row => row.Item.Any(item => item.RowId == gatheringItems[0].RowId))
-            .Select(row =>
-            {
-                var hasValue = gatheringPointSheet.TryGetFirst(gprow => gprow.GatheringPointBase.RowId == row.RowId && gprow.TerritoryType.RowId > 1, out var value);
-                return (HasValue: hasValue, Value: value);
-            })
-            .Where(row => row.HasValue)
-            .Select(row => row.Value)
-            .ToList();
-
+        var gatheringPoints = _itemService.GetGatheringPoints(itemId);
         if (gatheringPoints.Count == 0)
             return false;
 
