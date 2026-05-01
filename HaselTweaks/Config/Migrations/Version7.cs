@@ -15,7 +15,7 @@ public class Version7 : IConfigMigration
         if (dtrConfig == null || (string?)dtrConfig["FormatUnitText"] == null)
             return; // nothing to do
 
-        dtrConfig!["FpsFormat"] = "{0}" + (string?)dtrConfig["FormatUnitText"] ?? " fps";
+        dtrConfig["FpsFormat"] = "{0}" + (string?)dtrConfig["FormatUnitText"] ?? " fps";
         dtrConfig.Remove("FormatUnitText");
     }
 }

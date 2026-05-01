@@ -25,6 +25,7 @@ public unsafe partial class EnhancedMaterialList : ConfigurableTweak<EnhancedMat
     private readonly ExcelService _excelService;
     private readonly MapService _mapService;
     private readonly ItemService _itemService;
+    private readonly TextService _textService;
 
     private Hook<AtkComponentListItemPopulator.PopulateDelegate>? _addonRecipeMaterialListSetupRowHook;
     private Hook<AgentRecipeItemContext.Delegates.AddItemContextMenuEntries>? _addItemContextMenuEntriesHook;
@@ -344,23 +345,7 @@ public unsafe partial class EnhancedMaterialList : ConfigurableTweak<EnhancedMat
         isSameZone = default;
         placeName = default;
 
-        var gatheringItems = _itemService.GetGatheringItems(itemId);
-        if (gatheringItems.Count == 0)
-            return false;
-
-        // TODO: rethink this
-        var gatheringPointSheet = _excelService.GetSheet<GatheringPoint>();
-        var gatheringPoints = _excelService.GetSheet<GatheringPointBase>()
-            .Where(row => row.Item.Any(item => item.RowId == gatheringItems.First().RowId))
-            .Select(row =>
-            {
-                var hasValue = gatheringPointSheet.TryGetFirst(gprow => gprow.GatheringPointBase.RowId == row.RowId && gprow.TerritoryType.RowId > 1, out var value);
-                return (HasValue: hasValue, Value: value);
-            })
-            .Where(row => row.HasValue)
-            .Select(row => row.Value)
-            .ToList();
-
+        var gatheringPoints = _itemService.GetGatheringPoints(itemId);
         if (gatheringPoints.Count == 0)
             return false;
 
@@ -377,7 +362,7 @@ public unsafe partial class EnhancedMaterialList : ConfigurableTweak<EnhancedMat
             {
                 foreach (var teleportInfo in Telepo.Instance()->TeleportList)
                 {
-                    if (teleportInfo.AetheryteId == p!.TerritoryType.Value!.Aetheryte.RowId && (cost == 0 || teleportInfo.GilCost < cost))
+                    if (teleportInfo.AetheryteId == p.TerritoryType.Value.Aetheryte.RowId && (cost == 0 || teleportInfo.GilCost < cost))
                     {
                         cost = teleportInfo.GilCost;
                         point = p;
@@ -390,11 +375,11 @@ public unsafe partial class EnhancedMaterialList : ConfigurableTweak<EnhancedMat
         if (point.RowId == 0)
             return false;
 
-        var nullablePlayeName = point.TerritoryType.ValueNullable?.PlaceName.ValueNullable?.Name;
-        if (nullablePlayeName == null)
+        var placeNameRowId = point.TerritoryType.ValueNullable?.PlaceName.RowId;
+        if (placeNameRowId == null)
             return false;
 
-        placeName = (ReadOnlySeString)nullablePlayeName;
+        placeName = _textService.GetPlaceName(placeNameRowId.Value);
         return true;
     }
 }

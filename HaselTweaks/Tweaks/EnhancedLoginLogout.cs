@@ -412,7 +412,7 @@ public unsafe partial class EnhancedLoginLogout : ConfigurableTweak<EnhancedLogi
         if (emote.EmoteMode.RowId != 0)
         {
             _logger.LogDebug("EmoteMode: {rowId}", emote.EmoteMode.RowId);
-            _currentEntry.Character->SetMode((CharacterModes)emote.EmoteMode.Value!.ConditionMode, (byte)emote.EmoteMode.RowId);
+            _currentEntry.Character->SetMode((CharacterModes)emote.EmoteMode.Value.ConditionMode, (byte)emote.EmoteMode.RowId);
         }
         else
         {

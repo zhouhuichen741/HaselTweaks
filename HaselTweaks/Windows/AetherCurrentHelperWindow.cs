@@ -184,7 +184,7 @@ public unsafe partial class AetherCurrentHelperWindow : SimpleWindow
 
         // Icon
         ImGui.TableNextColumn();
-        _textureProvider.DrawIcon(quest.EventIconType.Value!.MapIconAvailable + 1, 40);
+        _textureProvider.DrawIcon(quest.EventIconType.Value.MapIconAvailable + 1, 40);
 
         // Content
         ImGui.TableNextColumn();
