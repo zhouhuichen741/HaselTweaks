@@ -25,6 +25,7 @@ public unsafe partial class EnhancedMaterialList : ConfigurableTweak<EnhancedMat
     private readonly ExcelService _excelService;
     private readonly MapService _mapService;
     private readonly ItemService _itemService;
+    private readonly TextService _textService;
 
     private Hook<AtkComponentListItemPopulator.PopulateDelegate>? _addonRecipeMaterialListSetupRowHook;
     private Hook<AgentRecipeItemContext.Delegates.AddItemContextMenuEntries>? _addItemContextMenuEntriesHook;
@@ -390,11 +391,11 @@ public unsafe partial class EnhancedMaterialList : ConfigurableTweak<EnhancedMat
         if (point.RowId == 0)
             return false;
 
-        var nullablePlayeName = point.TerritoryType.ValueNullable?.PlaceName.ValueNullable?.Name;
-        if (nullablePlayeName == null)
+        var placeNameRowId = point.TerritoryType.ValueNullable?.PlaceName.RowId;
+        if (placeNameRowId == null)
             return false;
 
-        placeName = (ReadOnlySeString)nullablePlayeName;
+        placeName = _textService.GetPlaceName(placeNameRowId.Value);
         return true;
     }
 }
