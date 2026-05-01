@@ -1483,16 +1483,6 @@
     "de": "Ermöglicht es mit Pfeiltasten die Gegenstände in der Projektionskommode auszuwählen."
   },
 
-  "OutfitGlamourTryOn.Tweak.Name": {
-    "en": "Outfit Glamour Try On",
-    "zh": "套装幻影化试穿"
-  },
-  "OutfitGlamourTryOn.Tweak.Description": {
-    "en": "Adds a context menu entry to the items in the \"Outfit Glamour Creation\" window so you can try them on.",
-    "de": "Fügt einen Kontextmenüeintrag zu den Gegenständen im \"Setprojektion\"-Fenster hinzu, damit du sie anprobieren kannst.",
-    "zh": "在“套装幻影化”窗口中添加一个次级菜单条目，以便你可以试穿它们。"
-  },
-
   "HideMSQComplete.Tweak.Name": {
     "en": "Hide MSQ Complete",
     "zh": "隐藏主线向导"
