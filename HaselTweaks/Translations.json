@@ -508,6 +508,10 @@
     "en": "Next Item",
     "de": "Nächster Gegenstand"
   },
+  "CabinetQuickStoreWindow.NoMoreItems": {
+    "en": "No more items to store.",
+    "de": "Keine weiteren Gegenstände zum Einlegen."
+  },
 
   "CastBarAetheryteNames.Tweak.Name": {
     "en": "Cast Bar Aetheryte Names",
