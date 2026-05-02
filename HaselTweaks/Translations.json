@@ -536,7 +536,8 @@
   },
   "CabinetQuickStoreWindow.NoMoreItems": {
     "en": "No more items to store.",
-    "de": "Keine weiteren Gegenstände zum Einlegen."
+    "de": "Keine weiteren Gegenstände zum Einlegen.",
+	"zh": "没有更多可存入的物品。"
   },
 
   "CastBarAetheryteNames.Tweak.Name": {
