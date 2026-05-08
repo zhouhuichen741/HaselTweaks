@@ -67,7 +67,7 @@ public unsafe partial class EnhancedExpBar : ConfigurableTweak<EnhancedExpBarCon
         SetColor(); // reset unless overwritten
 
         // for safety, don't show when the game uses different texts than Addon#1019
-        if (thisPtr->ExpFlags.HasFlag(AgentHudExpFlag.InEureka) || thisPtr->ExpFlags.HasFlag(AgentHudExpFlag.Unk5))
+        if (thisPtr->ExpFlags.HasFlag(AgentHudExpFlag.InEureka) || thisPtr->ExpFlags.HasFlag(AgentHudExpFlag.InOccultCrescent))
             return;
 
         if (_config.ForceCompanionBar && OverwriteWithCompanionBar(classJob))
