@@ -1,5 +1,12 @@
 # Changelog
 
+## [Unreleased]
+
+### Enhanced Experience Bar
+
+- **Fixed:** The text was unintentionally depending on Dalamuds UI language, rather than the clients language.
+- **Fixed:** The experience numbers were not formatted as you'd expect.
+
 ## [42.1.2] (2026-05-02)
 
 ### Armoire Quick Store
