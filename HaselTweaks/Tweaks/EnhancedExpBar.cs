@@ -1,4 +1,4 @@
-using Dalamud.Game.Text;
+using Dalamud.Game.Text.Evaluator;
 using FFXIVClientStructs.FFXIV.Client.Game;
 using FFXIVClientStructs.FFXIV.Client.Game.MJI;
 using FFXIVClientStructs.FFXIV.Client.Game.UI;
@@ -66,6 +66,10 @@ public unsafe partial class EnhancedExpBar : ConfigurableTweak<EnhancedExpBarCon
 
         SetColor(); // reset unless overwritten
 
+        // for safety, don't show when the game uses different texts than Addon#1019
+        if (thisPtr->ExpFlags.HasFlag(AgentHudExpFlag.InEureka) || thisPtr->ExpFlags.HasFlag(AgentHudExpFlag.InOccultCrescent))
+            return;
+
         if (_config.ForceCompanionBar && OverwriteWithCompanionBar(classJob))
             return;
 
@@ -114,7 +118,7 @@ public unsafe partial class EnhancedExpBar : ConfigurableTweak<EnhancedExpBarCon
 
     private bool OverwriteWithCompanionBar(ClassJob classJob)
     {
-        var buddy = UIState.Instance()->Buddy.CompanionInfo;
+        ref var buddy = ref UIState.Instance()->Buddy.CompanionInfo;
 
         if (buddy.Companion == null || buddy.Companion->EntityId == 0xE0000000)
             return false;
@@ -122,14 +126,21 @@ public unsafe partial class EnhancedExpBar : ConfigurableTweak<EnhancedExpBarCon
         if (!_excelService.TryGetRow<BuddyRank>(buddy.Rank, out var buddyRank))
             return false;
 
-        var levelLabel = _textService.GetAddonText(4968).Trim().Replace(":", ""); // "Rank:"
-        var rank = buddy.Rank > 20 ? 20 : buddy.Rank;
-        var level = rank.ToString().Aggregate("", (str, chr) => str + (char)(SeIconChar.Number0 + byte.Parse(chr.ToString())));
-        var requiredExperience = buddyRank.ExpRequired;
-        var xpText = requiredExperience == 0 ? "" : $"   {buddy.CurrentXP}/{requiredExperience}";
+        var levelText = _textService.GetAddonText(4968, _clientState.ClientLanguage).Trim().Replace(":", ""); // "Rank:"
+        var currentRank = buddy.Rank;
+        var maxRank = _excelService.GetRowCount<BuddyRank>() - 1;
+        var rank = currentRank > maxRank ? maxRank : currentRank;
+        var currentExp = (int)buddy.CurrentXP;
+        var neededExp = (int)buddyRank.ExpRequired;
 
-        SetText($"{classJob.Abbreviation}  {levelLabel} {level}{xpText}");
-        SetExperience((int)buddy.CurrentXP, (int)requiredExperience);
+        SetText("EnhancedExpBar.CompanionBar.Format",
+            classJob.RowId,
+            levelText,
+            rank.ToSeIconCharNumbers(),
+            currentExp,
+            neededExp);
+
+        SetExperience(currentExp, neededExp);
 
         return true;
     }
@@ -137,20 +148,27 @@ public unsafe partial class EnhancedExpBar : ConfigurableTweak<EnhancedExpBarCon
     private bool OverwriteWithPvPBar(ClassJob classJob)
     {
         var pvpProfile = PvPProfile.Instance();
-        if (pvpProfile == null || !pvpProfile->IsLoaded || !_excelService.TryGetRow<PvPSeriesLevel>(pvpProfile->GetSeriesCurrentRank(), out var pvpSeriesLevel))
+        if (!pvpProfile->IsLoaded || !_excelService.TryGetRow<PvPSeriesLevel>(pvpProfile->GetSeriesCurrentRank(), out var pvpSeriesLevel))
             return false;
 
+        var levelText = _textService.GetAddonText(14860, _clientState.ClientLanguage).Trim().Replace(":", ""); // "Series Level: "
         var claimedRank = pvpProfile->GetSeriesClaimedRank();
         var currentRank = pvpProfile->GetSeriesCurrentRank();
+        var maxRank = _excelService.GetRowCount<PvPSeriesLevel>() - 1;
+        var rank = currentRank > maxRank ? maxRank : currentRank;
+        var canClaimReward = currentRank > claimedRank;
+        var currentExp = (int)pvpProfile->SeriesExperience;
+        var neededExp = (int)pvpSeriesLevel.ExpToNext;
 
-        var levelLabel = _textService.GetAddonText(14860).Trim().Replace(":", ""); // "Series Level: "
-        var rank = currentRank > 30 ? 30 : currentRank; // 30 = Series Max Rank, hopefully in the future too
-        var level = rank.ToString().Aggregate("", (str, chr) => str + (char)(SeIconChar.Number0 + byte.Parse(chr.ToString())));
-        var star = currentRank > claimedRank ? '*' : ' ';
-        var requiredExperience = pvpSeriesLevel.ExpToNext;
+        SetText("EnhancedExpBar.PvPBar.Format",
+            classJob.RowId,
+            levelText,
+            rank.ToSeIconCharNumbers(),
+            canClaimReward ? 1 : 0,
+            currentExp,
+            neededExp);
 
-        SetText($"{classJob.Abbreviation}  {levelLabel} {level}{star}   {pvpProfile->SeriesExperience}/{requiredExperience}");
-        SetExperience(pvpProfile->SeriesExperience, requiredExperience);
+        SetExperience(currentExp, neededExp);
 
         if (!_config.DisableColorChanges)
             SetColor(65, 35); // trying to make it look like the xp bar in the PvP Profile window and failing miserably. eh, good enough
@@ -167,18 +185,20 @@ public unsafe partial class EnhancedExpBar : ConfigurableTweak<EnhancedExpBarCon
         if (mjiManager == null || !_excelService.TryGetRow<MJIRank>(mjiManager->IslandState.CurrentRank, out var mjiRank))
             return false;
 
-        var job = _config.SanctuaryBarHideJob ? "" : classJob.Abbreviation + "  ";
-        var levelLabel = _textService.GetAddonText(14252).Trim().Replace(":", ""); // "Sanctuary Rank:"
-        var level = mjiManager->IslandState.CurrentRank.ToString().Aggregate("", (str, chr) => str + (char)(SeIconChar.Number0 + byte.Parse(chr.ToString())));
-        var requiredExperience = mjiRank.ExpToNext;
+        var rankText = _textService.GetAddonText(14252, _clientState.ClientLanguage).Trim().Replace(":", ""); // "Sanctuary Rank:"
+        var rank = (int)mjiManager->IslandState.CurrentRank;
+        var currentExp = (int)mjiManager->IslandState.CurrentXP;
+        var neededExp = (int)mjiRank.ExpToNext;
 
-        var expStr = mjiManager->IslandState.CurrentXP.ToString();
-        var reqExpStr = requiredExperience.ToString();
-        if (requiredExperience == 0)
-            expStr = reqExpStr = "--";
+        SetText("EnhancedExpBar.SanctuaryBar.Format",
+            _config.SanctuaryBarHideJob ? 0 : 1,
+            classJob.RowId,
+            rankText,
+            rank.ToSeIconCharNumbers(),
+            currentExp,
+            neededExp);
 
-        SetText($"{job}{levelLabel} {level}   {expStr}/{reqExpStr}");
-        SetExperience((int)mjiManager->IslandState.CurrentXP, (int)requiredExperience);
+        SetExperience(currentExp, neededExp);
 
         if (!_config.DisableColorChanges)
             SetColor(25, 60, 255); // blue seems nice.. just like the sky ^_^
@@ -186,9 +206,16 @@ public unsafe partial class EnhancedExpBar : ConfigurableTweak<EnhancedExpBarCon
         return true;
     }
 
-    private void SetText(string text)
+    private void SetText(string key, params Span<SeStringParameter> parameters)
     {
-        AtkStage.Instance()->GetStringArrayData(StringArrayType.Hud)->SetValue(69, text);
+        var evaluated = _textService.EvaluateTranslatedSeString(key, _clientState.ClientLanguage, parameters);
+
+        using var rssb = new RentedSeStringBuilder();
+
+        AtkStage.Instance()->GetStringArrayData(StringArrayType.Hud)->SetValue(69,
+            rssb.Builder
+                .Append(evaluated)
+                .GetViewAsSpan());
     }
 
     private void SetExperience(int experience, int maxExperience, int restedExperience = 0)

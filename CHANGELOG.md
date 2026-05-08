@@ -1,5 +1,12 @@
 # Changelog
 
+## [42.1.3] (2026-05-08)
+
+### Enhanced Experience Bar
+
+- **Fixed:** The text was unintentionally depending on Dalamuds UI language, rather than the clients language.
+- **Fixed:** The experience numbers were not formatted as you'd expect.
+
 ## [42.1.2] (2026-05-02)
 
 ### Armoire Quick Store
@@ -2467,8 +2474,9 @@ Refreshes the material list and recipe tree when you've crafted or gathered an i
 
 Opens duty finder for the duty you clicked on in the Wondrous Tails Journal.
 
-[unreleased]: https://github.com/Haselnussbomber/HaselTweaks/compare/v42.1.2...main
-[42.1.2]: https://github.com/Haselnussbomber/HaselTweaks/compare/v42.1.2...v42.1.2
+[unreleased]: https://github.com/Haselnussbomber/HaselTweaks/compare/v42.1.3...main
+[42.1.3]: https://github.com/Haselnussbomber/HaselTweaks/compare/v42.1.2...v42.1.3
+[42.1.2]: https://github.com/Haselnussbomber/HaselTweaks/compare/v42.1.1...v42.1.2
 [42.1.1]: https://github.com/Haselnussbomber/HaselTweaks/compare/v42.1.0...v42.1.1
 [42.1.0]: https://github.com/Haselnussbomber/HaselTweaks/compare/v42.0.1...v42.1.0
 [42.0.1]: https://github.com/Haselnussbomber/HaselTweaks/compare/v42.0.0...v42.0.1
