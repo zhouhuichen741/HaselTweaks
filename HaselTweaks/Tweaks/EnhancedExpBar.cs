@@ -136,7 +136,7 @@ public unsafe partial class EnhancedExpBar : ConfigurableTweak<EnhancedExpBarCon
         SetText("EnhancedExpBar.CompanionBar.Format",
             classJob.RowId,
             levelText,
-            rank,
+            rank.ToSeIconCharNumbers(),
             currentExp,
             neededExp);
 
@@ -163,7 +163,7 @@ public unsafe partial class EnhancedExpBar : ConfigurableTweak<EnhancedExpBarCon
         SetText("EnhancedExpBar.PvPBar.Format",
             classJob.RowId,
             levelText,
-            rank,
+            rank.ToSeIconCharNumbers(),
             canClaimReward ? 1 : 0,
             currentExp,
             neededExp);
@@ -194,7 +194,7 @@ public unsafe partial class EnhancedExpBar : ConfigurableTweak<EnhancedExpBarCon
             _config.SanctuaryBarHideJob ? 0 : 1,
             classJob.RowId,
             rankText,
-            rank,
+            rank.ToSeIconCharNumbers(),
             currentExp,
             neededExp);
 
