@@ -1034,19 +1034,22 @@
     "en": "<sheet(ClassJob,lnum1,1)>  <string(lstr2)> <string(lstr3)>    <if([lnum5==0],<-->/<-->,<kilo(lnum4,\\,)>/<kilo(lnum5,\\,)>)>",
     "de": "<sheet(ClassJob,lnum1,1)>  <string(lstr2)> <string(lstr3)>    <if([lnum5==0],--/--,<kilo(lnum4,.)>/<kilo(lnum5,.)>)>",
     "fr": "<sheet(ClassJob,lnum1,1)>  <string(lstr2)> <string(lstr3)>    <if([lnum5==0],--/--,<kilo(lnum4,<nbsp>)>/<kilo(lnum5,<nbsp>)>)>",
-    "ja": "<sheet(ClassJob,lnum1,1)>  <string(lstr2)> <string(lstr3)>    <if([lnum5==0],--/--,<kilo(lnum4,\\,)>/<kilo(lnum5,\\,)>)>"
+    "ja": "<sheet(ClassJob,lnum1,1)>  <string(lstr2)> <string(lstr3)>    <if([lnum5==0],--/--,<kilo(lnum4,\\,)>/<kilo(lnum5,\\,)>)>",
+    "zh": "<sheet(ClassJob,lnum1,1)>  <string(lstr2)> <string(lstr3)>    <if([lnum5==0],--/--,<kilo(lnum4,)>/<kilo(lnum5,)>)>"
   },
   "EnhancedExpBar.PvPBar.Format": {
     "en": "<sheet(ClassJob,lnum1,1)>  <string(lstr2)> <string(lstr3)><if([lnum4==1],*,)>    <if([lnum6==0],<-->/<-->,<kilo(lnum5,\\,)>/<kilo(lnum6,\\,)>)>",
     "de": "<sheet(ClassJob,lnum1,1)>  <string(lstr2)> <string(lstr3)><if([lnum4==1],*,)>    <if([lnum6==0],--/--,<kilo(lnum5,.)>/<kilo(lnum6,.)>)>",
     "fr": "<sheet(ClassJob,lnum1,1)>  <string(lstr2)> <string(lstr3)><if([lnum4==1],*,)>    <if([lnum6==0],--/--,<kilo(lnum5,<nbsp>)>/<kilo(lnum6,<nbsp>)>)>",
-    "ja": "<sheet(ClassJob,lnum1,1)>  <string(lstr2)> <string(lstr3)><if([lnum4==1],*,)>    <if([lnum6==0],--/--,<kilo(lnum5,\\,)>/<kilo(lnum6,\\,)>)>"
+    "ja": "<sheet(ClassJob,lnum1,1)>  <string(lstr2)> <string(lstr3)><if([lnum4==1],*,)>    <if([lnum6==0],--/--,<kilo(lnum5,\\,)>/<kilo(lnum6,\\,)>)>",
+    "zh": "<sheet(ClassJob,lnum1,1)>  <string(lstr2)> <string(lstr3)><if([lnum4==1],*,)>    <if([lnum6==0],--/--,<kilo(lnum5,)>/<kilo(lnum6,)>)>"
   },
   "EnhancedExpBar.SanctuaryBar.Format": {
     "en": "<if(lnum1,<sheet(ClassJob,lnum2,1)>  ,)><string(lstr3)> <string(lstr4)>    <if([lnum6==0],<-->/<-->,<kilo(lnum5,\\,)>/<kilo(lnum6,\\,)>)>",
     "de": "<if(lnum1,<sheet(ClassJob,lnum2,1)>  ,)><string(lstr3)> <string(lstr4)>    <if([lnum6==0],--/--,<kilo(lnum5,.)>/<kilo(lnum6,.)>)>",
     "fr": "<if(lnum1,<sheet(ClassJob,lnum2,1)>  ,)><string(lstr3)> <string(lstr4)>    <if([lnum6==0],--/--,<kilo(lnum5,<nbsp>)>/<kilo(lnum6,<nbsp>)>)>",
-    "ja": "<if(lnum1,<sheet(ClassJob,lnum2,1)>  ,)><string(lstr3)> <string(lstr4)>    <if([lnum6==0],--/--,<kilo(lnum5,\\,)>/<kilo(lnum6,\\,)>)>"
+    "ja": "<if(lnum1,<sheet(ClassJob,lnum2,1)>  ,)><string(lstr3)> <string(lstr4)>    <if([lnum6==0],--/--,<kilo(lnum5,\\,)>/<kilo(lnum6,\\,)>)>",
+    "zh": "<if(lnum1,<sheet(ClassJob,lnum2,1)>  ,)><string(lstr3)> <string(lstr4)>    <if([lnum6==0],--/--,<kilo(lnum5,)>/<kilo(lnum6,)>)>"
   },
 
   "EnhancedIsleworksAgenda.Tweak.Name": {
