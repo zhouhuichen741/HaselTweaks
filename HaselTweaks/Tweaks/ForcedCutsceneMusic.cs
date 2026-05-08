@@ -20,9 +20,11 @@ public unsafe partial class ForcedCutsceneMusic : ConfigurableTweak<ForcedCutsce
     private readonly IGameConfig _gameConfig;
 
     private Hook<ScheduleManagement.Delegates.CreateCutSceneController>? _createCutSceneControllerHook;
-    private Hook<CutSceneController.Delegates.Dtor>? _cutSceneControllerDtorHook;
+    private Hook<CutSceneControllerDtorDelegate>? _cutSceneControllerDtorHook;
 
     private readonly Dictionary<string, bool> _wasMuted = [];
+
+    private delegate CutSceneController* CutSceneControllerDtorDelegate(CutSceneController* self, byte freeFlags);
 
     public override void OnEnable()
     {
@@ -30,8 +32,8 @@ public unsafe partial class ForcedCutsceneMusic : ConfigurableTweak<ForcedCutsce
             ScheduleManagement.MemberFunctionPointers.CreateCutSceneController,
             CreateCutSceneControllerDetour);
 
-        _cutSceneControllerDtorHook = _gameInteropProvider.HookFromAddress<CutSceneController.Delegates.Dtor>(
-            (nint)CutSceneController.StaticVirtualTablePointer->Dtor,
+        _cutSceneControllerDtorHook = _gameInteropProvider.HookFromVTable<CutSceneControllerDtorDelegate>(
+            CutSceneController.StaticVirtualTablePointer, 0,
             CutSceneControllerDtorDetour);
 
         _createCutSceneControllerHook.Enable();
@@ -72,7 +74,7 @@ public unsafe partial class ForcedCutsceneMusic : ConfigurableTweak<ForcedCutsce
         return ret;
     }
 
-    private SchedulerState* CutSceneControllerDtorDetour(CutSceneController* self, byte freeFlags)
+    private CutSceneController* CutSceneControllerDtorDetour(CutSceneController* self, byte freeFlags)
     {
         var cutsceneId = self->CutsceneId;
 
