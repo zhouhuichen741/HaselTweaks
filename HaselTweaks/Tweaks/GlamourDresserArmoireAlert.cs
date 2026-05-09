@@ -108,15 +108,15 @@ public unsafe partial class GlamourDresserArmoireAlert : ConfigurableTweak<Glamo
         _window.Open();
     }
 
-    private bool IsSetContainingCabinetItems(uint itemId)
+    private bool IsSetContainingCabinetItems(uint setId)
     {
         if (_config.IgnoreOutfits)
             return false;
 
-        if (!_excelService.TryGetRow<MirageStoreSetItem>(itemId, out var set))
+        if (!_excelService.TryGetRow<MirageStoreSetItem>(setId, out var set))
             return false;
 
-        if (!set.Items.Where(setItem => setItem.RowId != 0).Any(setItem => _cabinetService.TryGetCabinetId(setItem.RowId, out _)))
+        if (!set.Items.Any(item => _cabinetService.TryGetCabinetId(item.RowId, out _)))
             return false;
 
         return true;
