@@ -12,11 +12,11 @@ public unsafe partial class GlamourDresserArmoireAlert : ConfigurableTweak<Glamo
     private readonly AddonObserver _addonObserver;
     private readonly ExcelService _excelService;
     private readonly ItemService _itemService;
+    private readonly CabinetService _cabinetService;
     private readonly IFramework _framework;
 
     private GlamourDresserArmoireAlertWindow? _window;
     private bool _isPendingUpdate;
-    private HashSet<uint>? _cabinetItems = null;
     private uint[]? _lastItemIds = null;
 
     public Dictionary<uint, HashSet<ItemHandle>> Categories { get; } = [];
@@ -75,8 +75,6 @@ public unsafe partial class GlamourDresserArmoireAlert : ConfigurableTweak<Glamo
         _isPendingUpdate = true;
         _lastItemIds = itemIds.ToArray();
 
-        _cabinetItems ??= [.. _excelService.GetSheet<Cabinet>().Select(row => row.Item.RowId)];
-
         Categories.Clear();
 
         _logger.LogInformation("Updating...");
@@ -92,7 +90,7 @@ public unsafe partial class GlamourDresserArmoireAlert : ConfigurableTweak<Glamo
             if (!_itemService.TryGetItem(item, out var itemRow) && itemRow.ItemUICategory.TryGetRow(out var itemUICategory))
                 continue;
 
-            if (!_cabinetItems.Contains(itemId) && !IsSetContainingCabinetItems(itemId))
+            if (!_cabinetService.TryGetCabinetId(itemId, out _) && !IsSetContainingCabinetItems(itemId))
                 continue;
 
             if (!Categories.TryGetValue(itemRow.ItemUICategory.RowId, out var categoryItems))
@@ -118,10 +116,7 @@ public unsafe partial class GlamourDresserArmoireAlert : ConfigurableTweak<Glamo
         if (!_excelService.TryGetRow<MirageStoreSetItem>(itemId, out var set))
             return false;
 
-        if (!set.TryGetSetItemBitArray(out var unlockArray, false))
-            return false;
-
-        if (!set.Items.Where(setItem => setItem.RowId != 0).Any(setItem => _cabinetItems!.Contains(setItem.RowId)))
+        if (!set.Items.Where(setItem => setItem.RowId != 0).Any(setItem => _cabinetService.TryGetCabinetId(setItem.RowId, out _)))
             return false;
 
         return true;
