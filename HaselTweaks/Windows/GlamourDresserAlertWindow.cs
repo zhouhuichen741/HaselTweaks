@@ -6,16 +6,16 @@ using FFXIVClientStructs.FFXIV.Component.GUI;
 namespace HaselTweaks.Windows;
 
 [RegisterSingleton, AutoConstruct]
-public unsafe partial class GlamourDresserArmoireAlertWindow : SimpleWindow
+public unsafe partial class GlamourDresserAlertWindow : SimpleWindow
 {
     private static readonly Vector2 IconSize = new(34);
 
-    private readonly ILogger<GlamourDresserArmoireAlertWindow> _logger;
+    private readonly ILogger<GlamourDresserAlertWindow> _logger;
     private readonly ITextureProvider _textureProvider;
     private readonly ExcelService _excelService;
     private readonly TextService _textService;
     private readonly ItemService _itemService;
-    private readonly GlamourDresserArmoireAlert _tweak;
+    private readonly GlamourDresserAlert _tweak;
 
     public bool IsUpdatePending { get; set; }
 
@@ -29,12 +29,14 @@ public unsafe partial class GlamourDresserArmoireAlertWindow : SimpleWindow
         Flags |= ImGuiWindowFlags.NoResize;
         Flags |= ImGuiWindowFlags.NoMove;
 
-        SizeCondition = ImGuiCond.Always;
-        Size = new(360, 428);
+        SizeCondition = ImGuiCond.Appearing;
+        Size = new(370, 428);
+
+        // TODO: add config button to open tweak config :)
     }
 
     public override bool DrawConditions()
-        => IsAddonOpen("MiragePrismPrismBox"u8) && !IsAddonOpen("MiragePrismMiragePlate"u8) && _tweak.Categories.Count != 0;
+        => IsAddonOpen("MiragePrismPrismBox"u8) && !IsAddonOpen("MiragePrismMiragePlate"u8) && (_tweak.CabinetStorableItems.Count != 0 || _tweak.OutfitConvertibleItems.Count != 0);
 
     public override void PreDraw()
     {
@@ -49,9 +51,52 @@ public unsafe partial class GlamourDresserArmoireAlertWindow : SimpleWindow
 
     public override void Draw()
     {
-        ImGui.TextWrapped(_textService.Translate("GlamourDresserArmoireAlertWindow.Info"));
+        ImGui.TextWrapped(_textService.Translate("GlamourDresserAlertWindow.Info"));
 
-        foreach (var (categoryId, categoryItems) in _tweak.Categories.OrderBy(kv => kv.Key))
+        DrawCabinetItems();
+        DrawOutfitItems();
+    }
+
+    public void DrawCabinetItems()
+    {
+        if (_tweak.CabinetStorableItems.Count == 0)
+            return;
+
+        var itemCount = _tweak.CabinetStorableItems.Sum(kv => kv.Value.Count);
+        var label = _textService.EvaluateTranslatedSeString("GlamourDresserAlertWindow.CabinetReadyItemsTreeNodeLabel", itemCount).ToString();
+        using var treeNode = ImRaii.TreeNode($"{label}###CabinetReadyItemsTreeNode", ImGuiTreeNodeFlags.SpanAvailWidth);
+        if (!treeNode)
+            return;
+
+        foreach (var (categoryId, categoryItems) in _tweak.CabinetStorableItems.OrderBy(kv => kv.Key))
+        {
+            if (!_excelService.TryGetRow<ItemUICategory>(categoryId, out var category))
+                continue;
+
+            ImGui.Text(category.Name.ToString());
+            ImCursor.Y += 3 * ImStyle.Scale;
+
+            using var indent = ImRaii.PushIndent();
+
+            foreach (var item in categoryItems)
+            {
+                DrawItem(item);
+            }
+        }
+    }
+
+    public void DrawOutfitItems()
+    {
+        if (_tweak.OutfitConvertibleItems.Count == 0)
+            return;
+
+        var itemCount = _tweak.OutfitConvertibleItems.Sum(kv => kv.Value.Count);
+        var label = _textService.EvaluateTranslatedSeString("GlamourDresserAlertWindow.OutfitReadyItemsTreeNodeLabel", itemCount).ToString();
+        using var treeNode = ImRaii.TreeNode($"{label}###OutfitReadyItemsTreeNode", ImGuiTreeNodeFlags.SpanAvailWidth);
+        if (!treeNode)
+            return;
+
+        foreach (var (categoryId, categoryItems) in _tweak.OutfitConvertibleItems.OrderBy(kv => kv.Key))
         {
             if (!_excelService.TryGetRow<ItemUICategory>(categoryId, out var category))
                 continue;
