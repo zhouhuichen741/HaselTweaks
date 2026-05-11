@@ -179,7 +179,7 @@ Configuration options:
 
 ### Enhanced Isleworks Agenda
 
-Slightly improves the Isleworks "Set Agenda" window.
+Enhancements for the Isleworks "Set Agenda" window.
 
 Configuration options:
 
