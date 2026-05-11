@@ -1,5 +1,20 @@
 # Changelog
 
+## [Unreleased]
+
+### New Tweak: Flash Taskbar
+
+Flashes the window on the taskbar when specific events are triggered.
+
+Configuration options:
+
+- Flash on Alarm  
+  Triggers when a notification from the game's /alarm feature is printed in chat.
+- Flash on Combat  
+  Triggers when your character is drawn into combat.
+
+Please note: I will not re-implement scenarios that are already covered by existing plugins.
+
 ## [42.1.3] (2026-05-08)
 
 ### Enhanced Experience Bar

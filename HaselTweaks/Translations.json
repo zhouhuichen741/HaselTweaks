@@ -1343,6 +1343,30 @@
     "zh": "游戏不会在检测到鼠标双击时触发鼠标单击的UI事件。这个调整通过在鼠标双击的同时触发正常的鼠标单击来解决这个问题。"
   },
 
+  "FlashTaskbar.Tweak.Name": {
+    "en": "Flash Taskbar"
+  },
+  "FlashTaskbar.Tweak.Description": {
+    "en": "Flashes the window on the taskbar when specific events are triggered.",
+    "de": "Lässt das Fenster auf der Taskleiste bei bestimmten Ereignissen blinken."
+  },
+  "FlashTaskbar.Config.FlashOnAlarm.Label": {
+    "en": "Flash on Alarm",
+    "de": "Blinken bei Alarm"
+  },
+  "FlashTaskbar.Config.FlashOnAlarm.Description": {
+    "en": "Triggers when a notification from the game's /alarm feature is printed in chat.",
+    "de": "Wird ausgelöst, wenn eine Benachrichtigung der /alarm-Funktion des Spiels im Chat ausgegeben wird."
+  },
+  "FlashTaskbar.Config.FlashOnCombat.Label": {
+    "en": "Flash on Combat",
+    "de": "Blinken bei Kampfbeginn"
+  },
+  "FlashTaskbar.Config.FlashOnCombat.Description": {
+    "en": "Triggers when your character is drawn into combat.",
+    "de": "Wird ausgelöst, wenn dein Charakter in einen Kampf verwickelt wird."
+  },
+
   "FixInventoryOpenTab.Tweak.Name": {
     "en": "Fix Inventory Open Tab",
     "zh": "物品栏标签页修复"

@@ -229,6 +229,17 @@ This tweak fixes it by always triggering the normal mouse click in addition to t
 
 Try it out in the crafting window by clicking the recipe category tabs or the arrow buttons next to the dropdown menu.
 
+### Flash Taskbar
+
+Flashes the window on the taskbar when specific events are triggered.
+
+Configuration options:
+
+- Flash on Alarm  
+  Triggers when a notification from the game's /alarm feature is printed in chat.
+- Flash on Combat  
+  Triggers when your character is drawn into combat.
+
 ### Fix Inventory Open Tab
 
 Automatically resets the inventory to the first tab when opened.

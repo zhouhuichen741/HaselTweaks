@@ -17,6 +17,9 @@ SetClipboardData
 RegisterClipboardFormat
 CLIPBOARD_FORMAT
 
+FlashWindowEx
+FLASHWINFO
+
 // windgi.h
 
 BITMAPINFOHEADER
