@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [43.0.0] (2026-05-11)
 
 ### New Tweak: Enhanced Crafting Log
 
@@ -2501,7 +2501,8 @@ Refreshes the material list and recipe tree when you've crafted or gathered an i
 
 Opens duty finder for the duty you clicked on in the Wondrous Tails Journal.
 
-[unreleased]: https://github.com/Haselnussbomber/HaselTweaks/compare/v42.1.3...main
+[unreleased]: https://github.com/Haselnussbomber/HaselTweaks/compare/v43.0.0...main
+[43.0.0]: https://github.com/Haselnussbomber/HaselTweaks/compare/v42.1.3...v43.0.0
 [42.1.3]: https://github.com/Haselnussbomber/HaselTweaks/compare/v42.1.2...v42.1.3
 [42.1.2]: https://github.com/Haselnussbomber/HaselTweaks/compare/v42.1.1...v42.1.2
 [42.1.1]: https://github.com/Haselnussbomber/HaselTweaks/compare/v42.1.0...v42.1.1
