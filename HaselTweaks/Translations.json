@@ -1273,6 +1273,34 @@
     "de": "Automatisch den Filter auf \"Nur Unerledigte\" stellen"
   },
 
+  "EnhancedRecipeNote.Tweak.Name": {
+    "en": "Enhanced Crafting Log"
+  },
+  "EnhancedRecipeNote.Tweak.Description": {
+    "en": "Enhancements for the Crafting Log.",
+    "de": "Verbesserungen für das Handwerker-Notizbuch."
+  },
+  "EnhancedRecipeNote.Config.RememberSearchHistory.Label": {
+    "en": "Remember search history",
+    "de": "Suchhistorie merken"
+  },
+  "EnhancedRecipeNote.Config.RememberSearchHistory.Description": {
+    "en": "Saves search terms between game sessions and restores them upon login.",
+    "de": "Speichert Suchbegriffe zwischen Spielsitzungen und stellt sie beim Einloggen wieder her."
+  },
+  "EnhancedRecipeNote.Config.ClearSearchHistory": {
+    "en": "Clear search history",
+    "de": "Suchhistorie leeren"
+  },
+  "EnhancedRecipeNote.Config.ClearSearchHistory.Tooltip.Empty": {
+    "en": "The saved search history is already empty.",
+    "de": "Die gespeicherte Suchhistory ist bereits leer."
+  },
+  "EnhancedRecipeNote.Config.ClearSearchHistory.Tooltip.AgentActive": {
+    "en": "Please close the Crafting Log to clear the search history.",
+    "de": "Bitte schließe das Handwerker-Notizbuch um die Suchhistorie zu leeren."
+  },
+
   "EnhancedTargetInfo.Tweak.Name": {
     "en": "Enhanced Target Info",
     "zh": "目标信息增强"

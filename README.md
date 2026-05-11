@@ -140,6 +140,13 @@ Configuration options:
 
 - FPS unit text (default: " fps")
 
+### Enhanced Crafting Log
+
+Configuration options:
+
+- Remember search history  
+  Saves search terms between game sessions and restores them upon login.
+
 ### Enhanced Experience Bar
 
 Depending on the settings, the experience bar can be transformed into one of the following bars:

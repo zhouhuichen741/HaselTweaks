@@ -135,6 +135,7 @@ public class TweakConfigs
     public EnhancedMaterialListConfiguration EnhancedMaterialList { get; init; } = new();
     public EnhancedMonsterNoteConfiguration EnhancedMonsterNote { get; init; } = new();
     public EnhancedTargetInfoConfiguration EnhancedTargetInfo { get; init; } = new();
+    public EnhancedRecipeNoteConfiguration EnhancedRecipeNote { get; init; } = new();
     public FlashTaskbarConfiguration FlashTaskbar { get; init; } = new();
     public ForcedCutsceneMusicConfiguration ForcedCutsceneMusic { get; init; } = new();
     public GlamourDresserArmoireAlertConfiguration GlamourDresserArmoireAlert { get; init; } = new();
@@ -170,6 +171,7 @@ public static class PluginConfigExtension
         services.AddSingleton(pluginConfig.Tweaks.EnhancedMaterialList);
         services.AddSingleton(pluginConfig.Tweaks.EnhancedMonsterNote);
         services.AddSingleton(pluginConfig.Tweaks.EnhancedTargetInfo);
+        services.AddSingleton(pluginConfig.Tweaks.EnhancedRecipeNote);
         services.AddSingleton(pluginConfig.Tweaks.FlashTaskbar);
         services.AddSingleton(pluginConfig.Tweaks.ForcedCutsceneMusic);
         services.AddSingleton(pluginConfig.Tweaks.GlamourDresserArmoireAlert);

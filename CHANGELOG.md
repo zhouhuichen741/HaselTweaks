@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+### New Tweak: Enhanced Crafting Log
+
+Configuration options:
+
+- Remember search history  
+  Saves search terms between game sessions and restores them upon login.
+
 ### New Tweak: Flash Taskbar
 
 Flashes the window on the taskbar when specific events are triggered.
