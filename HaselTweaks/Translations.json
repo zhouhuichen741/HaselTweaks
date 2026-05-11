@@ -1537,6 +1537,14 @@
     "en": "Ignore qualified items that are part of an outfit",
     "de": "Qualifizierte Gegenstände, die Teil eines Outfits sind, ignorieren"
   },
+  "GlamourDresserArmoireAlert.Config.IgnoreOutfits.Description": {
+    "en": "Useful if you want to collect outfits rather than storing items in the amoire.",
+    "de": "Nützlich wenn du lieber Ausrüstungssets sammeln möchtest, statt die Gegenstände im Kostbarkeitenkabinett einzulegen."
+  },
+  "GlamourDresserArmoireAlert.Config.IgnoreDyedGlamour.Label": {
+    "en": "Ignore qualified items that are dyed",
+    "de": "Qualifizierte Gegenstände, die gefärbt sind, ignorieren"
+  },
   "GlamourDresserArmoireAlertWindow.Title": {
     "en": "[HaselTweaks] Glamour Dresser Armoire Alert",
     "zh": "[HaselTweaks] 投影台物品可放入收藏柜警报"

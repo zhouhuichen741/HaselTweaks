@@ -3,6 +3,7 @@ namespace HaselTweaks.Tweaks;
 public class GlamourDresserArmoireAlertConfiguration
 {
     public bool IgnoreOutfits = false;
+    public bool IgnoreDyedGlamour = false;
 }
 
 public partial class GlamourDresserArmoireAlert
@@ -11,5 +12,6 @@ public partial class GlamourDresserArmoireAlert
     {
         _configGui.DrawConfigurationHeader();
         _configGui.DrawBool("IgnoreOutfits", ref _config.IgnoreOutfits);
+        _configGui.DrawBool("IgnoreDyedGlamour", ref _config.IgnoreDyedGlamour);
     }
 }

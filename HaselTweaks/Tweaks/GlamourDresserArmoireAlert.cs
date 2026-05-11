@@ -104,6 +104,10 @@ public unsafe partial class GlamourDresserArmoireAlert : ConfigurableTweak<Glamo
             if (!isSet && !_cabinetService.TryGetCabinetId(item, out _))
                 continue;
 
+            // skip items that are dyed
+            if (_config.IgnoreDyedGlamour && !isSet && (mirageManager->PrismBoxStain0Ids[i] != 0 || mirageManager->PrismBoxStain1Ids[i] != 0))
+                continue;
+
             if (!Categories.TryGetValue(itemRow.ItemUICategory.RowId, out var categoryItems))
                 Categories.TryAdd(itemRow.ItemUICategory.RowId, categoryItems = []);
 
