@@ -1534,7 +1534,7 @@
     "zh": "在投影台界面旁打开一个列出能被存储到收藏柜里的物品（仅显示存在的符合条件的物品）的小窗口。"
   },
   "GlamourDresserArmoireAlert.Config.IgnoreOutfits.Label": {
-    "en": "Ignore qualified items that are part of an outfit.",
+    "en": "Ignore qualified items that are part of an outfit",
     "de": "Qualifizierte Gegenstände, die Teil eines Outfits sind, ignorieren"
   },
   "GlamourDresserArmoireAlertWindow.Title": {

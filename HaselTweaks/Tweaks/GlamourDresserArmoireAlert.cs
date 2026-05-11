@@ -79,18 +79,29 @@ public unsafe partial class GlamourDresserArmoireAlert : ConfigurableTweak<Glamo
 
         _logger.LogInformation("Updating...");
 
-        for (var i = 0u; i < itemIds.Length; i++)
+        for (var i = 0; i < itemIds.Length; i++)
         {
-            ItemHandle item = itemIds[(int)i];
+            ItemHandle item = itemIds[i];
 
-            var itemId = item.BaseItemId;
-            if (itemId == 0)
+            // skip empty slots
+            if (item.IsEmpty)
                 continue;
 
-            if (!_itemService.TryGetItem(item, out var itemRow) && itemRow.ItemUICategory.TryGetRow(out var itemUICategory))
+            // check if item exists and has UI category set
+            if (!_itemService.TryGetItem(item, out var itemRow) || itemRow.ItemUICategory.RowId == 0 || !itemRow.ItemUICategory.IsValid)
                 continue;
 
-            if (!_cabinetService.TryGetCabinetId(itemId, out _) && !IsSetContainingCabinetItems(itemId))
+            var isSet = _excelService.TryGetRow<MirageStoreSetItem>(item, out var setRow);
+
+            // skip outfits that can't be stored in the armoire
+            if (_config.IgnoreOutfits && isSet)
+                continue;
+
+            if (isSet && itemRow.ItemUICategory.RowId == 112 && !setRow.Items.Any(item => _cabinetService.TryGetCabinetId(item.RowId, out _)))
+                continue;
+
+            // skip items that can't be stored in the armoire
+            if (!isSet && !_cabinetService.TryGetCabinetId(item, out _))
                 continue;
 
             if (!Categories.TryGetValue(itemRow.ItemUICategory.RowId, out var categoryItems))
@@ -106,19 +117,5 @@ public unsafe partial class GlamourDresserArmoireAlert : ConfigurableTweak<Glamo
 
         _window ??= _serviceProvider.CreateInstance<GlamourDresserArmoireAlertWindow>(this);
         _window.Open();
-    }
-
-    private bool IsSetContainingCabinetItems(uint setId)
-    {
-        if (_config.IgnoreOutfits)
-            return false;
-
-        if (!_excelService.TryGetRow<MirageStoreSetItem>(setId, out var set))
-            return false;
-
-        if (!set.Items.Any(item => _cabinetService.TryGetCabinetId(item.RowId, out _)))
-            return false;
-
-        return true;
     }
 }
