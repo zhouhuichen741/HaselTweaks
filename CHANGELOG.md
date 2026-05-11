@@ -22,6 +22,11 @@ Configuration options:
 
 Please note: I will not re-implement scenarios that are already covered by existing plugins.
 
+### Glamour Dresser Armoire Alert
+
+- **Added:** An option to ignore items that are dyed.
+- **Fixed:** The window wouldn't hide itself when editing glamour plates.
+
 ## [42.1.3] (2026-05-08)
 
 ### Enhanced Experience Bar

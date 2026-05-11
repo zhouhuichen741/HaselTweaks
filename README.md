@@ -283,6 +283,12 @@ Configuration options:
 
 Opens a small window next to the Glamour Dresser with a list of items that can be stored in the Armoire (only visible if qualified items were found).
 
+Configuration options:
+
+- Ignore qualified items that are part of an outfit  
+  Useful if you want to collect outfits rather than storing items in the amoire.
+- Ignore qualified items that are dyed
+
 ### Glamour Dresser Keyboard Navigation
 
 Enables using arrow keys to select items in the Glamour Dresser.
