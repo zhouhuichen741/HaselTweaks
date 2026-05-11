@@ -34,7 +34,7 @@ public unsafe partial class GlamourDresserArmoireAlertWindow : SimpleWindow
     }
 
     public override bool DrawConditions()
-        => IsAddonOpen("MiragePrismPrismBox"u8) && _tweak.Categories.Count != 0;
+        => IsAddonOpen("MiragePrismPrismBox"u8) && !IsAddonOpen("MiragePrismMiragePlate"u8) && _tweak.Categories.Count != 0;
 
     public override void PreDraw()
     {
