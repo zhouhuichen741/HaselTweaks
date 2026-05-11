@@ -29,8 +29,7 @@ public partial class FlashTaskbar : ConfigurableTweak<FlashTaskbarConfiguration>
     {
         if (_config.FlashOnAlarm && message.LogMessageId == 3906)
         {
-            _logger.LogDebug("Alarm! Flashing taskbar...");
-            Flash();
+            Flash("Alarm!");
         }
     }
 
@@ -38,16 +37,18 @@ public partial class FlashTaskbar : ConfigurableTweak<FlashTaskbarConfiguration>
     {
         if (_config.FlashOnCombat && flag == ConditionFlag.InCombat && value)
         {
-            _logger.LogDebug("Combat started! Flashing taskbar...");
-            Flash();
+            Flash("Combat started!");
         }
     }
 
-    private unsafe void Flash()
+    private unsafe void Flash(string? reason = null)
     {
         var framework = Framework.Instance();
         if (framework == null || framework->GameWindow == null || !framework->WindowInactive)
             return;
+
+        if (reason != null)
+            _logger.LogTrace("{reason} Flashing taskbar...", reason);
 
         PInvoke.FlashWindowEx(new FLASHWINFO()
         {
