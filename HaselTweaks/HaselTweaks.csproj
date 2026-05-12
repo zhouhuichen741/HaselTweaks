@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Name>HaselTweaks</Name>
     <Version>43.0.0</Version>
-    <Author>Haselnussbomber</Author>
-    <RepoUrl>https://github.com/Haselnussbomber/HaselTweaks</RepoUrl>
-    <IconUrl>https://raw.githubusercontent.com/Haselnussbomber/HaselTweaks/refs/heads/main/HaselTweaks/Assets/Icon.png</IconUrl>
-    <Punchline>A collection of quality of life tweaks.</Punchline>
-    <Description>Keep on tweaking.</Description>
+    <Author>Haselnussbomber,cyf5119(汉化),zhouhuichen741(汉化&本地化维护)</Author>
+    <RepoUrl>https://github.com/zhouhuichen741/HaselTweaks</RepoUrl>
+    <IconUrl>https://raw.githubusercontent.com/zhouhuichen741/dalamud-plugins/master/plugins/HaselTweaks/icon.png</IconUrl>
+    <Punchline>一系列生活质量调整（在线安装 Only）</Punchline>
+    <Description>继续调整</Description>
     <LoadRequiredState>1</LoadRequiredState>
   </PropertyGroup>
 
