@@ -1,6 +1,6 @@
-﻿[submodule "HaselCommon"]
+[submodule "HaselCommon"]
 	path = HaselCommon
 	url = https://github.com/Haselnussbomber/HaselCommon.git
 [submodule "FFXIVClientStructs"]
-    path = FFXIVClientStructs
-    url = https://github.com/Dalamud-DailyRoutines/FFXIVClientStructs.git
+	path = FFXIVClientStructs
+	url = https://github.com/aers/FFXIVClientStructs.git
