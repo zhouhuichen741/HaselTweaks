@@ -9,6 +9,14 @@
     "en": "HaselTweaks - Licenses",
     "de": "HaselTweaks - Lizenzen"
   },
+  "TitleBarButton.OpenConfig": {
+    "en": "Open configuration",
+    "de": "Öffne Konfiguration"
+  },
+  "TitleBarButton.CloseConfig": {
+    "en": "Close configuration",
+    "de": "Schließe Konfiguration"
+  },
   "HaselTweaks.CommandHandlerHelpMessage": {
     "en": "Opens the HaselTweaks configuration window",
     "de": "Öffnet das HaselTweaks-Konfigurationsfenster",

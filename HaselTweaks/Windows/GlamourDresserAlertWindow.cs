@@ -16,6 +16,7 @@ public unsafe partial class GlamourDresserAlertWindow : SimpleWindow
     private readonly TextService _textService;
     private readonly ItemService _itemService;
     private readonly GlamourDresserAlert _tweak;
+    private readonly WindowManager _windowManager;
 
     public bool IsUpdatePending { get; set; }
 
@@ -26,13 +27,22 @@ public unsafe partial class GlamourDresserAlertWindow : SimpleWindow
         RespectCloseHotkey = false;
 
         Flags |= ImGuiWindowFlags.NoSavedSettings;
-        Flags |= ImGuiWindowFlags.NoResize;
         Flags |= ImGuiWindowFlags.NoMove;
 
         SizeCondition = ImGuiCond.Appearing;
         Size = new(370, 428);
 
-        // TODO: add config button to open tweak config :)
+        TitleBarButtons.Add(new()
+        {
+            Icon = FontAwesomeIcon.Cog,
+            IconOffset = new(0, 1),
+            ShowTooltip = () =>
+            {
+                var isWindowOpen = _windowManager.TryGetWindow<PluginWindow>(out var pluginWindow) && pluginWindow.IsOpen;
+                ImGui.SetTooltip(_textService.Translate(isWindowOpen ? "TitleBarButton.CloseConfig" : "TitleBarButton.OpenConfig"));
+            },
+            Click = (button) => _windowManager.CreateOrToggle<PluginWindow>().SelectTweak<GlamourDresserAlert>()
+        });
     }
 
     public override bool DrawConditions()
