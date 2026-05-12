@@ -22,12 +22,9 @@
       },
       "Injectio": {
         "type": "Direct",
-        "requested": "[5.2.1, )",
-        "resolved": "5.2.1",
-        "contentHash": "9UHeJbhgaQ8u47sREd2xXE2QYMVp+Ik6rEbk7nTyWJsMdLbBF/grOammSBw2Z/YXbnrn3RFduN0bOHHmCkktMQ==",
-        "dependencies": {
-          "Microsoft.Extensions.DependencyInjection": "10.0.7"
-        }
+        "requested": "[6.0.0, )",
+        "resolved": "6.0.0",
+        "contentHash": "2hktHHGw0vZIkHZ04ElsPXaPiEe50otpLGe0UdrOfCdSTWLTb3zMjbU0t+PmeSJZV3LFwi652X7VlTbo+/XIsg=="
       },
       "Microsoft.CodeAnalysis.BannedApiAnalyzers": {
         "type": "Direct",

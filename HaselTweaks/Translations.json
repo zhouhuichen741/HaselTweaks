@@ -1281,7 +1281,7 @@
   },
   "EnhancedMonsterNote.Tweak.Description": {
     "en": "Enhancements for the Hunting Log.",
-    "de": "Verbesserungen für das Bestiarium."
+    "de": "Verbesserungen für das Bestiarium.",
 	"zh": "强化版狩猎日志。"
   },
   "EnhancedMonsterNote.Config.RememberTabSelection.Label": {
@@ -1308,6 +1308,34 @@
     "en": "Automatically set the filter to \"Show Incomplete\"",
     "de": "Automatisch den Filter auf \"Nur Unerledigte\" stellen",
 	"zh": "自动将筛选器设置为“显示未完成”"
+  },
+
+  "EnhancedRecipeNote.Tweak.Name": {
+    "en": "Enhanced Crafting Log"
+  },
+  "EnhancedRecipeNote.Tweak.Description": {
+    "en": "Enhancements for the Crafting Log.",
+    "de": "Verbesserungen für das Handwerker-Notizbuch."
+  },
+  "EnhancedRecipeNote.Config.RememberSearchHistory.Label": {
+    "en": "Remember search history",
+    "de": "Suchhistorie merken"
+  },
+  "EnhancedRecipeNote.Config.RememberSearchHistory.Description": {
+    "en": "Saves search terms between game sessions and restores them upon login.",
+    "de": "Speichert Suchbegriffe zwischen Spielsitzungen und stellt sie beim Einloggen wieder her."
+  },
+  "EnhancedRecipeNote.Config.ClearSearchHistory": {
+    "en": "Clear search history",
+    "de": "Suchhistorie leeren"
+  },
+  "EnhancedRecipeNote.Config.ClearSearchHistory.Tooltip.Empty": {
+    "en": "The saved search history is already empty.",
+    "de": "Die gespeicherte Suchhistory ist bereits leer."
+  },
+  "EnhancedRecipeNote.Config.ClearSearchHistory.Tooltip.AgentActive": {
+    "en": "Please close the Crafting Log to clear the search history.",
+    "de": "Bitte schließe das Handwerker-Notizbuch um die Suchhistorie zu leeren."
   },
 
   "EnhancedTargetInfo.Tweak.Name": {
@@ -1377,6 +1405,30 @@
     "en": "The game does not fire UI events for single mouse clicks whenever a double click is detected. This tweak fixes it by always triggering the normal mouse click in addition to the double click.",
     "de": "Das Spiel löst keine UI-Events für einzelne Mausklicks aus, wenn ein Doppelklick erkannt wird. Dieser Tweak behebt dies, indem er zusätzlich zum Doppelklick immer den normalen Mausklick auslöst.",
     "zh": "游戏不会在检测到鼠标双击时触发鼠标单击的UI事件。这个调整通过在鼠标双击的同时触发正常的鼠标单击来解决这个问题。"
+  },
+
+  "FlashTaskbar.Tweak.Name": {
+    "en": "Flash Taskbar"
+  },
+  "FlashTaskbar.Tweak.Description": {
+    "en": "Flashes the window on the taskbar when specific events are triggered.",
+    "de": "Lässt das Fenster auf der Taskleiste bei bestimmten Ereignissen blinken."
+  },
+  "FlashTaskbar.Config.FlashOnAlarm.Label": {
+    "en": "Flash on Alarm",
+    "de": "Blinken bei Alarm"
+  },
+  "FlashTaskbar.Config.FlashOnAlarm.Description": {
+    "en": "Triggers when a notification from the game's /alarm feature is printed in chat.",
+    "de": "Wird ausgelöst, wenn eine Benachrichtigung der /alarm-Funktion des Spiels im Chat ausgegeben wird."
+  },
+  "FlashTaskbar.Config.FlashOnCombat.Label": {
+    "en": "Flash on Combat",
+    "de": "Blinken bei Kampfbeginn"
+  },
+  "FlashTaskbar.Config.FlashOnCombat.Description": {
+    "en": "Triggers when your character is drawn into combat.",
+    "de": "Wird ausgelöst, wenn dein Charakter in einen Kampf verwickelt wird."
   },
 
   "FixInventoryOpenTab.Tweak.Name": {
@@ -1523,6 +1575,14 @@
     "en": "Ignore qualified items that are part of an outfit",
     "de": "Qualifizierte Gegenstände, die Teil eines Outfits sind, ignorieren",
     "zh": "忽略已经套装化的物品。"
+  },
+  "GlamourDresserArmoireAlert.Config.IgnoreOutfits.Description": {
+    "en": "Useful if you want to collect outfits rather than storing items in the amoire.",
+    "de": "Nützlich wenn du lieber Ausrüstungssets sammeln möchtest, statt die Gegenstände im Kostbarkeitenkabinett einzulegen."
+  },
+  "GlamourDresserArmoireAlert.Config.IgnoreDyedGlamour.Label": {
+    "en": "Ignore qualified items that are dyed",
+    "de": "Qualifizierte Gegenstände, die gefärbt sind, ignorieren"
   },
   "GlamourDresserArmoireAlertWindow.Title": {
     "en": "[HaselTweaks] Glamour Dresser Armoire Alert",

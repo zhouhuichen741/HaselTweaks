@@ -140,6 +140,13 @@ Configuration options:
 
 - FPS unit text (default: " fps")
 
+### Enhanced Crafting Log
+
+Configuration options:
+
+- Remember search history  
+  Saves search terms between game sessions and restores them upon login.
+
 ### Enhanced Experience Bar
 
 Depending on the settings, the experience bar can be transformed into one of the following bars:
@@ -172,7 +179,7 @@ Configuration options:
 
 ### Enhanced Isleworks Agenda
 
-Slightly improves the Isleworks "Set Agenda" window.
+Enhancements for the Isleworks "Set Agenda" window.
 
 Configuration options:
 
@@ -229,6 +236,17 @@ This tweak fixes it by always triggering the normal mouse click in addition to t
 
 Try it out in the crafting window by clicking the recipe category tabs or the arrow buttons next to the dropdown menu.
 
+### Flash Taskbar
+
+Flashes the window on the taskbar when specific events are triggered.
+
+Configuration options:
+
+- Flash on Alarm  
+  Triggers when a notification from the game's /alarm feature is printed in chat.
+- Flash on Combat  
+  Triggers when your character is drawn into combat.
+
 ### Fix Inventory Open Tab
 
 Automatically resets the inventory to the first tab when opened.
@@ -264,6 +282,12 @@ Configuration options:
 ### Glamour Dresser Armoire Alert
 
 Opens a small window next to the Glamour Dresser with a list of items that can be stored in the Armoire (only visible if qualified items were found).
+
+Configuration options:
+
+- Ignore qualified items that are part of an outfit  
+  Useful if you want to collect outfits rather than storing items in the amoire.
+- Ignore qualified items that are dyed
 
 ### Glamour Dresser Keyboard Navigation
 

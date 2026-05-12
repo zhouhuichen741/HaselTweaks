@@ -1,5 +1,32 @@
 # Changelog
 
+## [43.0.0] (2026-05-11)
+
+### New Tweak: Enhanced Crafting Log
+
+Configuration options:
+
+- Remember search history  
+  Saves search terms between game sessions and restores them upon login.
+
+### New Tweak: Flash Taskbar
+
+Flashes the window on the taskbar when specific events are triggered.
+
+Configuration options:
+
+- Flash on Alarm  
+  Triggers when a notification from the game's /alarm feature is printed in chat.
+- Flash on Combat  
+  Triggers when your character is drawn into combat.
+
+Please note: I will not re-implement scenarios that are already covered by existing plugins.
+
+### Glamour Dresser Armoire Alert
+
+- **Added:** An option to ignore items that are dyed.
+- **Fixed:** The window wouldn't hide itself when editing glamour plates.
+
 ## [42.1.3] (2026-05-08)
 
 ### Enhanced Experience Bar
@@ -2474,7 +2501,8 @@ Refreshes the material list and recipe tree when you've crafted or gathered an i
 
 Opens duty finder for the duty you clicked on in the Wondrous Tails Journal.
 
-[unreleased]: https://github.com/Haselnussbomber/HaselTweaks/compare/v42.1.3...main
+[unreleased]: https://github.com/Haselnussbomber/HaselTweaks/compare/v43.0.0...main
+[43.0.0]: https://github.com/Haselnussbomber/HaselTweaks/compare/v42.1.3...v43.0.0
 [42.1.3]: https://github.com/Haselnussbomber/HaselTweaks/compare/v42.1.2...v42.1.3
 [42.1.2]: https://github.com/Haselnussbomber/HaselTweaks/compare/v42.1.1...v42.1.2
 [42.1.1]: https://github.com/Haselnussbomber/HaselTweaks/compare/v42.1.0...v42.1.1
