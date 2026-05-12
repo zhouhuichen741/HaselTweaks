@@ -1057,8 +1057,8 @@
     "zh": "工房生产计划增强"
   },
   "EnhancedIsleworksAgenda.Tweak.Description": {
-    "en": "Slightly improves the Isleworks \"Set Agenda\" window.",
-    "de": "Verbessert etwas das \"Plan aufstellen\"-Fenster des Atelierplans."
+    "en": "Enhancements for the Isleworks \"Set Agenda\" window.",
+    "de": "Verbesserungen für das \"Plan aufstellen\"-Fenster des Atelierplans."
   },
   "EnhancedIsleworksAgenda.Config.EnableSearchBar.Label": {
     "en": "Enable Search Bar",
@@ -1086,8 +1086,8 @@
     "zh": "登入/登出增强"
   },
   "EnhancedLoginLogout.Tweak.Description": {
-    "en": "Enhances login and logout.",
-    "de": "Verbessert Login und Logout.",
+    "en": "Enhancements for login and logout.",
+    "de": "Verbesserungen für Login und Logout.",
     "zh": "增强登入与登出。"
   },
   "EnhancedLoginLogout.Config.LoginOptions.Title": {
@@ -1205,8 +1205,8 @@
     "zh": "增强材料列表"
   },
   "EnhancedMaterialList.Tweak.Description": {
-    "en": "Enhances the Material List (and Recipe Tree).",
-    "de": "Verbessert Materialliste (und Rezeptbaum).",
+    "en": "Enhancements for the Material List (and Recipe Tree).",
+    "de": "Verbesserungen für die Materialliste (und Rezeptbaum).",
     "zh": "增强材料列表（与配方树状图）"
   },
   "EnhancedMaterialList.Config.EnableZoneNames.Label": {
@@ -1280,8 +1280,8 @@
 	"zh": "强化狩猎日志"
   },
   "EnhancedMonsterNote.Tweak.Description": {
-    "en": "Enhances the Hunting Log.",
-    "de": "Verbessert das Bestiarium.",
+    "en": "Enhancements for the Hunting Log.",
+    "de": "Verbesserungen für das Bestiarium."
 	"zh": "强化版狩猎日志。"
   },
   "EnhancedMonsterNote.Config.RememberTabSelection.Label": {
@@ -1315,8 +1315,8 @@
     "zh": "目标信息增强"
   },
   "EnhancedTargetInfo.Tweak.Description": {
-    "en": "Enhances the Target Info.",
-    "de": "Verbessert die Zielinfo."
+    "en": "Enhancements for the Target Info.",
+    "de": "Verbesserungen für die Zielinfo."
   },
   "EnhancedTargetInfo.Config.DisplayMountStatus.Label": {
     "en": "Display Mounted status",
