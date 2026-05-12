@@ -1058,8 +1058,7 @@
   },
   "EnhancedIsleworksAgenda.Tweak.Description": {
     "en": "Slightly improves the Isleworks \"Set Agenda\" window.",
-    "de": "Verbessert etwas das \"Plan aufstellen\"-Fenster des Atelierplans.",
-    "zh": "略微改良海岛工坊的“设置生产计划”窗口。"
+    "de": "Verbessert etwas das \"Plan aufstellen\"-Fenster des Atelierplans."
   },
   "EnhancedIsleworksAgenda.Config.EnableSearchBar.Label": {
     "en": "Enable Search Bar",
@@ -1317,8 +1316,7 @@
   },
   "EnhancedTargetInfo.Tweak.Description": {
     "en": "Enhances the Target Info.",
-    "de": "Verbessert die Zielinfo.",
-    "zh": "增强目标信息显示。"
+    "de": "Verbessert die Zielinfo."
   },
   "EnhancedTargetInfo.Config.DisplayMountStatus.Label": {
     "en": "Display Mounted status",
