@@ -281,7 +281,7 @@ Configuration options:
 
 ### Glamour Dresser Alert
 
-Opens a small window next to the Glamour Dresser with a list of items that can be stored in the Armoire or stored as Outfit (only visible if qualified items were found).
+Opens a small window next to the Glamour Dresser with a list of items that can be placed in the armoire or stored as outfit (only visible if qualified items were found).
 
 Configuration options:
 

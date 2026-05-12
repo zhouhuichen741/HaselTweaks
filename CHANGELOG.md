@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased]
+
+### Tweak reworked: Glamour Dresser Alert
+
+Previously called Glamour Dresser Armoire Alert.
+
+The window now also lists items that can be stored as outfit set.
+
 ## [43.0.0] (2026-05-11)
 
 ### New Tweak: Enhanced Crafting Log
