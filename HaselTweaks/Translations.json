@@ -1312,31 +1312,38 @@
   },
 
   "EnhancedRecipeNote.Tweak.Name": {
-    "en": "Enhanced Crafting Log"
+    "en": "Enhanced Crafting Log",
+	"zh": "增强制作笔记"
   },
   "EnhancedRecipeNote.Tweak.Description": {
     "en": "Enhancements for the Crafting Log.",
-    "de": "Verbesserungen für das Handwerker-Notizbuch."
+    "de": "Verbesserungen für das Handwerker-Notizbuch.",
+	"zh": "对制作笔记的增强。"
   },
   "EnhancedRecipeNote.Config.RememberSearchHistory.Label": {
     "en": "Remember search history",
-    "de": "Suchhistorie merken"
+    "de": "Suchhistorie merken",
+	"zh": "记住搜索历史记录"
   },
   "EnhancedRecipeNote.Config.RememberSearchHistory.Description": {
     "en": "Saves search terms between game sessions and restores them upon login.",
-    "de": "Speichert Suchbegriffe zwischen Spielsitzungen und stellt sie beim Einloggen wieder her."
+    "de": "Speichert Suchbegriffe zwischen Spielsitzungen und stellt sie beim Einloggen wieder her.",
+	"zh": "保存游戏会话之间的搜索历史记录，并在登录时恢复它们。"
   },
   "EnhancedRecipeNote.Config.ClearSearchHistory": {
     "en": "Clear search history",
-    "de": "Suchhistorie leeren"
+    "de": "Suchhistorie leeren",
+	"zh": "清除搜索历史记录"
   },
   "EnhancedRecipeNote.Config.ClearSearchHistory.Tooltip.Empty": {
     "en": "The saved search history is already empty.",
-    "de": "Die gespeicherte Suchhistory ist bereits leer."
+    "de": "Die gespeicherte Suchhistory ist bereits leer.",
+	"zh": "保存的搜索历史记录已经是空的了。"
   },
   "EnhancedRecipeNote.Config.ClearSearchHistory.Tooltip.AgentActive": {
     "en": "Please close the Crafting Log to clear the search history.",
-    "de": "Bitte schließe das Handwerker-Notizbuch um die Suchhistorie zu leeren."
+    "de": "Bitte schließe das Handwerker-Notizbuch um die Suchhistorie zu leeren.",
+	"zh": "请关闭制作笔记以清除搜索历史记录。"
   },
 
   "EnhancedTargetInfo.Tweak.Name": {
@@ -1410,27 +1417,33 @@
   },
 
   "FlashTaskbar.Tweak.Name": {
-    "en": "Flash Taskbar"
+    "en": "Flash Taskbar",
+	"zh": "任务栏闪烁"
   },
   "FlashTaskbar.Tweak.Description": {
     "en": "Flashes the window on the taskbar when specific events are triggered.",
-    "de": "Lässt das Fenster auf der Taskleiste bei bestimmten Ereignissen blinken."
+    "de": "Lässt das Fenster auf der Taskleiste bei bestimmten Ereignissen blinken.",
+	"zh": "当特定事件触发时，在任务栏上闪烁窗口。"
   },
   "FlashTaskbar.Config.FlashOnAlarm.Label": {
     "en": "Flash on Alarm",
-    "de": "Blinken bei Alarm"
+    "de": "Blinken bei Alarm",
+	"zh": "闹钟时闪烁"
   },
   "FlashTaskbar.Config.FlashOnAlarm.Description": {
     "en": "Triggers when a notification from the game's /alarm feature is printed in chat.",
-    "de": "Wird ausgelöst, wenn eine Benachrichtigung der /alarm-Funktion des Spiels im Chat ausgegeben wird."
+    "de": "Wird ausgelöst, wenn eine Benachrichtigung der /alarm-Funktion des Spiels im Chat ausgegeben wird.",
+	"zh": "当游戏的 /闹钟 功能的通知打印在聊天框时触发。"
   },
   "FlashTaskbar.Config.FlashOnCombat.Label": {
     "en": "Flash on Combat",
-    "de": "Blinken bei Kampfbeginn"
+    "de": "Blinken bei Kampfbeginn",
+	"zh": "战斗时闪烁"
   },
   "FlashTaskbar.Config.FlashOnCombat.Description": {
     "en": "Triggers when your character is drawn into combat.",
-    "de": "Wird ausgelöst, wenn dein Charakter in einen Kampf verwickelt wird."
+    "de": "Wird ausgelöst, wenn dein Charakter in einen Kampf verwickelt wird.",
+	"zh": "当你的角色进入战斗时触发。"
   },
 
   "FixInventoryOpenTab.Tweak.Name": {
@@ -1580,11 +1593,13 @@
   },
   "GlamourDresserArmoireAlert.Config.IgnoreOutfits.Description": {
     "en": "Useful if you want to collect outfits rather than storing items in the amoire.",
-    "de": "Nützlich wenn du lieber Ausrüstungssets sammeln möchtest, statt die Gegenstände im Kostbarkeitenkabinett einzulegen."
+    "de": "Nützlich wenn du lieber Ausrüstungssets sammeln möchtest, statt die Gegenstände im Kostbarkeitenkabinett einzulegen.",
+    "zh": "如果你想收集套装而不是把物品存到收藏柜，这个会很有用。"
   },
   "GlamourDresserArmoireAlert.Config.IgnoreDyedGlamour.Label": {
     "en": "Ignore qualified items that are dyed",
-    "de": "Qualifizierte Gegenstände, die gefärbt sind, ignorieren"
+    "de": "Qualifizierte Gegenstände, die gefärbt sind, ignorieren",
+    "zh": "忽略已染色的符合条件的物品"
   },
   "GlamourDresserArmoireAlertWindow.Title": {
     "en": "[HaselTweaks] Glamour Dresser Armoire Alert",
@@ -2195,7 +2210,8 @@
   },
   "PortraitHelperWindows.MenuBar.ToggleAlignmentTool.Label": {
     "en": "Toggle Alignment Tool\nShift: Open/close Settings",
-    "de": "Ausrichtungswerkzeug umschalten\nShift: Einstellungen öffnen/schließen"
+    "de": "Ausrichtungswerkzeug umschalten\nShift: Einstellungen öffnen/schließen",
+    "zh": "开关辅助线\nShift：打开/关闭设置"
   },
   "PortraitHelperWindows.PresetCard.MovingPresetCard.Tooltip": {
     "en": "Moving \"{0}\"",
@@ -2545,7 +2561,8 @@
   },
   "ConfirmationButtonWindow.Saving": {
     "en": "Saving...",
-    "de": "Speichert..."
+    "de": "Speichert...",
+    "zh": "正在保存..."
   },
   "ConfirmationButtonWindow.Cancel": {
     "en": "Cancel",
