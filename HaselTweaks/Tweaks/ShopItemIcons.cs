@@ -47,15 +47,26 @@ public unsafe partial class ShopItemIcons : ConfigurableTweak<ShopItemIconsConfi
 
     private void UpdateShopIcons(Span<AtkValue> values)
     {
-        if (values.IsEmpty)
+        const int valueCount = 625;
+
+        if (values.Length != valueCount)
+        {
+            _logger.LogDebug("[UpdateShopIcons] Expected {count} AtkValues, found {actualCount}. Aborting.", valueCount, values.Length);
             return;
+        }
 
         var handler = ShopEventHandler.AgentProxy.Instance()->Handler;
         if (handler == null)
+        {
+            _logger.LogDebug("[UpdateShopIcons] ShopEventHandler Handler is null. Aborting.");
             return;
+        }
 
         if (!values[0].TryGetUInt(out var tabIndex))
+        {
+            _logger.LogDebug("[UpdateShopIcons] Could not read tab index. Aborting.");
             return;
+        }
 
         const int IconIdOffset = 197;
 
@@ -108,12 +119,23 @@ public unsafe partial class ShopItemIcons : ConfigurableTweak<ShopItemIconsConfi
             return;
         }
 
-        var values = refreshArgs.GetAtkValues();
+        // 48 89 5C 24 ?? 55 56 57 41 54 41 55 41 56 41 57 48 83 EC ?? 0F B6 99
+        const int valueCount = 3325;
 
-        for (var i = 0; i < 60; i++)
+        var values = refreshArgs.GetAtkValues();
+        if (values.Length != valueCount)
         {
-            ref var itemIdValue = ref values[1063 + i];
-            ref var iconIdValue = ref values[209 + i];
+            _logger.LogDebug("[OnShopExchangePreRefresh] Expected {count} AtkValues, found {actualCount}. Aborting.", valueCount, values.Length);
+            return;
+        }
+
+        if (!values[4].TryGetUInt(out var itemCount))
+            return;
+
+        for (var i = 0; i < itemCount; i++)
+        {
+            ref var itemIdValue = ref values[1066 + i];
+            ref var iconIdValue = ref values[212 + i];
 
             if (!itemIdValue.IsUInt || !iconIdValue.IsInt || itemIdValue.UInt == 0)
                 continue;
@@ -127,13 +149,16 @@ public unsafe partial class ShopItemIcons : ConfigurableTweak<ShopItemIconsConfi
         if (!_config.HandleGrandCompanyExchange || args is not AddonRefreshArgs refreshArgs)
             return;
 
+        // last function called in GCShopEventHandler_vf47
+        const int valueCount = 556;
+
         var values = refreshArgs.GetAtkValues();
-
-        // sometimes it refreshes with just 10 values
-        if (values.Length != 556)
+        if (values.Length != valueCount)
+        {
+            _logger.LogDebug("[OnGrandCompanyExchangePreRefresh] Expected {count} AtkValues, found {actualCount}. Aborting.", valueCount, values.Length);
             return;
+        }
 
-        // last function called in GCShopEventHandler_vf48
         for (var i = 0; i < 50; i++)
         {
             ref var itemIdValue = ref values[317 + i];
@@ -151,10 +176,19 @@ public unsafe partial class ShopItemIcons : ConfigurableTweak<ShopItemIconsConfi
         if (!_config.HandleInclusionShop || args is not AddonRefreshArgs refreshArgs)
             return;
 
-        var values = refreshArgs.GetAtkValues();
+        // second to last function called in AgentInclusionShop_Update
+        const int valueCount = 2939;
 
-        // "E8 ?? ?? ?? ?? 89 9D ?? ?? ?? ?? 8B FE"
-        var itemCount = values[298].UInt;
+        var values = refreshArgs.GetAtkValues();
+        if (values.Length != valueCount)
+        {
+            _logger.LogDebug("[OnInclusionShopPreRefresh] Expected {count} AtkValues, found {actualCount}. Aborting.", valueCount, values.Length);
+            return;
+        }
+
+        if (!values[298].TryGetUInt(out var itemCount))
+            return;
+
         for (var i = 0; i < itemCount; i++)
         {
             ref var itemIdValue = ref values[300 + i * 18];
@@ -172,13 +206,26 @@ public unsafe partial class ShopItemIcons : ConfigurableTweak<ShopItemIconsConfi
         if (!_config.HandleFreeShop || args is not AddonRefreshArgs refreshArgs)
             return;
 
-        var values = refreshArgs.GetAtkValues();
+        // found in AgentFreeShop_Show
+        const int valueCount = 565;
 
-        var itemCount = values[3].UInt;
+        var values = refreshArgs.GetAtkValues();
+        if (values.Length != valueCount)
+        {
+            _logger.LogDebug("[OnFreeShopPreRefresh] Expected {count} AtkValues, found {actualCount}. Aborting.", valueCount, values.Length);
+            return;
+        }
+
+        if (!values[76].TryGetUInt(out var itemCount))
+        {
+            _logger.LogDebug("[OnFreeShopPreRefresh] Could not read item count.");
+            return;
+        }
+
         for (var i = 0; i < itemCount; i++)
         {
-            ref var itemIdValue = ref values[65 + i];
-            ref var iconIdValue = ref values[126 + i];
+            ref var itemIdValue = ref values[138 + i];
+            ref var iconIdValue = ref values[199 + i];
 
             if (!itemIdValue.IsUInt || !iconIdValue.IsUInt || itemIdValue.UInt == 0)
                 continue;
