@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+### New Tweak: Enhanced Glamour Dresser
+
+Configuration options:
+
+- Automatically select set items from the inventory when opening the Outfit Glamour Creation
+
 ### Tweak reworked: Glamour Dresser Alert
 
 Previously called Glamour Dresser Armoire Alert.

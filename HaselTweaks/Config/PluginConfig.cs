@@ -134,6 +134,7 @@ public class TweakConfigs
     public EnhancedIsleworksAgendaConfiguration EnhancedIsleworksAgenda { get; init; } = new();
     public EnhancedLoginLogoutConfiguration EnhancedLoginLogout { get; init; } = new();
     public EnhancedMaterialListConfiguration EnhancedMaterialList { get; init; } = new();
+    public EnhancedMiragePrismBoxConfiguration EnhancedMiragePrismBox { get; init; } = new();
     public EnhancedMonsterNoteConfiguration EnhancedMonsterNote { get; init; } = new();
     public EnhancedTargetInfoConfiguration EnhancedTargetInfo { get; init; } = new();
     public EnhancedRecipeNoteConfiguration EnhancedRecipeNote { get; init; } = new();
@@ -170,6 +171,7 @@ public static class PluginConfigExtension
         services.AddSingleton(pluginConfig.Tweaks.EnhancedIsleworksAgenda);
         services.AddSingleton(pluginConfig.Tweaks.EnhancedLoginLogout);
         services.AddSingleton(pluginConfig.Tweaks.EnhancedMaterialList);
+        services.AddSingleton(pluginConfig.Tweaks.EnhancedMiragePrismBox);
         services.AddSingleton(pluginConfig.Tweaks.EnhancedMonsterNote);
         services.AddSingleton(pluginConfig.Tweaks.EnhancedTargetInfo);
         services.AddSingleton(pluginConfig.Tweaks.EnhancedRecipeNote);

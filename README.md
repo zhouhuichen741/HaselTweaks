@@ -167,6 +167,12 @@ Configuration options:
 > **Note**
 > In order for this tweak to work properly, please make sure "Show Experience Percentage" is disabled in Simple Tweaks.
 
+### Enhanced Glamour Dresser
+
+Configuration options:
+
+- Automatically select set items from the inventory when opening the Outfit Glamour Creation
+
 ### Enhanced Hunting Log
 
 Configuration options:

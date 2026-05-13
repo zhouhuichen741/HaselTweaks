@@ -1252,6 +1252,18 @@
     "zh": "对于目标物品。不再需要先打开配方树。"
   },
 
+  "EnhancedMiragePrismBox.Tweak.Name": {
+    "en": "Enhanced Glamour Dresser"
+  },
+  "EnhancedMiragePrismBox.Tweak.Description": {
+    "en": "Enhancements for the Glamour Dresser.",
+    "de": "Verbesserungen für die Projektionskommode."
+  },
+  "EnhancedMiragePrismBox.Config.EnableAutoFillHandIn.Label": {
+    "en": "Automatically select missing items from the inventory when opening the Outfit Glamour Creation",
+    "de": "Automatisch fehlende Ausrüstung aus dem Inventar in der Setprojektion auswählen"
+  },
+
   "EnhancedMonsterNote.Tweak.Name": {
     "en": "Enhanced Hunting Log"
   },
