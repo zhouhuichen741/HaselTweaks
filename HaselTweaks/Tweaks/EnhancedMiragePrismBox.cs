@@ -28,6 +28,9 @@ public unsafe partial class EnhancedMiragePrismBox : ConfigurableTweak<EnhancedM
 
     private void OnPostRefresh(AddonEvent type, AddonArgs args)
     {
+        if (!_config.EnableAutoFillHandIn)
+            return;
+
         if (args is not AddonRefreshArgs refreshArgs)
             return;
 
