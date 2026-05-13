@@ -19,6 +19,7 @@ public partial class PluginWindow : SimpleWindow
     private ITweak[] _tweaks;
     private TweakEntry[] _shownTweaks;
     private ITweak? _selectedTweak;
+    private bool _scrollIntoView;
     private string _searchInput = string.Empty;
 
     private readonly record struct TweakEntry(ITweak Tweak, string Label);
@@ -111,6 +112,19 @@ public partial class PluginWindow : SimpleWindow
         ImCursor.Position = startPos + new Vector2(SidebarWidth * scale, 0);
 
         DrawConfig();
+    }
+
+    public void SelectTweak<T>()
+    {
+        if (_tweaks.OfType<T>().FirstOrDefault() is ITweak tweak)
+        {
+            _selectedTweak = tweak;
+            _scrollIntoView = true;
+        }
+        else
+        {
+            _selectedTweak = null;
+        }
     }
 
     #region Sidebar
@@ -241,7 +255,9 @@ public partial class PluginWindow : SimpleWindow
 
         ImGui.SameLine(0, ImStyle.ItemInnerSpacing.X);
 
-        if (ListSelectable(entry.Label, _selectedTweak == tweak))
+        var isSelected = _selectedTweak == tweak;
+
+        if (ListSelectable(entry.Label, isSelected))
         {
             if (_selectedTweak is IConfigurableTweak configurableTweak)
                 configurableTweak.OnConfigClose();
@@ -257,6 +273,12 @@ public partial class PluginWindow : SimpleWindow
             {
                 _selectedTweak = null;
             }
+        }
+
+        if (isSelected && _scrollIntoView)
+        {
+            ImGui.SetScrollHereY();
+            _scrollIntoView = false;
         }
     }
 

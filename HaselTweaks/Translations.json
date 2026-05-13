@@ -9,6 +9,14 @@
     "en": "HaselTweaks - Licenses",
     "de": "HaselTweaks - Lizenzen"
   },
+  "TitleBarButton.OpenConfig": {
+    "en": "Open configuration",
+    "de": "Öffne Konfiguration"
+  },
+  "TitleBarButton.CloseConfig": {
+    "en": "Close configuration",
+    "de": "Schließe Konfiguration"
+  },
   "HaselTweaks.CommandHandlerHelpMessage": {
     "en": "Opens the HaselTweaks configuration window",
     "de": "Öffnet das HaselTweaks-Konfigurationsfenster",
@@ -1276,6 +1284,18 @@
     "zh": "对于目标物品。不再需要先打开配方树。"
   },
 
+  "EnhancedMiragePrismBox.Tweak.Name": {
+    "en": "Enhanced Glamour Dresser"
+  },
+  "EnhancedMiragePrismBox.Tweak.Description": {
+    "en": "Enhancements for the Glamour Dresser.",
+    "de": "Verbesserungen für die Projektionskommode."
+  },
+  "EnhancedMiragePrismBox.Config.EnableAutoFillHandIn.Label": {
+    "en": "Automatically select missing items from the inventory when opening the Outfit Glamour Creation",
+    "de": "Automatisch fehlende Ausrüstung aus dem Inventar in der Setprojektion auswählen"
+  },
+
   "EnhancedMonsterNote.Tweak.Name": {
     "en": "Enhanced Hunting Log",
 	"zh": "强化狩猎日志"
@@ -1577,38 +1597,44 @@
     "zh": "也在这些套装中被使用："
   },
 
-  "GlamourDresserArmoireAlert.Tweak.Name": {
-    "en": "Glamour Dresser Armoire Alert",
-    "zh": "投影台物品可放入收藏柜警报"
+  "GlamourDresserAlert.Tweak.Name": {
+    "en": "Glamour Dresser Alert"
   },
-  "GlamourDresserArmoireAlert.Tweak.Description": {
+  "GlamourDresserAlert.Tweak.Description": {
     "en": "Opens a small window next to the Glamour Dresser with a list of items that can be stored in the Armoire (only visible if qualified items were found).",
     "de": "Öffnet ein kleines Fenster neben der Projektionskommode mit einer Liste von Gegenständen, die im Kostbarkeitenkabinett aufbewahrt werden können (nur sichtbar, wenn qualifizierte Gegenstände gefunden wurden).",
     "zh": "在投影台界面旁打开一个列出能被存储到收藏柜里的物品（仅显示存在的符合条件的物品）的小窗口。"
   },
-  "GlamourDresserArmoireAlert.Config.IgnoreOutfits.Label": {
+  "GlamourDresserAlert.Config.IgnoreOutfits.Label": {
     "en": "Ignore qualified items that are part of an outfit",
     "de": "Qualifizierte Gegenstände, die Teil eines Outfits sind, ignorieren",
     "zh": "忽略已经套装化的物品。"
   },
-  "GlamourDresserArmoireAlert.Config.IgnoreOutfits.Description": {
+  "GlamourDresserAlert.Config.IgnoreOutfits.Description": {
     "en": "Useful if you want to collect outfits rather than storing items in the amoire.",
     "de": "Nützlich wenn du lieber Ausrüstungssets sammeln möchtest, statt die Gegenstände im Kostbarkeitenkabinett einzulegen.",
     "zh": "如果你想收集套装而不是把物品存到收藏柜，这个会很有用。"
   },
-  "GlamourDresserArmoireAlert.Config.IgnoreDyedGlamour.Label": {
+  "GlamourDresserAlert.Config.IgnoreDyedGlamour.Label": {
     "en": "Ignore qualified items that are dyed",
     "de": "Qualifizierte Gegenstände, die gefärbt sind, ignorieren",
     "zh": "忽略已染色的符合条件的物品"
   },
-  "GlamourDresserArmoireAlertWindow.Title": {
-    "en": "[HaselTweaks] Glamour Dresser Armoire Alert",
-    "zh": "[HaselTweaks] 投影台物品可放入收藏柜警报"
+  "GlamourDresserAlertWindow.Title": {
+    "en": "[HaselTweaks] Glamour Dresser Alert"
   },
-  "GlamourDresserArmoireAlertWindow.Info": {
-    "en": "These items can be stored in the Armoire!\nClick to restore item.",
-    "de": "Diese Gegenstände können im Kostbarkeitenkabinett aufbewahrt werden!\nAnklicken, um in Ausrüstung zurückzuverwandeln.",
-    "zh": "这些物品可以被存储到收藏柜中！\n点击以重新存储物品。"
+  "GlamourDresserAlertWindow.Info": {
+    "en": "Click to restore item.",
+    "de": "Anklicken, um in Ausrüstung zurückzuverwandeln.",
+    "zh": "点击以重新存储物品。"
+  },
+  "GlamourDresserAlertWindow.CabinetReadyItemsTreeNodeLabel": {
+    "en": "<string(lnum1)> <if([lnum1==1],item,items)> placeable in the armoire",
+    "de": "<string(lnum1)> <if([lnum1==1],Gegenstand,Gegenstände)> ins Kostbarkeitenkabinett einlegbar"
+  },
+  "GlamourDresserAlertWindow.OutfitReadyItemsTreeNodeLabel": {
+    "en": "<string(lnum1)> <if([lnum1==1],item,items)> Outfit Glamour-ready",
+    "de": "<string(lnum1)> <if([lnum1==1],Gegenstand,Gegenstände)> als Set projizierbar"
   },
 
   "GlamourDresserKeyboardNavigation.Tweak.Name": {

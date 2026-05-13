@@ -5,7 +5,7 @@ using HaselTweaks.Windows;
 namespace HaselTweaks.Tweaks;
 
 [RegisterSingleton<IHostedService>(Duplicate = DuplicateStrategy.Append), AutoConstruct]
-public unsafe partial class GlamourDresserArmoireAlert : ConfigurableTweak<GlamourDresserArmoireAlertConfiguration>
+public unsafe partial class GlamourDresserAlert : ConfigurableTweak<GlamourDresserAlertConfiguration>
 {
     private readonly IServiceProvider _serviceProvider;
     private readonly IGameInventory _gameInventory;
@@ -15,11 +15,12 @@ public unsafe partial class GlamourDresserArmoireAlert : ConfigurableTweak<Glamo
     private readonly CabinetService _cabinetService;
     private readonly IFramework _framework;
 
-    private GlamourDresserArmoireAlertWindow? _window;
+    private GlamourDresserAlertWindow? _window;
     private bool _isPendingUpdate;
     private uint[]? _lastItemIds = null;
 
-    public Dictionary<uint, HashSet<ItemHandle>> Categories { get; } = [];
+    public Dictionary<uint, HashSet<ItemHandle>> CabinetStorableItems { get; } = [];
+    public Dictionary<uint, HashSet<ItemHandle>> OutfitConvertibleItems { get; } = [];
 
     public override void OnEnable()
     {
@@ -75,7 +76,8 @@ public unsafe partial class GlamourDresserArmoireAlert : ConfigurableTweak<Glamo
         _isPendingUpdate = true;
         _lastItemIds = itemIds.ToArray();
 
-        Categories.Clear();
+        CabinetStorableItems.Clear();
+        OutfitConvertibleItems.Clear();
 
         _logger.LogInformation("Updating...");
 
@@ -93,33 +95,62 @@ public unsafe partial class GlamourDresserArmoireAlert : ConfigurableTweak<Glamo
 
             var isSet = _excelService.TryGetRow<MirageStoreSetItem>(item, out var setRow);
 
-            // skip outfits that can't be stored in the armoire
+            // skip if user rather wants to collect outfits
             if (_config.IgnoreOutfits && isSet)
-                continue;
-
-            if (isSet && itemRow.ItemUICategory.RowId == 112 && !setRow.Items.Any(item => _cabinetService.TryGetCabinetId(item.RowId, out _)))
-                continue;
-
-            // skip items that can't be stored in the armoire
-            if (!isSet && !_cabinetService.TryGetCabinetId(item, out _))
                 continue;
 
             // skip items that are dyed
             if (_config.IgnoreDyedGlamour && !isSet && (mirageManager->PrismBoxStain0Ids[i] != 0 || mirageManager->PrismBoxStain1Ids[i] != 0))
                 continue;
 
-            if (!Categories.TryGetValue(itemRow.ItemUICategory.RowId, out var categoryItems))
-                Categories.TryAdd(itemRow.ItemUICategory.RowId, categoryItems = []);
+            if (ProcessCabinetStorableItem(item, itemRow, isSet, setRow))
+                continue;
 
-            categoryItems.Add(item);
+            ProcessOutfitConvertibleItem(item, itemRow);
         }
 
         _window?.IsUpdatePending = false;
 
-        if (Categories.Count == 0)
+        if (CabinetStorableItems.Count == 0 && OutfitConvertibleItems.Count == 0)
             return;
 
-        _window ??= _serviceProvider.CreateInstance<GlamourDresserArmoireAlertWindow>(this);
+        _window ??= _serviceProvider.CreateInstance<GlamourDresserAlertWindow>(this);
         _window.Open();
+    }
+
+    private bool ProcessCabinetStorableItem(ItemHandle item, Item itemRow, bool isSet, MirageStoreSetItem setRow)
+    {
+        if (isSet)
+        {
+            // skip outfits without items that can be stored in the armoire
+            if (!setRow.Items.Any(item => _cabinetService.TryGetCabinetId(item, out _)))
+                return false;
+        }
+        else
+        {
+            // skip items that can't be stored in the armoire
+            if (!_cabinetService.TryGetCabinetId(item, out _))
+                return false;
+        }
+
+        if (!CabinetStorableItems.TryGetValue(itemRow.ItemUICategory.RowId, out var categoryItems))
+            CabinetStorableItems.TryAdd(itemRow.ItemUICategory.RowId, categoryItems = []);
+
+        categoryItems.Add(item);
+        return true;
+    }
+
+    private void ProcessOutfitConvertibleItem(ItemHandle item, Item itemRow)
+    {
+        if (!_excelService.TryGetRow<MirageStoreSetItemLookup>(item, out var setsRow))
+            return;
+
+        if (!setsRow.Item.Any(setItem => setItem.RowId != 0 && setItem.IsValid))
+            return;
+
+        if (!OutfitConvertibleItems.TryGetValue(itemRow.ItemUICategory.RowId, out var categoryItems))
+            OutfitConvertibleItems.TryAdd(itemRow.ItemUICategory.RowId, categoryItems = []);
+
+        categoryItems.Add(item);
     }
 }

@@ -16,6 +16,7 @@ public unsafe partial class AetherCurrentHelperWindow : SimpleWindow
     private readonly TextService _textService;
     private readonly MapService _mapService;
     private readonly PluginConfig _pluginConfig;
+    private readonly WindowManager _windowManager;
 
     private readonly Dictionary<uint, EObj> _aetherCurrentEObjCache = [];
     private readonly Dictionary<uint, Level> _eObjLevelCache = [];
@@ -36,6 +37,18 @@ public unsafe partial class AetherCurrentHelperWindow : SimpleWindow
             MinimumSize = new Vector2(300, 200),
             MaximumSize = new Vector2(4096),
         };
+
+        TitleBarButtons.Add(new()
+        {
+            Icon = FontAwesomeIcon.Cog,
+            IconOffset = new(0, 1),
+            ShowTooltip = () =>
+            {
+                var isWindowOpen = _windowManager.TryGetWindow<PluginWindow>(out var pluginWindow) && pluginWindow.IsOpen;
+                ImGui.SetTooltip(_textService.Translate(isWindowOpen ? "TitleBarButton.CloseConfig" : "TitleBarButton.OpenConfig"));
+            },
+            Click = (button) => _windowManager.CreateOrToggle<PluginWindow>().SelectTweak<AetherCurrentHelper>()
+        });
     }
 
     public override bool DrawConditions()

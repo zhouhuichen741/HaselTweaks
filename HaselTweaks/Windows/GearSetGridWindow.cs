@@ -24,6 +24,7 @@ public unsafe partial class GearSetGridWindow : SimpleWindow
     private readonly ItemService _itemService;
     private readonly PluginConfig _pluginConfig;
     private readonly ISeStringEvaluator _seStringEvaluator;
+    private readonly WindowManager _windowManager;
     private bool _resetScrollPosition;
 
     public GearSetGridConfiguration Config => _pluginConfig.Tweaks.GearSetGrid;
@@ -42,6 +43,18 @@ public unsafe partial class GearSetGridWindow : SimpleWindow
             MinimumSize = new Vector2(505, 200),
             MaximumSize = new Vector2(4096),
         };
+
+        TitleBarButtons.Add(new()
+        {
+            Icon = FontAwesomeIcon.Cog,
+            IconOffset = new(0, 1),
+            ShowTooltip = () =>
+            {
+                var isWindowOpen = _windowManager.TryGetWindow<PluginWindow>(out var pluginWindow) && pluginWindow.IsOpen;
+                ImGui.SetTooltip(_textService.Translate(isWindowOpen ? "TitleBarButton.CloseConfig" : "TitleBarButton.OpenConfig"));
+            },
+            Click = (button) => _windowManager.CreateOrToggle<PluginWindow>().SelectTweak<GearSetGrid>()
+        });
     }
 
     public override void OnOpen()

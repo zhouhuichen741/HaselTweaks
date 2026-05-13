@@ -12,7 +12,7 @@ namespace HaselTweaks.Config;
 public partial class PluginConfig : IPluginConfiguration
 {
     [JsonIgnore]
-    public const int CURRENT_CONFIG_VERSION = 8;
+    public const int CURRENT_CONFIG_VERSION = 9;
 
     [JsonIgnore]
     public int LastSavedConfigHash { get; set; }
@@ -61,7 +61,8 @@ public partial class PluginConfig : IPluginConfiguration
             new Version5(),
             new Version6(PluginInterface, PluginLog),
             new Version7(),
-            new Version8()
+            new Version8(),
+            new Version9()
         ];
 
         foreach (var migration in migrations)
@@ -133,12 +134,13 @@ public class TweakConfigs
     public EnhancedIsleworksAgendaConfiguration EnhancedIsleworksAgenda { get; init; } = new();
     public EnhancedLoginLogoutConfiguration EnhancedLoginLogout { get; init; } = new();
     public EnhancedMaterialListConfiguration EnhancedMaterialList { get; init; } = new();
+    public EnhancedMiragePrismBoxConfiguration EnhancedMiragePrismBox { get; init; } = new();
     public EnhancedMonsterNoteConfiguration EnhancedMonsterNote { get; init; } = new();
     public EnhancedTargetInfoConfiguration EnhancedTargetInfo { get; init; } = new();
     public EnhancedRecipeNoteConfiguration EnhancedRecipeNote { get; init; } = new();
     public FlashTaskbarConfiguration FlashTaskbar { get; init; } = new();
     public ForcedCutsceneMusicConfiguration ForcedCutsceneMusic { get; init; } = new();
-    public GlamourDresserArmoireAlertConfiguration GlamourDresserArmoireAlert { get; init; } = new();
+    public GlamourDresserAlertConfiguration GlamourDresserAlert { get; init; } = new();
     public GearSetGridConfiguration GearSetGrid { get; init; } = new();
     public InventoryHighlightConfiguration InventoryHighlight { get; init; } = new();
     public LockWindowPositionConfiguration LockWindowPosition { get; init; } = new();
@@ -169,12 +171,13 @@ public static class PluginConfigExtension
         services.AddSingleton(pluginConfig.Tweaks.EnhancedIsleworksAgenda);
         services.AddSingleton(pluginConfig.Tweaks.EnhancedLoginLogout);
         services.AddSingleton(pluginConfig.Tweaks.EnhancedMaterialList);
+        services.AddSingleton(pluginConfig.Tweaks.EnhancedMiragePrismBox);
         services.AddSingleton(pluginConfig.Tweaks.EnhancedMonsterNote);
         services.AddSingleton(pluginConfig.Tweaks.EnhancedTargetInfo);
         services.AddSingleton(pluginConfig.Tweaks.EnhancedRecipeNote);
         services.AddSingleton(pluginConfig.Tweaks.FlashTaskbar);
         services.AddSingleton(pluginConfig.Tweaks.ForcedCutsceneMusic);
-        services.AddSingleton(pluginConfig.Tweaks.GlamourDresserArmoireAlert);
+        services.AddSingleton(pluginConfig.Tweaks.GlamourDresserAlert);
         services.AddSingleton(pluginConfig.Tweaks.GearSetGrid);
         services.AddSingleton(pluginConfig.Tweaks.InventoryHighlight);
         services.AddSingleton(pluginConfig.Tweaks.LockWindowPosition);
