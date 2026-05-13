@@ -988,7 +988,7 @@
   "EnhancedExpBar.Tweak.Description": {
     "en": "Enhances the Experience Bar with the following modes:\n\n- The PvP Series Bar shows series rank and experience. A little * after the rank indicates a claimable rank-up reward.\n\n- The Sanctuary Bar shows sanctuary level and island experience.",
     "de": "Erweitert die Erfahrungsleiste um die folgenden Modi:\n\n- Die PvP-Serienleiste zeigt den Serienstufe und -erfahrung an. Ein kleines * hinter dem Rang zeigt an, dass eine Belohnung zum Einlösen bereit steht.\n\n- Der Inselparadies-Balken zeigt Inselstufe und Inselroutine an.",
-    "zh": "通过以下模式增强经验栏：\n\n- 显示系列赛等级与经验的PvP系列赛栏。等级后的小*表示有可领取的等级奖励。\n\n- 显示无人岛等级与经验的无人岛栏。"
+    "zh": "在以下模式增强经验栏：\n\n- 显示系列赛等级与经验的PvP系列赛栏。等级后的小*表示有可领取的等级奖励。\n\n- 显示无人岛等级与经验的无人岛栏。"
   },
   "EnhancedExpBar.Config.ForcePvPSeriesBar.Label": {
     "en": "Always show PvP Series Bar in PvP Areas",
@@ -1064,12 +1064,12 @@
 
   "EnhancedIsleworksAgenda.Tweak.Name": {
     "en": "Enhanced Isleworks Agenda",
-    "zh": "增强工房生产计划"
+    "zh": "工房生产计划增强"
   },
   "EnhancedIsleworksAgenda.Tweak.Description": {
     "en": "Enhancements for the Isleworks \"Set Agenda\" window.",
     "de": "Verbesserungen für das \"Plan aufstellen\"-Fenster des Atelierplans.",
-    "zh": "略微增强海岛工坊的“设置生产计划”窗口。"
+    "zh": "对海岛工坊“设置生产计划”窗口的增强。"
   },
   "EnhancedIsleworksAgenda.Config.EnableSearchBar.Label": {
     "en": "Enable Search Bar",
@@ -1094,7 +1094,7 @@
 
   "EnhancedLoginLogout.Tweak.Name": {
     "en": "Enhanced Login/Logout",
-    "zh": "增强登入/登出"
+    "zh": "登入/登出增强"
   },
   "EnhancedLoginLogout.Tweak.Description": {
     "en": "Enhancements for login and logout.",
@@ -1213,7 +1213,7 @@
 
   "EnhancedMaterialList.Tweak.Name": {
     "en": "Enhanced Material List",
-    "zh": "增强材料列表"
+    "zh": "材料列表增强"
   },
   "EnhancedMaterialList.Tweak.Description": {
     "en": "Enhancements for the Material List (and Recipe Tree).",
@@ -1288,7 +1288,7 @@
 
   "EnhancedMiragePrismBox.Tweak.Name": {
     "en": "Enhanced Glamour Dresser",
-    "zh": "增强投影台"
+    "zh": "投影台增强"
   },
   "EnhancedMiragePrismBox.Tweak.Description": {
     "en": "Enhancements for the Glamour Dresser.",
@@ -1303,7 +1303,7 @@
 
   "EnhancedMonsterNote.Tweak.Name": {
     "en": "Enhanced Hunting Log",
-	"zh": "增强狩猎日志"
+	"zh": "狩猎日志增强"
   },
   "EnhancedMonsterNote.Tweak.Description": {
     "en": "Enhancements for the Hunting Log.",
@@ -1338,7 +1338,7 @@
 
   "EnhancedRecipeNote.Tweak.Name": {
     "en": "Enhanced Crafting Log",
-	"zh": "增强制作笔记"
+	"zh": "制作笔记增强"
   },
   "EnhancedRecipeNote.Tweak.Description": {
     "en": "Enhancements for the Crafting Log.",
@@ -1373,7 +1373,7 @@
 
   "EnhancedTargetInfo.Tweak.Name": {
     "en": "Enhanced Target Info",
-    "zh": "增强目标信息"
+    "zh": "目标信息增强"
   },
   "EnhancedTargetInfo.Tweak.Description": {
     "en": "Enhancements for the Target Info.",
