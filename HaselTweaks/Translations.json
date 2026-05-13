@@ -1298,7 +1298,7 @@
   "EnhancedMiragePrismBox.Config.EnableAutoFillHandIn.Label": {
     "en": "Automatically select missing items from the inventory when opening the Outfit Glamour Creation",
     "de": "Automatisch fehlende Ausrüstung aus dem Inventar in der Setprojektion auswählen",
-    "zh": "打开套装化创建界面时，自动从背包中选中缺失的物品。"
+    "zh": "打开套装幻影化创建界面时，自动从背包中选中缺失的物品。"
   },
 
   "EnhancedMonsterNote.Tweak.Name": {
@@ -1604,7 +1604,7 @@
 
   "GlamourDresserAlert.Tweak.Name": {
     "en": "Glamour Dresser Alert",
-    "zh": "投影台可存入收藏柜物品提醒"
+    "zh": "投影台物品可存入收藏柜提醒"
   },
   "GlamourDresserAlert.Tweak.Description": {
     "en": "Opens a small window next to the Glamour Dresser with a list of items that can be stored in the Armoire (only visible if qualified items were found).",
@@ -1628,7 +1628,7 @@
   },
   "GlamourDresserAlertWindow.Title": {
     "en": "[HaselTweaks] Glamour Dresser Alert",
-    "zh": "[HaselTweaks] 投影台可存入收藏柜物品提醒"
+    "zh": "[HaselTweaks] 投影台物品可存入收藏柜提醒"
   },
   "GlamourDresserAlertWindow.Info": {
     "en": "Click to restore item.",
