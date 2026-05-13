@@ -11,11 +11,13 @@
   },
   "TitleBarButton.OpenConfig": {
     "en": "Open configuration",
-    "de": "Öffne Konfiguration"
+    "de": "Öffne Konfiguration",
+    "zh": "打开设置窗口"
   },
   "TitleBarButton.CloseConfig": {
     "en": "Close configuration",
-    "de": "Schließe Konfiguration"
+    "de": "Schließe Konfiguration",
+    "zh": "关闭设置窗口"
   },
   "HaselTweaks.CommandHandlerHelpMessage": {
     "en": "Opens the HaselTweaks configuration window",
@@ -1062,12 +1064,12 @@
 
   "EnhancedIsleworksAgenda.Tweak.Name": {
     "en": "Enhanced Isleworks Agenda",
-    "zh": "工房生产计划增强"
+    "zh": "增强工房生产计划"
   },
   "EnhancedIsleworksAgenda.Tweak.Description": {
     "en": "Enhancements for the Isleworks \"Set Agenda\" window.",
     "de": "Verbesserungen für das \"Plan aufstellen\"-Fenster des Atelierplans.",
-    "zh": "略微改良海岛工坊的“设置生产计划”窗口。"
+    "zh": "略微增强海岛工坊的“设置生产计划”窗口。"
   },
   "EnhancedIsleworksAgenda.Config.EnableSearchBar.Label": {
     "en": "Enable Search Bar",
@@ -1092,12 +1094,12 @@
 
   "EnhancedLoginLogout.Tweak.Name": {
     "en": "Enhanced Login/Logout",
-    "zh": "登入/登出增强"
+    "zh": "增强登入/登出"
   },
   "EnhancedLoginLogout.Tweak.Description": {
     "en": "Enhancements for login and logout.",
     "de": "Verbesserungen für Login und Logout.",
-    "zh": "增强登入与登出。"
+    "zh": "对登入与登出的增强。"
   },
   "EnhancedLoginLogout.Config.LoginOptions.Title": {
     "en": "Login Options",
@@ -1216,7 +1218,7 @@
   "EnhancedMaterialList.Tweak.Description": {
     "en": "Enhancements for the Material List (and Recipe Tree).",
     "de": "Verbesserungen für die Materialliste (und Rezeptbaum).",
-    "zh": "增强材料列表（与配方树状图）"
+    "zh": "对材料列表（与配方树状图）的增强"
   },
   "EnhancedMaterialList.Config.EnableZoneNames.Label": {
     "en": "Enable Zone Names",
@@ -1285,25 +1287,28 @@
   },
 
   "EnhancedMiragePrismBox.Tweak.Name": {
-    "en": "Enhanced Glamour Dresser"
+    "en": "Enhanced Glamour Dresser",
+    "zh": "增强投影台"
   },
   "EnhancedMiragePrismBox.Tweak.Description": {
     "en": "Enhancements for the Glamour Dresser.",
-    "de": "Verbesserungen für die Projektionskommode."
+    "de": "Verbesserungen für die Projektionskommode.",
+    "zh": "对投影台的增强。"
   },
   "EnhancedMiragePrismBox.Config.EnableAutoFillHandIn.Label": {
     "en": "Automatically select missing items from the inventory when opening the Outfit Glamour Creation",
-    "de": "Automatisch fehlende Ausrüstung aus dem Inventar in der Setprojektion auswählen"
+    "de": "Automatisch fehlende Ausrüstung aus dem Inventar in der Setprojektion auswählen",
+    "zh": "打开套装化创建界面时，自动从背包中选中缺失的物品。"
   },
 
   "EnhancedMonsterNote.Tweak.Name": {
     "en": "Enhanced Hunting Log",
-	"zh": "强化狩猎日志"
+	"zh": "增强狩猎日志"
   },
   "EnhancedMonsterNote.Tweak.Description": {
     "en": "Enhancements for the Hunting Log.",
     "de": "Verbesserungen für das Bestiarium.",
-	"zh": "强化版狩猎日志。"
+	"zh": "对狩猎日志的增强。"
   },
   "EnhancedMonsterNote.Config.RememberTabSelection.Label": {
     "en": "Remember last selected class",
@@ -1368,12 +1373,12 @@
 
   "EnhancedTargetInfo.Tweak.Name": {
     "en": "Enhanced Target Info",
-    "zh": "目标信息增强"
+    "zh": "增强目标信息"
   },
   "EnhancedTargetInfo.Tweak.Description": {
     "en": "Enhancements for the Target Info.",
     "de": "Verbesserungen für die Zielinfo.",
-    "zh": "增强目标信息显示。"
+    "zh": "对目标信息显示的增强。"
   },
   "EnhancedTargetInfo.Config.DisplayMountStatus.Label": {
     "en": "Display Mounted status",
@@ -1598,7 +1603,8 @@
   },
 
   "GlamourDresserAlert.Tweak.Name": {
-    "en": "Glamour Dresser Alert"
+    "en": "Glamour Dresser Alert",
+    "zh": "投影台物品提醒"
   },
   "GlamourDresserAlert.Tweak.Description": {
     "en": "Opens a small window next to the Glamour Dresser with a list of items that can be stored in the Armoire (only visible if qualified items were found).",
@@ -1608,12 +1614,12 @@
   "GlamourDresserAlert.Config.IgnoreOutfits.Label": {
     "en": "Ignore qualified items that are part of an outfit",
     "de": "Qualifizierte Gegenstände, die Teil eines Outfits sind, ignorieren",
-    "zh": "忽略已经套装化的物品。"
+    "zh": "忽略已经套装幻影化的物品。"
   },
   "GlamourDresserAlert.Config.IgnoreOutfits.Description": {
     "en": "Useful if you want to collect outfits rather than storing items in the amoire.",
     "de": "Nützlich wenn du lieber Ausrüstungssets sammeln möchtest, statt die Gegenstände im Kostbarkeitenkabinett einzulegen.",
-    "zh": "如果你想收集套装而不是把物品存到收藏柜，这个会很有用。"
+    "zh": "如果你想套装幻影化而不是把物品存到收藏柜，这个会很有用。"
   },
   "GlamourDresserAlert.Config.IgnoreDyedGlamour.Label": {
     "en": "Ignore qualified items that are dyed",
@@ -1621,7 +1627,8 @@
     "zh": "忽略已染色的符合条件的物品"
   },
   "GlamourDresserAlertWindow.Title": {
-    "en": "[HaselTweaks] Glamour Dresser Alert"
+    "en": "[HaselTweaks] Glamour Dresser Alert",
+    "zh": "[HaselTweaks] 投影台物品提醒"
   },
   "GlamourDresserAlertWindow.Info": {
     "en": "Click to restore item.",
@@ -1630,11 +1637,13 @@
   },
   "GlamourDresserAlertWindow.CabinetReadyItemsTreeNodeLabel": {
     "en": "<string(lnum1)> <if([lnum1==1],item,items)> placeable in the armoire",
-    "de": "<string(lnum1)> <if([lnum1==1],Gegenstand,Gegenstände)> ins Kostbarkeitenkabinett einlegbar"
+    "de": "<string(lnum1)> <if([lnum1==1],Gegenstand,Gegenstände)> ins Kostbarkeitenkabinett einlegbar",
+    "zh": "<string(lnum1)> 件物品可放入收藏柜"
   },
   "GlamourDresserAlertWindow.OutfitReadyItemsTreeNodeLabel": {
     "en": "<string(lnum1)> <if([lnum1==1],item,items)> Outfit Glamour-ready",
-    "de": "<string(lnum1)> <if([lnum1==1],Gegenstand,Gegenstände)> als Set projizierbar"
+    "de": "<string(lnum1)> <if([lnum1==1],Gegenstand,Gegenstände)> als Set projizierbar",
+    "zh": "<string(lnum1)> 件物品可套装幻影化"
   },
 
   "GlamourDresserKeyboardNavigation.Tweak.Name": {
