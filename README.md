@@ -171,7 +171,7 @@ Configuration options:
 
 Configuration options:
 
-- Automatically select set items from the inventory when opening the Outfit Glamour Creation
+- Automatically select missing items from the inventory when opening the Outfit Glamour Creation
 
 ### Enhanced Hunting Log
 
