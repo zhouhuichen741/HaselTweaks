@@ -167,6 +167,13 @@ Configuration options:
 > **Note**
 > In order for this tweak to work properly, please make sure "Show Experience Percentage" is disabled in Simple Tweaks.
 
+### Enhanced Fitting Room
+
+Configuration options:
+
+- Keep Facewear on  
+  When hiding your gear with the "Display Gear" button, your facewear remains visible.
+
 ### Enhanced Glamour Dresser
 
 Configuration options:
@@ -287,13 +294,15 @@ Configuration options:
 
 ### Glamour Dresser Alert
 
-Opens a small window next to the Glamour Dresser with a list of items that can be placed in the armoire or stored as outfit (only visible if qualified items were found).
+Opens a small window next to the Glamour Dresser, displaying a list of items that can be combined into outfits, as well as items that can be stored in the Armoire (only visible if qualified items were found).
 
 Configuration options:
 
 - Ignore qualified items that are part of an outfit  
   Useful if you want to collect outfits rather than storing items in the amoire.
 - Ignore qualified items that are dyed
+- Ignore items that are already present in the armoire
+  Useful if you want to collect duplicates.
 
 ### Glamour Dresser Keyboard Navigation
 
@@ -362,7 +371,7 @@ A helper for editing portraits, featuring:
 Configuration options:
 
 - Embed preset codes in thumbnails  
-  The preset code, which is also used for clipboard import/export, is written to the Exif metadata as a UserComment.
+  The preset code, which is also used for clipboard import/export, is written to the metadata as comment.
 - "Notify if appearance and/or gear doesn't match Portait"  
   Prints a notification in chat which can be clicked to open the Portrait Editor.
 - "Automatically re-equip gear set to re-apply glamour plate"  

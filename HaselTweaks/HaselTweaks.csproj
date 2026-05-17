@@ -3,7 +3,7 @@
   <!-- Project settings -->
   <PropertyGroup>
     <Name>HaselTweaks</Name>
-    <Version>44.0.1</Version>
+    <Version>45.0.2</Version>
     <Author>Haselnussbomber,cyf5119(汉化),zhouhuichen741(汉化&amp;本地化维护)</Author>
     <RepoUrl>https://github.com/zhouhuichen741/HaselTweaks</RepoUrl>
     <IconUrl>https://raw.githubusercontent.com/zhouhuichen741/dalamud-plugins/master/plugins/HaselTweaks/icon.png</IconUrl>
@@ -49,10 +49,9 @@
   <!-- NuGet dependencies -->
   <ItemGroup>
     <PackageReference Include="AutoCtor" Version="3.0.0" PrivateAssets="all" ExcludeAssets="compile;runtime" />
-    <PackageReference Include="Injectio" Version="6.0.0" PrivateAssets="all" />
+    <PackageReference Include="Injectio" Version="6.1.0" PrivateAssets="all" />
     <PackageReference Include="Microsoft.CodeAnalysis.BannedApiAnalyzers" Version="4.14.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.275" PrivateAssets="All" />
-    <PackageReference Include="SixLabors.ImageSharp" Version="3.1.12" />
   </ItemGroup>
 
   <!-- FFXIVClientStructs -->

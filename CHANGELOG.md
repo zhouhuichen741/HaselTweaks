@@ -1,5 +1,43 @@
 # Changelog
 
+## [45.0.2] (2026-05-16)
+
+### Enhanced Fitting Room
+
+- **Fixed**: The first try on after login would not show facewear. The tweak now falls back to the local players facewear when the try on window has no facewear saved yet.
+
+### Enhanced Glamour Dresser
+
+- **Fixed**: The tweak now automatically selects items when switching sets too, not just when the Outfit Glamour Creation window was first opened.
+
+## [45.0.1] (2026-05-16)
+
+### Enhanced Glamour Dresser
+
+- **Fixed**: The game would silently fail to add missing items to a set when an item in your inventory was already part of the same set.
+
+## [45.0.0] (2026-05-16)
+
+### New Tweak: Enhanced Fitting Room
+
+Configuration options:
+
+- Keep Facewear on  
+  When hiding your gear with the "Display Gear" button, your facewear remains visible.
+
+### Glamour Dresser Alert
+
+- **Added:** A new config option "Ignore items that are already present in the armoire". Useful if you want to collect duplicates.
+
+### Portrait Helper
+
+Removed SixLabors.ImageSharp as dependency due to new licensing requirements and rewrote the code to use Windows Imaging Component (WIC) instead.
+
+As a result of this migration:
+
+- Preset codes, which were written to the Exif metadata as `UserComment`, are now written as `Comment` to the metadata, because WIC does not support EXIF metadata in PNG files.
+- Thumbnail file sizes may be slightly larger, because WIC does not expose control over PNG compression strength.
+
 ## [44.0.1] (2026-05-13)
 
 ### Enhanced Glamour Dresser
@@ -2527,7 +2565,10 @@ Refreshes the material list and recipe tree when you've crafted or gathered an i
 
 Opens duty finder for the duty you clicked on in the Wondrous Tails Journal.
 
-[unreleased]: https://github.com/Haselnussbomber/HaselTweaks/compare/v44.0.1...main
+[unreleased]: https://github.com/Haselnussbomber/HaselTweaks/compare/v45.0.2...main
+[45.0.2]: https://github.com/Haselnussbomber/HaselTweaks/compare/v45.0.1...v45.0.2
+[45.0.1]: https://github.com/Haselnussbomber/HaselTweaks/compare/v45.0.0...v45.0.1
+[45.0.0]: https://github.com/Haselnussbomber/HaselTweaks/compare/v44.0.1...v45.0.0
 [44.0.1]: https://github.com/Haselnussbomber/HaselTweaks/compare/v44.0.0...v44.0.1
 [44.0.0]: https://github.com/Haselnussbomber/HaselTweaks/compare/v43.0.0...v44.0.0
 [43.0.0]: https://github.com/Haselnussbomber/HaselTweaks/compare/v42.1.3...v43.0.0
