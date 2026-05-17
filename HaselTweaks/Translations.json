@@ -1422,19 +1422,23 @@
   },
 
   "EnhancedTryon.Tweak.Name": {
-    "en": "Enhanced Fitting Room"
+    "en": "Enhanced Fitting Room",
+    "zh": "试穿窗口增强"
   },
   "EnhancedTryon.Tweak.Description": {
     "en": "Enhancements for the Fitting Room.",
-    "de": "Verbesserungen für das \"ANPROBIEREN\"-Fenster."
+    "de": "Verbesserungen für das \"ANPROBIEREN\"-Fenster.",
+    "zh": "对试穿窗口的增强。"
   },
   "EnhancedTryon.Config.KeepFacewearOn.Label": {
     "en": "Keep Facewear on",
-    "de": "Behalte Gesichtsaccessoires an"
+    "de": "Behalte Gesichtsaccessoires an",
+    "zh": "保留面部配饰"
   },
   "EnhancedTryon.Config.KeepFacewearOn.Description": {
     "en": "When hiding your gear with the \"Display Gear\" button, your facewear remains visible.",
-    "de": "Wenn du die Ausrüstung mit dem \"Alles anlegen/ablegen\" Button ablegst, bleibt das Gesichtsaccessoire trotzdem sichtbar."
+    "de": "Wenn du die Ausrüstung mit dem \"Alles anlegen/ablegen\" Button ablegst, bleibt das Gesichtsaccessoire trotzdem sichtbar.",
+    "zh": "使用“显示全部装备”按钮隐藏装备时，面部配饰会保持显示。"
   },
 
   "ExpertDeliveries.Tweak.Name": {
@@ -1673,7 +1677,8 @@
   },
   "GlamourDresserAlertWindow.DuplicateSetItemsTooltip": {
     "en": "The following items are stored in the armoire, and part of this set:",
-    "de": "Die folgenden Gegenstände sind im Kostbarkeitenkabinett\neingelegt und Teil dieses Ausrüstungssets:"
+    "de": "Die folgenden Gegenstände sind im Kostbarkeitenkabinett\neingelegt und Teil dieses Ausrüstungssets:",
+    "zh": "以下物品已存入收藏柜，且属于该套装幻影化的一部分："
   },
 
   "GlamourDresserKeyboardNavigation.Tweak.Name": {
@@ -1928,7 +1933,8 @@
   },
   "PortraitHelper.Config.EmbedPresetStringInThumbnails.Description": {
     "en": "The preset code, which is also used for clipboard import/export, is written to the metadata as comment.",
-    "de": "Der Vorlagen-Code, der auch für den Import/Export der Zwischenablage verwendet wird, wird als Kommentar in die Metadaten geschrieben."
+    "de": "Der Vorlagen-Code, der auch für den Import/Export der Zwischenablage verwendet wird, wird als Kommentar in die Metadaten geschrieben.",
+    "zh": "预设代码（用于剪贴板导入/导出）也作为注释写入元数据。"
   },
   "PortraitHelper.Config.NotifyGearChecksumMismatch.Label": {
     "en": "Notify if appearance and/or gear doesn't match Portait",
