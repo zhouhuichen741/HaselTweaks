@@ -1,5 +1,25 @@
 # Changelog
 
+## [46.0.0] (2026-05-24)
+
+### HaselTweaks
+
+- **Added:** Japanese translations by @kxffkx. Thanks!
+
+### New Tweak: Disable Reward Popups
+
+Disables reward popups from appearing after completing activities.
+
+Configuration options:
+
+- Hide for FATE rewards
+- Hide for MGP rewards in the Gold Saucer
+- Hide for Stellar Mission rewards in the Cosmic Exploration
+
+### Shop Item Icons
+
+- **Added**: Support for icons in the Retainer Buyback window.
+
 ## [45.0.2] (2026-05-16)
 
 ### Enhanced Fitting Room
@@ -2565,7 +2585,8 @@ Refreshes the material list and recipe tree when you've crafted or gathered an i
 
 Opens duty finder for the duty you clicked on in the Wondrous Tails Journal.
 
-[unreleased]: https://github.com/Haselnussbomber/HaselTweaks/compare/v45.0.2...main
+[unreleased]: https://github.com/Haselnussbomber/HaselTweaks/compare/v46.0.0...main
+[46.0.0]: https://github.com/Haselnussbomber/HaselTweaks/compare/v45.0.2...v46.0.0
 [45.0.2]: https://github.com/Haselnussbomber/HaselTweaks/compare/v45.0.1...v45.0.2
 [45.0.1]: https://github.com/Haselnussbomber/HaselTweaks/compare/v45.0.0...v45.0.1
 [45.0.0]: https://github.com/Haselnussbomber/HaselTweaks/compare/v44.0.1...v45.0.0

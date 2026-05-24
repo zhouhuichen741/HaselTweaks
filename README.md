@@ -140,6 +140,16 @@ Configuration options:
 
 - FPS unit text (default: " fps")
 
+### Disable Reward Popups
+
+Disables reward popups from appearing after completing activities.
+
+Configuration options:
+
+- Hide for FATE rewards
+- Hide for MGP rewards in the Gold Saucer
+- Hide for Stellar Mission rewards in the Cosmic Exploration
+
 ### Enhanced Crafting Log
 
 Configuration options:
@@ -372,14 +382,17 @@ Configuration options:
 
 - Embed preset codes in thumbnails  
   The preset code, which is also used for clipboard import/export, is written to the metadata as comment.
-- "Notify if appearance and/or gear doesn't match Portait"  
+- Notify if appearance and/or gear doesn't match Portait  
   Prints a notification in chat which can be clicked to open the Portrait Editor.
-- "Automatically re-equip gear set to re-apply glamour plate"  
+  - Do not notify for DoH/DoL jobs
+- Automatically re-equip gear set to re-apply glamour plate  
   Works only if the following criteria are met:
   - The gear set has a glamour plate linked.
   - You are in a place where glamour plates are allowed to be applied.
   - The glamour plate covers the slot(s) that caused the mismatch.
   - The mismatch was not caused by mainhand/headgear visibility or visor state.
+- Automatically update portrait when the Gearset was updated  
+  Only works for gear sets that are not linked with a glamour plate.
 
 ### Reveal Duty Requirements
 
