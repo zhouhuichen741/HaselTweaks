@@ -30,6 +30,7 @@
   "HaselTweaks.Config.Licenses": {
     "en": "Licenses",
     "de": "Lizenzen",
+    "zh": "许可证",
     "ja": "ライセンス"
   },
   "HaselTweaks.Config.DevGitHubLink.Tooltip": {
