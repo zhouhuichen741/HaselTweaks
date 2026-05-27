@@ -1,50 +1,53 @@
-namespace HaselTweaks;
-
+using System.Threading;
+using System.Threading.Tasks;
 using Dalamud.Plugin;
 using Dalamud.Game;
 using Dalamud.Logging;
 using Microsoft.Extensions.Hosting;
 using System;
 
-public sealed class Plugin : IDalamudPlugin
-{
-    private readonly IHost? _host;
-    private bool isDev;
+namespace HaselTweaks;
 
-    public Plugin(IDalamudPluginInterface pluginInterface, IPluginLog pluginLog, IFramework framework)
+[AutoConstruct]
+public sealed partial class Plugin : IAsyncDalamudPlugin
+{
+    private readonly IDalamudPluginInterface _pluginInterface;
+    private readonly IPluginLog _pluginLog;
+    private readonly IFramework _framework;
+    private IHost? _host;
+    private bool _isDev;
+
+    public Task LoadAsync(CancellationToken cancellationToken)
     {
-    #if !DEBUG 
-        if (pluginInterface.IsDev || !pluginInterface.SourceRepository.Contains("zhouhuichen741")) 
-        { 
-            isDev = true;
-            return;
+#if !DEBUG
+        if (_pluginInterface.IsDev || !_pluginInterface.SourceRepository.Contains("zhouhuichen741"))
+        {
+            _isDev = true;
+            return Task.CompletedTask;
         }
-    #endif
-        pluginInterface.InitializeCustomClientStructs();
+#endif
+
+        _pluginInterface.InitializeCustomClientStructs();
 
         _host = new HostBuilder()
-            .UseContentRoot(pluginInterface.AssemblyLocation.Directory!.FullName)
+            .UseContentRoot(_pluginInterface.AssemblyLocation.Directory!.FullName)
             .ConfigureServices(services =>
             {
-                services.AddDalamud(pluginInterface);
-                services.AddConfig(PluginConfig.Load(pluginInterface, pluginLog));
+                services.AddDalamud(_pluginInterface);
+                services.AddConfig(PluginConfig.Load(_pluginInterface, _pluginLog));
                 services.AddHaselCommon();
                 services.AddHaselTweaks();
             })
             .Build();
 
-        _ = framework.RunOnFrameworkThread(_host.Start);
+        return _host.StartOnFrameworkThread(_framework, cancellationToken);
     }
 
-    void IDisposable.Dispose()
+    public ValueTask DisposeAsync()
     {
-        if (isDev) 
-            return;
-            
-        if (_host != null) 
-        {
-            _host.StopAsync().GetAwaiter().GetResult();
-            _host.Dispose();
-        }
+        if (_isDev)
+            return ValueTask.CompletedTask;
+
+        return _host?.StopOnFrameworkThread(_framework) ?? ValueTask.CompletedTask;
     }
 }
