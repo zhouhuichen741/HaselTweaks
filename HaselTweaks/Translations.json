@@ -1788,11 +1788,13 @@
   },
   "FlashTaskbar.Config.FlashOnCraftEnd.Label": {
     "en": "Flash on synthesis completion",
-    "de": "Blinken bei Syntheseabschluss"
+    "de": "Blinken bei Syntheseabschluss",
+	"zh": "制作完成时闪烁"
   },
   "FlashTaskbar.Config.FlashOnCraftEnd.Description": {
     "en": "Triggers when your character completes Synthesis or Quick Synthesis.",
-    "de": "Wird ausgelöst, wenn dein Charakter die Synthese oder Eilsynthese abgeschlossen hat."
+    "de": "Wird ausgelöst, wenn dein Charakter die Synthese oder Eilsynthese abgeschlossen hat.",
+	"zh": "当你的角色完成普通制作或简易制作时触发。"
   },
 
   "FixInventoryOpenTab.Tweak.Name": {
@@ -2295,7 +2297,8 @@
   },
   "PortraitHelper.Config.IncompatibilityWarning.Glamourer": {
     "en": "In order for notifications and portrait updates to work properly, please make sure Glamourer is not automatically changing the facewear, the visibility of the weapon, headgear or viera ears or the state of the visor.",
-    "de": "Damit Benachrichtigungen und Portrait-Updates ordnungsgemäß funktionieren, stelle sicher, dass Glamourer nicht automatisch das Gesichtsaccessoire, die Sichtbarkeit der Waffe, Kopfbedeckung oder Viera-Ohren oder den Status vom Visier ändert."
+    "de": "Damit Benachrichtigungen und Portrait-Updates ordnungsgemäß funktionieren, stelle sicher, dass Glamourer nicht automatisch das Gesichtsaccessoire, die Sichtbarkeit der Waffe, Kopfbedeckung oder Viera-Ohren oder den Status vom Visier ändert.",
+    "zh": "为使通知与角色肖像更新正确生效，请确保 Glamourer 插件不会自动更改面部配饰、武器显示状态、头部装备显示状态、维埃拉族耳朵显示状态，或调整头部装备显示状态。"
   },
   "PortraitHelper.Config.EmbedPresetStringInThumbnails.Label": {
     "en": "Embed preset codes in thumbnails",
