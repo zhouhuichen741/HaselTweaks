@@ -1762,7 +1762,7 @@
     "ja": "特定のイベント発生時にタスクバーのウィンドウを点滅させます。"
   },
   "FlashTaskbar.Config.FlashOnAlarm.Label": {
-    "en": "Flash on Alarm",
+    "en": "Flash on alarm",
     "de": "Blinken bei Alarm",
 	"zh": "闹钟时闪烁",
     "ja": "アラーム時に点滅"
@@ -1774,7 +1774,7 @@
     "ja": "ゲームの/alarm機能による通知がチャットに表示されたときに発動します。"
   },
   "FlashTaskbar.Config.FlashOnCombat.Label": {
-    "en": "Flash on Combat",
+    "en": "Flash on combat",
     "de": "Blinken bei Kampfbeginn",
 	"zh": "战斗时闪烁",
     "ja": "戦闘開始時に点滅"
@@ -1783,6 +1783,14 @@
     "en": "Triggers when your character is drawn into combat.",
     "de": "Wird ausgelöst, wenn dein Charakter in einen Kampf verwickelt wird.",
 	"zh": "当你的角色进入战斗时触发。"
+  },
+  "FlashTaskbar.Config.FlashOnCraftEnd.Label": {
+    "en": "Flash on synthesis completion",
+    "de": "Blinken bei Syntheseabschluss"
+  },
+  "FlashTaskbar.Config.FlashOnCraftEnd.Description": {
+    "en": "Triggers when your character completes Synthesis or Quick Synthesis.",
+    "de": "Wird ausgelöst, wenn dein Charakter die Synthese oder Eilsynthese abgeschlossen hat."
   },
 
   "FixInventoryOpenTab.Tweak.Name": {
@@ -2282,6 +2290,10 @@
     "fr": "La tenue que vous portez ou votre apparence ne correspondent pas à celles de votre portrait instantané.",
     "ja": "現在の外見や装備がポートレートと一致していません。",
     "zh": "当前外观或装备与肖像中显示的不匹配。"
+  },
+  "PortraitHelper.Config.IncompatibilityWarning.Glamourer": {
+    "en": "In order for notifications and portrait updates to work properly, please make sure Glamourer is not automatically changing the facewear, the visibility of the weapon, headgear or viera ears or the state of the visor.",
+    "de": "Damit Benachrichtigungen und Portrait-Updates ordnungsgemäß funktionieren, stelle sicher, dass Glamourer nicht automatisch das Gesichtsaccessoire, die Sichtbarkeit der Waffe, Kopfbedeckung oder Viera-Ohren oder den Status vom Visier ändert."
   },
   "PortraitHelper.Config.EmbedPresetStringInThumbnails.Label": {
     "en": "Embed preset codes in thumbnails",

@@ -1,5 +1,11 @@
 # Changelog
 
+## [47.1.0] (2026-05-31)
+
+### Flash Taskbar
+
+- **Added:** A new config option "Flash on synthesis completion". Triggers when your character completes Synthesis or Quick Synthesis.
+
 ## [47.0.0] (2026-05-26)
 
 ### HaselTweaks
@@ -2596,7 +2602,8 @@ Refreshes the material list and recipe tree when you've crafted or gathered an i
 
 Opens duty finder for the duty you clicked on in the Wondrous Tails Journal.
 
-[unreleased]: https://github.com/Haselnussbomber/HaselTweaks/compare/v47.0.0...main
+[unreleased]: https://github.com/Haselnussbomber/HaselTweaks/compare/v47.1.0...main
+[47.1.0]: https://github.com/Haselnussbomber/HaselTweaks/compare/v47.0.0...v47.1.0
 [47.0.0]: https://github.com/Haselnussbomber/HaselTweaks/compare/v46.0.0...v47.0.0
 [46.0.0]: https://github.com/Haselnussbomber/HaselTweaks/compare/v45.0.2...v46.0.0
 [45.0.2]: https://github.com/Haselnussbomber/HaselTweaks/compare/v45.0.1...v45.0.2

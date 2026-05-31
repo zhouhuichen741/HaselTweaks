@@ -1,6 +1,7 @@
 using Dalamud.Game.Chat;
 using Dalamud.Game.ClientState.Conditions;
 using FFXIVClientStructs.FFXIV.Client.System.Framework;
+using FFXIVClientStructs.FFXIV.Component.GUI;
 using Windows.Win32;
 using Windows.Win32.Foundation;
 using Windows.Win32.UI.WindowsAndMessaging;
@@ -8,21 +9,39 @@ using Windows.Win32.UI.WindowsAndMessaging;
 namespace HaselTweaks.Tweaks;
 
 [RegisterSingleton<IHostedService>(Duplicate = DuplicateStrategy.Append), AutoConstruct]
-public partial class FlashTaskbar : ConfigurableTweak<FlashTaskbarConfiguration>
+public unsafe partial class FlashTaskbar : ConfigurableTweak<FlashTaskbarConfiguration>
 {
+    private readonly IGameInteropProvider _gameInteropProvider;
     private readonly IChatGui _chatGui;
     private readonly ICondition _condition;
+    private readonly IAddonLifecycle _addonLifecycle;
+
+    private Hook<AtkModuleInterface.AtkEventInterface.Delegates.ReceiveEvent>? _normalCraftCallbackHook;
 
     public override void OnEnable()
     {
         _chatGui.LogMessage += OnLogMessage;
         _condition.ConditionChange += OnConditionChange;
+
+        // Client::Game::Event::NormalCraftCallback.ReceiveEvent
+        _normalCraftCallbackHook = _gameInteropProvider.HookFromSignature<AtkModuleInterface.AtkEventInterface.Delegates.ReceiveEvent>(
+            "48 89 5C 24 ?? 48 89 74 24 ?? 48 89 7C 24 ?? 41 56 48 83 EC ?? 49 8B F0 48 8B FA 4C 8B F1 45 85 C9",
+            NormalCraftCallbackDetour);
+
+        _normalCraftCallbackHook.Enable();
+
+        _addonLifecycle.RegisterListener(AddonEvent.PostRefresh, "SynthesisSimple", OnSynthesisSimplePostRefresh);
     }
 
     public override void OnDisable()
     {
         _chatGui.LogMessage -= OnLogMessage;
         _condition.ConditionChange -= OnConditionChange;
+
+        _normalCraftCallbackHook?.Dispose();
+        _normalCraftCallbackHook = null;
+
+        _addonLifecycle.UnregisterListener(AddonEvent.PostRefresh, "SynthesisSimple", OnSynthesisSimplePostRefresh);
     }
 
     private void OnLogMessage(ILogMessage message)
@@ -41,14 +60,49 @@ public partial class FlashTaskbar : ConfigurableTweak<FlashTaskbarConfiguration>
         }
     }
 
-    private unsafe void Flash(string? reason = null)
+    private AtkValue* NormalCraftCallbackDetour(AtkModuleInterface.AtkEventInterface* thisPtr, AtkValue* returnValue, AtkValue* values, uint valueCount, ulong eventKind)
+    {
+        // status values:
+        // -1 = cancelled
+        // -2 = completed
+
+        if (_config.FlashOnCraftEnd && valueCount > 0 && values[0].TryGetInt(out var status) && status == -2)
+        {
+            Flash("Synthesis completed!");
+        }
+
+        return _normalCraftCallbackHook!.Original(thisPtr, returnValue, values, valueCount, eventKind);
+    }
+
+    private void OnSynthesisSimplePostRefresh(AddonEvent type, AddonArgs args)
+    {
+        if (!_config.FlashOnCraftEnd)
+            return;
+
+        if (args is not AddonRefreshArgs refreshArgs)
+            return;
+
+        var values = refreshArgs.GetAtkValues();
+        if (values.Length != 9)
+        {
+            _logger.LogWarning("[SynthesisSimple] Unexpected amount of AtkValues. Expected 9, got {count}", values.Length);
+            return;
+        }
+
+        if (!values[3].TryGetUInt(out var craftedCount) || !values[4].TryGetUInt(out var toCraftCount) || craftedCount != toCraftCount)
+            return;
+
+        Flash("Quick Synthesis completed!");
+    }
+
+    private void Flash(string? reason = null)
     {
         var framework = Framework.Instance();
         if (framework == null || framework->GameWindow == null || !framework->WindowInactive)
             return;
 
         if (reason != null)
-            _logger.LogTrace("{reason} Flashing taskbar...", reason);
+            _logger.LogInformation("{reason} Flashing taskbar...", reason);
 
         PInvoke.FlashWindowEx(new FLASHWINFO()
         {
