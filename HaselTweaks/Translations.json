@@ -7,7 +7,8 @@
   },
   "LicensesWindow.Title": {
     "en": "HaselTweaks - Licenses",
-    "de": "HaselTweaks - Lizenzen"
+    "de": "HaselTweaks - Lizenzen",
+    "zh": "HaselTweaks - 许可证"
   },
   "TitleBarButton.OpenConfig": {
     "en": "Open configuration",
@@ -30,6 +31,7 @@
   "HaselTweaks.Config.Licenses": {
     "en": "Licenses",
     "de": "Lizenzen",
+    "zh": "许可证",
     "ja": "ライセンス"
   },
   "HaselTweaks.Config.DevGitHubLink.Tooltip": {
@@ -2806,11 +2808,13 @@
   },
 
   "PreventMovementReelIn.Tweak.Name": {
-    "en": "Prevent Reel-In from Movement"
+    "en": "Prevent Reel-In from Movement",
+    "zh": "防止移动时收杆"
   },
   "PreventMovementReelIn.Tweak.Description": {
     "en": "Prevents reeling in your fishing rod if you accidentally move.",
-    "de": "Verhindert das Einholen der Angelrute, wenn du dich versehentlich bewegst."
+    "de": "Verhindert das Einholen der Angelrute, wenn du dich versehentlich bewegst.",
+    "zh": "防止因意外移动而收起鱼竿。"
   },
 
   "RevealDutyRequirements.Tweak.Name": {
