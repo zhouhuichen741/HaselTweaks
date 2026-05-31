@@ -2343,6 +2343,7 @@
   "PortraitHelper.Config.AutoUpdatePotraitOnGearUpdate.Label": {
     "en": "Automatically update portrait when the Gearset was updated",
     "de": "Automatisch das Portrait aktualisieren wenn das Ausrüstungsset aktualisiert wurde",
+    "zh": "装备套装更新时自动更新肖像",
     "ja": "ギアセット更新時にポートレートを自動更新する"
   },
   "PortraitHelper.Config.AutoUpdatePotraitOnGearUpdate.Description": {
