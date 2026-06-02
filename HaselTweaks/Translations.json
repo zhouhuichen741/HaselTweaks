@@ -3122,12 +3122,12 @@
   "ShopItemIcons.Config.HandleSkyIslandExchange2.Label": {
     "en": "Enable for Exchange",
     "de": "Aktiviere für Eintauschen",
-    "zh": "启用兑换功能。"
+    "zh": "为兑换启用"
   },
   "ShopItemIcons.Config.HandleSkyIslandExchange2.Description": {
     "en": "This applies, for example, to the Calamity Salvager when exchanging old pigments for all-purpose pigments.",
     "de": "Betrifft z.B. den Fundsachen-Verwalter, bei dem alte Farbpigmente gegen Universalpigmente eingetauscht werden können.",
-    "zh": "这适用于，例如，在失物管理人处将旧染剂兑换为通用染剂。"
+    "zh": "这项适用于，例如，在失物管理人处将旧染剂兑换为通用染剂。"
   },
 
   "SimpleAethernetList.Tweak.Name": {
