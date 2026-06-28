@@ -1742,11 +1742,13 @@
   },
 
   "FasterDecompression.Tweak.Name": {
-    "en": "Faster Decompression"
+    "en": "Faster Decompression",
+    "zh": "更快的解压缩"
   },
   "FasterDecompression.Tweak.Description": {
     "en": "Replaces the game's zlib.uncompress function with an optimized implementation from the Intel® Intelligent Storage Acceleration Library (ISA-L).",
-    "de": "Ersetzt die zlib.uncompress-Funktion des Spiels durch eine optimierte Implementierung aus der Intel® Intelligent Storage Acceleration Library (ISA-L)."
+    "de": "Ersetzt die zlib.uncompress-Funktion des Spiels durch eine optimierte Implementierung aus der Intel® Intelligent Storage Acceleration Library (ISA-L).",
+    "zh": "使用英特尔智能存储加速库（ISA-L）中的优化实现，替换游戏原生的 zlib.uncompress 函数，大幅提速资源加载速度。"
   },
 
   "FastMouseClickFix.Tweak.Name": {
