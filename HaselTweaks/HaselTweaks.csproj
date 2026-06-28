@@ -3,7 +3,7 @@
   <!-- Project settings -->
   <PropertyGroup>
     <Name>HaselTweaks</Name>
-    <Version>47.2.2</Version>
+    <Version>48.0.0</Version>
     <Author>Haselnussbomber,cyf5119(汉化),zhouhuichen741(汉化&amp;本地化维护)</Author>
     <RepoUrl>https://github.com/zhouhuichen741/HaselTweaks</RepoUrl>
     <IconUrl>https://raw.githubusercontent.com/zhouhuichen741/dalamud-plugins/master/plugins/HaselTweaks/icon.png</IconUrl>
@@ -46,6 +46,7 @@
   <!-- References to Dalamud dependencies -->
   <ItemGroup>
     <Reference Include="TerraFX.Interop.Windows" Private="false" />
+    <Reference Include="Iced" Private="false" />
   </ItemGroup>
 
   <!-- NuGet dependencies -->
