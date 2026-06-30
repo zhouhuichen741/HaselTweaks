@@ -1,5 +1,16 @@
 # Changelog
 
+## [48.1.1] (2026-06-30)
+
+I accidentally released v48.1.0 from an experimental branch in which I tried to build HaselTweaks.Native.dll under Linux.  
+This was not ready yet. We're now back on the main branch where it builds on Windows. Sorry about that!
+
+## [48.1.0] (2026-06-30)
+
+### Glamour Dresser Alert
+
+- **Added:** Duplicate items and items that are already part of a set will now be listed in the alert window.
+
 ## [48.0.1] (2026-06-29)
 
 ### Faster Decompression
@@ -2644,7 +2655,9 @@ Refreshes the material list and recipe tree when you've crafted or gathered an i
 
 Opens duty finder for the duty you clicked on in the Wondrous Tails Journal.
 
-[unreleased]: https://github.com/Haselnussbomber/HaselTweaks/compare/v48.0.1...main
+[unreleased]: https://github.com/Haselnussbomber/HaselTweaks/compare/v48.1.1...main
+[48.1.1]: https://github.com/Haselnussbomber/HaselTweaks/compare/v48.1.0...v48.1.1
+[48.1.0]: https://github.com/Haselnussbomber/HaselTweaks/compare/v48.0.1...v48.1.0
 [48.0.1]: https://github.com/Haselnussbomber/HaselTweaks/compare/v48.0.0...v48.0.1
 [48.0.0]: https://github.com/Haselnussbomber/HaselTweaks/compare/v47.2.2...v48.0.0
 [47.2.2]: https://github.com/Haselnussbomber/HaselTweaks/compare/v47.2.1...v47.2.2
