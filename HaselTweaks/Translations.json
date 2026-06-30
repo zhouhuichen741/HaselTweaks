@@ -2015,11 +2015,13 @@
   },
   "GlamourDresserAlertWindow.DuplicateItemsInExistingSetsTreeNodeLabel": {
     "en": "<string(lnum1)> <if([lnum1==1],item already part of a set,items already part of sets)>",
-    "de": "<string(lnum1)> bereits in Set <if([lnum1==1],existierender Gegenstand,existierende Gegenstände)>"
+    "de": "<string(lnum1)> bereits in Set <if([lnum1==1],existierender Gegenstand,existierende Gegenstände)>",
+    "zh": "<string(lnum1)> <if([lnum1==1],该物品已收入套装幻影化,这些物品已收入套装幻影化)>"
   },
   "GlamourDresserAlertWindow.DuplicateItemsTreeNodeLabel": {
     "en": "<string(lnum1)> duplicate <if([lnum1==1],item,items)>",
-    "de": "<string(lnum1)> <if([lnum1==1],doppelter Gegenstand,doppelte Gegenstände)>"
+    "de": "<string(lnum1)> <if([lnum1==1],doppelter Gegenstand,doppelte Gegenstände)>",
+    "zh": "<string(lnum1)> 件重复物品"
   },
   "GlamourDresserAlertWindow.DuplicateSetItemsTooltip": {
     "en": "The following items are stored in the armoire, and part of this set:",
