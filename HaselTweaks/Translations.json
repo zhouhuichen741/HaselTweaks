@@ -2016,7 +2016,7 @@
   "GlamourDresserAlertWindow.DuplicateItemsInExistingSetsTreeNodeLabel": {
     "en": "<string(lnum1)> <if([lnum1==1],item already part of a set,items already part of sets)>",
     "de": "<string(lnum1)> bereits in Set <if([lnum1==1],existierender Gegenstand,existierende Gegenstände)>",
-    "zh": "<string(lnum1)> <if([lnum1==1],该物品已收入套装幻影化,这些物品已收入套装幻影化)>"
+    "zh": "<string(lnum1)> 件物品已收入套装幻影化"
   },
   "GlamourDresserAlertWindow.DuplicateItemsTreeNodeLabel": {
     "en": "<string(lnum1)> duplicate <if([lnum1==1],item,items)>",
