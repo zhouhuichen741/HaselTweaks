@@ -1960,7 +1960,7 @@
 
   "GlamourDresserAlert.Tweak.Name": {
     "en": "Glamour Dresser Alert",
-    "zh": "投影台物品可存入收藏柜提醒"
+    "zh": "投影台物品提醒"
   },
   "GlamourDresserAlert.Tweak.Description": {
     "en": "Opens a small window next to the Glamour Dresser, displaying a list of items that can be combined into outfits, as well as items that can be stored in the Armoire (only visible if qualified items were found).",
@@ -1995,7 +1995,7 @@
   },
   "GlamourDresserAlertWindow.Title": {
     "en": "[HaselTweaks] Glamour Dresser Alert",
-    "zh": "[HaselTweaks] 投影台物品可存入收藏柜提醒"
+    "zh": "[HaselTweaks] 投影台物品提醒"
   },
   "GlamourDresserAlertWindow.Info": {
     "en": "Click to restore item.",
