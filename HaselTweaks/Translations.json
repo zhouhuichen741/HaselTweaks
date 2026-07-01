@@ -2003,7 +2003,7 @@
     "zh": "点击物品取回背包。",
     "ja": "クリックしてアイテムを戻す。"
   },
-  "GlamourDresserAlertWindow.CabinetReadyItemsTreeNodeLabel": {
+  "GlamourDresserAlertWindow.CabinetStorableItemsTreeNodeLabel": {
     "en": "<string(lnum1)> <if([lnum1==1],item,items)> placeable in the armoire",
     "de": "<string(lnum1)> <if([lnum1==1],Gegenstand,Gegenstände)> ins Kostbarkeitenkabinett einlegbar",
     "zh": "<string(lnum1)> 件物品可放入收藏柜"
