@@ -740,7 +740,7 @@
 
   "CharacterReputeTeleport.Tweak.Name": {
     "en": "Character Reputation Teleport",
-    "zh": "人物界面的友好部族传送"
+    "zh": "角色界面的友好部族传送"
   },
   "CharacterReputeTeleport.Tweak.Description": {
     "en": "Clicking an Allied Society in the Character window teleports you to the nearest Aetheryte instead of opening the map. Hold Shift to open the map normally.",
