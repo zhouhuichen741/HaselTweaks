@@ -175,13 +175,13 @@
   "HaselTweaks.Config.Generic.DeleteButton.Tooltip.NotHoldingShift": {
     "en": "Hold shift to delete",
     "de": "Shift gedrückt halten, um den Eintrag zu löschen",
-    "zh": "按住shift以删除",
+    "zh": "按住shift键以删除",
     "ja": "Shiftを押しながら削除"
   },
   "HaselTweaks.Config.Generic.DeleteButton.Tooltip.WindowNotFocused": {
     "en": "Focus window and hold shift to delete",
     "de": "Fokussiere das Fenster und halte Shift gedrückt, um den Eintrag zu löschen",
-    "zh": "聚焦窗口并按住Shift以删除",
+    "zh": "聚焦窗口并按住shift键以删除",
     "ja": "ウィンドウをフォーカスしてShiftを押しながら削除"
   },
 
@@ -386,13 +386,13 @@
   "AutoSorter.Config.DeleteRuleButton.Tooltip.NotHoldingShift": {
     "en": "Hold shift to delete rule",
     "de": "Shift gedrückt halten, um die Regel zu löschen",
-    "zh": "按住shift以删除规则",
+    "zh": "按住shift键以删除规则",
     "ja": "Shiftを押しながらクリックでルールを削除"
   },
   "AutoSorter.Config.DeleteRuleButton.Tooltip.WindowNotFocused": {
     "en": "Focus window and hold shift to delete rule",
     "de": "Fokussiere das Fenster und halte Shift gedrückt, um die Regel zu löschen",
-    "zh": "聚焦窗口并按住shift以删除规则",
+    "zh": "聚焦窗口并按住shift键以删除规则",
     "ja": "ウィンドウをフォーカスしてShiftを押しながらクリックでルールを削除"
   },
   "AutoSorter.Config.ExecuteButton.Tooltip.Ready": {
@@ -689,7 +689,7 @@
   "CharacterClassSwitcher.Tweak.Description": {
     "en": "Clicking on a class/job in the Character window finds the matching gearset and equips it. Hold shift on crafters to open the original desynthesis window.",
     "de": "Ein Klick auf eine Klasse/Job im Charakterfenster findet die passende Ausrüstung und rüstet sie aus. Halte die Umschalttaste bei Handwerkern gedrückt, um das ursprüngliche Desynthesefenster zu öffnen.",
-    "zh": "在角色窗口中点击任意职业或特职时，将自动寻找合适的套装并装备。在制作职业上按住shift以打开原来的分解窗口。",
+    "zh": "在角色窗口中点击任意职业或特职时，将自动寻找合适的套装并装备。在制作职业上按住shift键以打开原来的分解窗口。",
     "ja": "キャラクターウィンドウでクラス/ジョブをクリックすると、対応するギアセットを検索して装備します。クラフター選択時にShiftを押したままにすると、元の分解ウィンドウが開きます。"
   },
   "CharacterClassSwitcher.Config.DisableTooltips.Label": {
@@ -745,12 +745,12 @@
   "CharacterReputeTeleport.Tweak.Description": {
     "en": "Clicking an Allied Society in the Character window teleports you to the nearest Aetheryte instead of opening the map. Hold Shift to open the map normally.",
     "de": "Ein Klick auf ein Freundesvolk im Charakterfenster teleportiert dich zum nächstgelegenen Ätheryten, statt die Karte zu öffnen. Halt die Shift-Taste gedrückt, um die Karte normal zu öffnen.",
-    "zh": "在角色窗口中点击友好部族声望时，会将你传送至最近的以太之光，而非打开地图。按住 Shift 键再点击即可正常打开地图。"
+    "zh": "在角色窗口中点击友好部族声望时，会将你传送至最近的以太之光，而非打开地图。按住shift键再点击即可正常打开地图。"
   },
 
   "Commands.Tweak.Name": {
     "en": "Commands",
-    "zh": "指令",
+    "zh": "指令",shift
     "ja": "コマンド"
   },
   "Commands.Tweak.Description": {
@@ -2165,13 +2165,13 @@
   "LockWindowPosition.Config.DeleteButton.Tooltip.NotHoldingShift": {
     "en": "Hold shift to delete rule",
     "de": "Shift gedrückt halten, um die Regel zu löschen",
-    "zh": "按住shift以删除规则",
+    "zh": "按住shift键以删除规则",
     "ja": "Shiftを押しながらルールを削除"
   },
   "LockWindowPosition.Config.DeleteButton.Tooltip.WindowNotFocused": {
     "en": "Focus window and hold shift to delete rule",
     "de": "Fokussiere das Fenster und halte Shift gedrückt, um die Regel zu löschen",
-    "zh": "聚焦窗口且按住shift以删除规则",
+    "zh": "聚焦窗口且按住shift键以删除规则",
     "ja": "ウィンドウをフォーカスし、Shiftを押しながらルールを削除"
   },
   "LockWindowPosition.Config.NoWindowsAddedYet": {
@@ -2747,7 +2747,7 @@
   "PortraitHelperWindows.MenuBar.ToggleAlignmentTool.Label": {
     "en": "Toggle Alignment Tool\nShift: Open/close Settings",
     "de": "Ausrichtungswerkzeug umschalten\nShift: Einstellungen öffnen/schließen",
-    "zh": "开关辅助线\nShift：打开/关闭设置",
+    "zh": "开关辅助线\nShift键：打开/关闭设置",
     "ja": "整列ツールの切り替え\nShift: 設定を開く/閉じる"
   },
   "PortraitHelperWindows.PresetCard.MovingPresetCard.Tooltip": {
