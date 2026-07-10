@@ -745,7 +745,7 @@
   "CharacterReputeTeleport.Tweak.Description": {
     "en": "Clicking an Allied Society in the Character window teleports you to the nearest Aetheryte instead of opening the map. Hold Shift to open the map normally.",
     "de": "Ein Klick auf ein Freundesvolk im Charakterfenster teleportiert dich zum nächstgelegenen Ätheryten, statt die Karte zu öffnen. Halt die Shift-Taste gedrückt, um die Karte normal zu öffnen.",
-    "zh": "在角色界面中点击友好部族时，会将你传送至最近的以太水晶，而非打开地图。按住 Shift 键再点击即可正常打开地图。"
+    "zh": "在角色界面中点击友好部族时，会将你传送至最近的以太之光，而非打开地图。按住 Shift 键再点击即可正常打开地图。"
   },
 
   "Commands.Tweak.Name": {
