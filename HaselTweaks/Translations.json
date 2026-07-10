@@ -687,7 +687,7 @@
     "ja": "キャラクタークラス切り替え"
   },
   "CharacterClassSwitcher.Tweak.Description": {
-    "en": "Clicking on a class/job in the character window finds the matching gearset and equips it. Hold shift on crafters to open the original desynthesis window.",
+    "en": "Clicking on a class/job in the Character window finds the matching gearset and equips it. Hold shift on crafters to open the original desynthesis window.",
     "de": "Ein Klick auf eine Klasse/Job im Charakterfenster findet die passende Ausrüstung und rüstet sie aus. Halte die Umschalttaste bei Handwerkern gedrückt, um das ursprüngliche Desynthesefenster zu öffnen.",
     "zh": "在角色窗口点击一个职业或特职会寻找合适的套装并装备。在制作职业上按住shift以打开原来的分解窗口。",
     "ja": "キャラクターウィンドウでクラス/ジョブをクリックすると、対応するギアセットを検索して装備します。クラフター選択時にShiftを押したままにすると、元の分解ウィンドウが開きます。"
@@ -736,6 +736,14 @@
     "fr": "Impossible de trouver un ensemble d'équipement adapté.",
     "ja": "適切なギアセットが見つかりませんでした。",
     "zh": "无法找到合适的套装"
+  },
+
+  "CharacterReputeTeleport.Tweak.Name": {
+    "en": "Character Reputation Teleport"
+  },
+  "CharacterReputeTeleport.Tweak.Description": {
+    "en": "Clicking an Allied Society in the Character window teleports you to the nearest Aetheryte instead of opening the map. Hold Shift to open the map normally.",
+    "de": "Ein Klick auf ein Freundesvolk im Charakterfenster teleportiert dich zum nächstgelegenen Ätheryten, statt die Karte zu öffnen. Halt die Shift-Taste gedrückt, um die Karte normal zu öffnen."
   },
 
   "Commands.Tweak.Name": {
@@ -1198,7 +1206,7 @@
     "ja": "強化版経験値バー"
   },
   "EnhancedExpBar.Tweak.Description": {
-    "en": "Enhances the Experience Bar with the following modes:\n\n- The PvP Series Bar shows series rank and experience. A little * after the rank indicates a claimable rank-up reward.\n\n- The Sanctuary Bar shows sanctuary level and island experience.",
+    "en": "Enhances the Experience Bar with the following modes:\n\n- The PvP Series Bar shows series rank and experience. A little * after the rank indicates a claimable rank-up reward.\n\n- The Sanctuary Bar shows Island Sanctuary level and island experience.",
     "de": "Erweitert die Erfahrungsleiste um die folgenden Modi:\n\n- Die PvP-Serienleiste zeigt den Serienstufe und -erfahrung an. Ein kleines * hinter dem Rang zeigt an, dass eine Belohnung zum Einlösen bereit steht.\n\n- Der Inselparadies-Balken zeigt Inselstufe und Inselroutine an.",
     "zh": "在以下模式增强经验栏：\n\n- 显示系列赛等级与经验的PvP系列赛栏。等级后的小*表示有可领取的等级奖励。\n\n- 显示无人岛等级与经验的无人岛栏。",
     "ja": "以下のモードで経験値バーを強化します：\n\n- PvPシリーズバーはシリーズランクと経験値を表示します。ランクの後ろにある小さな * は受け取れるランクアップ報酬があることを示します。\n\n- 島バーは島のレベルと経験値を表示します。"

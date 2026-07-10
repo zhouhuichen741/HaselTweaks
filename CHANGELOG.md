@@ -1,5 +1,19 @@
 # Changelog
 
+## [49.0.0] (2026-07-10)
+
+### HaselTweaks
+
+- Updated description for the Plugin Installer. It just lists all the tweaks now.
+
+### New Tweak: Character Reputation Teleport
+
+Clicking an Allied Society in the Character window teleports you to the nearest Aetheryte instead of opening the map. Hold Shift to open the map normally.
+
+### Enhanced Login/Logout
+
+- **Changed/Fixed?:** To prevent that the character is spawning with a T-Pose, the emote now plays once the character is visible.
+
 ## [48.1.1] (2026-06-30)
 
 I accidentally released v48.1.0 from an experimental branch in which I tried to build HaselTweaks.Native.dll under Linux.  
@@ -2655,7 +2669,8 @@ Refreshes the material list and recipe tree when you've crafted or gathered an i
 
 Opens duty finder for the duty you clicked on in the Wondrous Tails Journal.
 
-[unreleased]: https://github.com/Haselnussbomber/HaselTweaks/compare/v48.1.1...main
+[unreleased]: https://github.com/Haselnussbomber/HaselTweaks/compare/v49.0.0...main
+[49.0.0]: https://github.com/Haselnussbomber/HaselTweaks/compare/v48.1.1...v49.0.0
 [48.1.1]: https://github.com/Haselnussbomber/HaselTweaks/compare/v48.1.0...v48.1.1
 [48.1.0]: https://github.com/Haselnussbomber/HaselTweaks/compare/v48.0.1...v48.1.0
 [48.0.1]: https://github.com/Haselnussbomber/HaselTweaks/compare/v48.0.0...v48.0.1

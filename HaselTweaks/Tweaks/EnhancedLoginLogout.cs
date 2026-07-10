@@ -22,6 +22,7 @@ public unsafe partial class EnhancedLoginLogout : ConfigurableTweak<EnhancedLogi
     private readonly IAddonLifecycle _addonLifecycle;
     private readonly ITextureProvider _textureProvider;
     private readonly ExcelService _excelService;
+    private readonly IFramework _framework;
 
     private Hook<AgentLobby.Delegates.UpdateCharaSelectDisplay>? _updateCharaSelectDisplayHook;
     private Hook<CharaSelectCharacterList.Delegates.CleanupCharacters>? _cleanupCharactersHook;
@@ -60,6 +61,7 @@ public unsafe partial class EnhancedLoginLogout : ConfigurableTweak<EnhancedLogi
         _gameConfig.Changed += OnGameConfigChanged;
         _clientState.Login += OnLogin;
         _clientState.Logout += OnLogout;
+        _framework.Update += OnUpdate;
 
         UpdateCharacterSettings();
         PreloadEmotes();
@@ -75,6 +77,7 @@ public unsafe partial class EnhancedLoginLogout : ConfigurableTweak<EnhancedLogi
         _gameConfig.Changed -= OnGameConfigChanged;
         _clientState.Login -= OnLogin;
         _clientState.Logout -= OnLogout;
+        _framework.Update -= OnUpdate;
 
         _addonLifecycle.UnregisterListener(AddonEvent.PostSetup, "Logo", OnLogoPostSetup);
 
@@ -112,6 +115,23 @@ public unsafe partial class EnhancedLoginLogout : ConfigurableTweak<EnhancedLogi
             UpdatePetMirageSettings();
     }
 
+    private void OnUpdate(IFramework framework)
+    {
+        if (_currentEntry == null)
+            return;
+
+        var character = _currentEntry.Character;
+        if (character == null)
+            return;
+
+        var drawObject = character->GetDrawObject();
+        if (drawObject == null || !drawObject->IsVisible)
+            return;
+
+        if (character->EmoteController.EmoteId == 0 && _config.SelectedEmotes.TryGetValue(ActiveContentId, out var emoteId))
+            PlayEmote(emoteId);
+    }
+
     private void UpdateCharacterSettings()
     {
         UpdatePetMirageSettings();
@@ -125,7 +145,6 @@ public unsafe partial class EnhancedLoginLogout : ConfigurableTweak<EnhancedLogi
 
     private ulong ActiveContentId => _currentEntry?.ContentId ?? PlayerState.Instance()->ContentId;
 
-    // called every frame
     private bool UpdateCharaSelectDisplayDetour(AgentLobby* agent, sbyte index, bool a2)
     {
         var retVal = _updateCharaSelectDisplayHook!.Original(agent, index, a2);
@@ -146,11 +165,11 @@ public unsafe partial class EnhancedLoginLogout : ConfigurableTweak<EnhancedLogi
             return retVal;
         }
 
-        if (_currentEntry?.ContentId == entry->ContentId)
-            return retVal;
-
         var character = CharaSelectCharacterList.GetCurrentCharacter();
         if (character == null)
+            return retVal;
+
+        if (_currentEntry?.ContentId == entry->ContentId)
             return retVal;
 
         _currentEntry = new(character, entry);
@@ -158,9 +177,6 @@ public unsafe partial class EnhancedLoginLogout : ConfigurableTweak<EnhancedLogi
         character->Vfx.VoiceId = entry->ClientSelectData.VoiceId;
 
         SpawnPet();
-
-        if (_config.SelectedEmotes.TryGetValue(ActiveContentId, out var emoteId))
-            PlayEmote(emoteId);
 
         return retVal;
     }
@@ -361,7 +377,7 @@ public unsafe partial class EnhancedLoginLogout : ConfigurableTweak<EnhancedLogi
         _logger.LogInformation("Preloading tmb {key} (Emote: {emoteId}, ActionTimeline: {actionTimelineId})", actionTimeline.Key.ToString(), emoteId, actionTimelineId);
 
         using var rssb = new RentedSeStringBuilder();
-        
+
         fixed (byte* keyPtr = rssb.Builder.Append(actionTimeline.Key).GetViewAsSpan())
         {
             var preloadInfo = new ActionTimelineManager.PreloadActionTmbInfo
@@ -423,6 +439,8 @@ public unsafe partial class EnhancedLoginLogout : ConfigurableTweak<EnhancedLogi
 
         // TODO: figure out how to prevent T-Pose
 
+        _currentEntry.Character->EmoteController.EmoteId = (ushort)emoteId;
+
         if (intro != 0 && loop != 0)
         {
             _currentEntry.Character->Timeline.PlayActionTimeline(intro, loop);
@@ -480,7 +498,7 @@ public unsafe partial class EnhancedLoginLogout : ConfigurableTweak<EnhancedLogi
                 var changePoseIndex = PlayerState.Instance()->SelectedPoses[0];
                 if (changePoseIndexBefore != changePoseIndex) // only process if standing pose was changed
                 {
-                    if (changePoseIndex >= 0 && changePoseIndex < _changePoseEmoteIds.Length)
+                    if (changePoseIndex < _changePoseEmoteIds.Length)
                     {
                         SaveEmote(_changePoseEmoteIds[changePoseIndex]);
                     }
