@@ -750,7 +750,7 @@
 
   "Commands.Tweak.Name": {
     "en": "Commands",
-    "zh": "指令",shift
+    "zh": "指令",
     "ja": "コマンド"
   },
   "Commands.Tweak.Description": {
