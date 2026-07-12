@@ -1456,7 +1456,7 @@
   "EnhancedLoginLogout.Config.LoopEmote.Label": {
     "en": "Loop emote",
     "de": "Emote in Endlosschleife abspielen",
-    "zh": "循环情感动作"
+    "zh": "重复播放当前情感动作"
   },
   "EnhancedLoginLogout.Config.PreloadTerritory.Label": {
     "en": "Preload territory when queued",
