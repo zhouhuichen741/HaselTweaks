@@ -29,7 +29,7 @@ public unsafe partial class EnhancedLoginLogout : ConfigurableTweak<EnhancedLogi
     private Hook<EmoteManager.Delegates.ExecuteEmote>? _executeEmoteHook;
     private Hook<AgentLobby.Delegates.OpenLoginWaitDialog>? _openLoginWaitDialogHook;
 
-    private CharaSelectCharacter? _currentEntry = null;
+    private CharaSelectCharacter? _currentEntry;
 
     private BattleChara* _pet = null;
     private ushort _petIndex = 0xFFFF;
@@ -117,7 +117,7 @@ public unsafe partial class EnhancedLoginLogout : ConfigurableTweak<EnhancedLogi
 
     private void OnUpdate(IFramework framework)
     {
-        if (_currentEntry == null)
+        if (_currentEntry == null || _currentEntry.IsEmotePlayed)
             return;
 
         var character = _currentEntry.Character;
@@ -129,7 +129,12 @@ public unsafe partial class EnhancedLoginLogout : ConfigurableTweak<EnhancedLogi
             return;
 
         if (character->EmoteController.EmoteId == 0 && _config.SelectedEmotes.TryGetValue(ActiveContentId, out var emoteId))
+        {
             PlayEmote(emoteId);
+            var isLoopEmoteEnabled = _config.LoopEmote.TryGetValue(_currentEntry.ContentId, out var loopEmote) && loopEmote;
+            if (!isLoopEmoteEnabled)
+                _currentEntry.IsEmotePlayed = true;
+        }
     }
 
     private void UpdateCharacterSettings()
