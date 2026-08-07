@@ -13,7 +13,7 @@ public sealed partial class Plugin : IAsyncDalamudPlugin
 {
     private readonly IDalamudPluginInterface _pluginInterface;
     private readonly IFramework _framework;
-    private IHost? _host;
+    private IHost _host;
     private bool _isDev;
 
     [AutoPostConstruct]
@@ -57,7 +57,7 @@ public sealed partial class Plugin : IAsyncDalamudPlugin
         }
         finally
         {
-            _host?.Dispose();
+            _host.Dispose();
         }
     }
 }
