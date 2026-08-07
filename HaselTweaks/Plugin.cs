@@ -49,7 +49,7 @@ public sealed partial class Plugin : IAsyncDalamudPlugin
     public async ValueTask DisposeAsync()
     {
         if (_isDev)
-            return ValueTask.CompletedTask;
+            return;
 
         try
         {
