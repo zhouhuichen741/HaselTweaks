@@ -1,5 +1,23 @@
 # Changelog
 
+## [49.2.2] (2026-08-07)
+
+### HaselTweaks
+
+- Updated ClientStructs for Patch 7.55 HotFix.
+
+### Enhanced Login/Logout
+
+- **Fixed:** When character data is not available due to congestion, pets would not properly despawn on hovering other characters.
+
+### Forced Cutscene Sounds
+
+- **Updated:** The tweak now checks and unmutes sounds whenever a cutscene-related event task was found. For example, this allows the tweak to unmute sounds while the games credits are playing.
+
+### Scrollable Tabs
+
+- **Fixed:** In the Fish Guide, scrolling the search results list will no longer incorrectly scroll the tabs.
+
 ## [49.2.1] (2026-07-28)
 
 ### HaselTweaks
@@ -2705,7 +2723,8 @@ Refreshes the material list and recipe tree when you've crafted or gathered an i
 
 Opens duty finder for the duty you clicked on in the Wondrous Tails Journal.
 
-[unreleased]: https://github.com/Haselnussbomber/HaselTweaks/compare/v49.2.1...main
+[unreleased]: https://github.com/Haselnussbomber/HaselTweaks/compare/v49.2.2...main
+[49.2.2]: https://github.com/Haselnussbomber/HaselTweaks/compare/v49.2.1...v49.2.2
 [49.2.1]: https://github.com/Haselnussbomber/HaselTweaks/compare/v49.2.0...v49.2.1
 [49.2.0]: https://github.com/Haselnussbomber/HaselTweaks/compare/v49.1.0...v49.2.0
 [49.1.0]: https://github.com/Haselnussbomber/HaselTweaks/compare/v49.0.1...v49.1.0
