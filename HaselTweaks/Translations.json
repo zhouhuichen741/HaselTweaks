@@ -657,7 +657,8 @@
   },
   "CabinetQuickStore.Config.IgnoreItemsInGearsets.Label": {
     "en": "Ignore items in gearsets",
-    "de": "Ignoriere Gegenstände in Ausrüstungssets"
+    "de": "Ignoriere Gegenstände in Ausrüstungssets",
+	"zh": "忽略套装中的物品"
   },
   "CabinetQuickStoreWindow.Button.Label": {
     "en": "Next Item",
