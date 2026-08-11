@@ -655,6 +655,10 @@
     "de": "Zeigt einen Button über dem \"AUSRÜSTUNG DEPONIEREN\"-Fenster an, um den ersten Gegenstand in der Liste ins Kostbarkeitenkabinett zu legen.",
 	"zh": "在“收藏柜”窗口上方显示一个按钮，点击即可将列表中的第一件物品存入收藏柜。"
   },
+  "CabinetQuickStore.Config.IgnoreItemsInGearsets.Label": {
+    "en": "Ignore items in gearsets",
+    "de": "Ignoriere Gegenstände in Ausrüstungssets"
+  },
   "CabinetQuickStoreWindow.Button.Label": {
     "en": "Next Item",
     "de": "Nächster Gegenstand",
