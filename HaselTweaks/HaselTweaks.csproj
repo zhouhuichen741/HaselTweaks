@@ -9,7 +9,6 @@
     <IconUrl>https://raw.githubusercontent.com/zhouhuichen741/dalamud-plugins/master/plugins/HaselTweaks/icon.png</IconUrl>
     <Punchline>一系列生活质量调整（在线安装 Only）</Punchline>
     <Description>继续调整</Description>
-    <LoadRequiredState>1</LoadRequiredState>
     <CanUnloadAsync>true</CanUnloadAsync>
   </PropertyGroup>
 
