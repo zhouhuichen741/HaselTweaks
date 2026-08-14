@@ -1226,11 +1226,13 @@
   },
   "EnhancedExpBar.Config.HidePvPSeriesBarAfterClaimingAllRewards.Label": {
     "en": "Hide PvP Series Bar when all meaningful rewards were claimed",
-    "de": "PvP-Serienleiste ausblenden, wenn alle bedeutsamen Belohnungen eingefordert wurden"
+    "de": "PvP-Serienleiste ausblenden, wenn alle bedeutsamen Belohnungen eingefordert wurden",
+    "zh": "当所有有效奖励均已领取时，隐藏PvP系列赛栏"
   },
   "EnhancedExpBar.Config.HidePvPSeriesBarAfterClaimingAllRewards.MaxRankHint": {
     "en": "This will hide the PvP Series Bar when rank <num(lnum1)> was claimed",
-    "de": "Dadurch wird die PvP-Serienleiste ausgeblendet, wenn Rang <num(lnum1)> eingefordert wurde."
+    "de": "Dadurch wird die PvP-Serienleiste ausgeblendet, wenn Rang <num(lnum1)> eingefordert wurde.",
+    "zh": "当等级<num(lnum1)>的奖励已领取时，将隐藏PvP系列赛栏"
   },
   "EnhancedExpBar.Config.ForceSanctuaryBar.Label": {
     "en": "Always show Sanctuary Bar on the Island",
