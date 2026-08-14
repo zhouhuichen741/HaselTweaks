@@ -1,5 +1,18 @@
 # Changelog
 
+## [49.4.1] (2026-08-14)
+
+### HaselTweaks
+
+Changed when the plugin loads to avoid a Dalamud bug that cancels the plugin load after 60 seconds when, I assume, the game is compiling shaders for a really long time.
+
+## [49.4.0] (2026-08-13)
+
+### Enhanced Experience Bar
+
+- **Added:** A config option to hide the PvP-Series bar when all meaningful rewards were claimed (default on).
+- **Changed:** Custom bars (mainly Companion Bar and PvP-Series Bar) no longer show in synced content. I didn't find it particularly helpful not seeing the synced level while doing leveling roulette.
+
 ## [49.3.0] (2026-08-11)
 
 ### Armoire Quick Store
@@ -2741,7 +2754,9 @@ Refreshes the material list and recipe tree when you've crafted or gathered an i
 
 Opens duty finder for the duty you clicked on in the Wondrous Tails Journal.
 
-[unreleased]: https://github.com/Haselnussbomber/HaselTweaks/compare/v49.3.0...main
+[unreleased]: https://github.com/Haselnussbomber/HaselTweaks/compare/v49.4.1...main
+[49.4.1]: https://github.com/Haselnussbomber/HaselTweaks/compare/v49.4.0...v49.4.1
+[49.4.0]: https://github.com/Haselnussbomber/HaselTweaks/compare/v49.3.0...v49.4.0
 [49.3.0]: https://github.com/Haselnussbomber/HaselTweaks/compare/v49.2.4...v49.3.0
 [49.2.4]: https://github.com/Haselnussbomber/HaselTweaks/compare/v49.2.3...v49.2.4
 [49.2.3]: https://github.com/Haselnussbomber/HaselTweaks/compare/v49.2.2...v49.2.3
