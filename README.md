@@ -256,10 +256,6 @@ Configuration options:
 
 Always opens the "Grand Company Delivery Missions" window on the "Expert Delivery" tab.
 
-### Faster Decompression
-
-Replaces the game's `zlib.uncompress` function with an optimized implementation from [libdeflate](https://github.com/ebiggers/libdeflate).
-
 ### Fast Mouse Click Fix
 
 The game does not fire UI events for single mouse clicks whenever a double click is detected.  
@@ -416,37 +412,6 @@ Reveals duty names in duty finder, which were shown as "???" to prevent spoilers
 
 Prevents you from checking market board prices while a request is running, minimizing the frequency of encountering the "Please wait and try your search again" screen.
 
-### Scrollable Tabs
-
-Allows the mouse wheel to switch tabs (like with LB/RB on controllers) in the following windows, each of which can be toggled separately:
-
-- Aether Currents
-- Armoury Chest
-- Blue Magic Spellbook
-- Character
-- Character -> Classes/Jobs
-- Character -> Reputation
-- Chocobo Saddlebag
-- Companion
-- Currency
-- Facewear
-- Fashion Accessories
-- Field Records
-- Fish Guide
-- Glamour Dresser (scrolls pages, not tabs)
-- Gold Saucer -> Card List
-- Gold Saucer -> Decks -> Edit Deck
-- Gold Saucer -> Lord of Verminion -> Minion Hotbar
-- Inventory
-- Island Minion Guide
-- Minions
-- Mounts
-- Retainer Inventory
-- Shared FATE
-- Sightseeing Log
-
-The Command Panel already includes this functionality and instead has an option to disable its tab-scrolling sound effects.
-
 ### Search the markets
 
 Adds an entry to item context menus that allows you to quickly search for the item on the market board. Only visible when market board is open!
@@ -461,10 +426,6 @@ Supports context menus in the following windows:
 - Materials List
 - Recipe Tree
 - Recipes List
-
-### Shop Item Icons
-
-Displays item icons instead of item category icons in shops.
 
 ### Simple Aethernet List
 

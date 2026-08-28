@@ -152,8 +152,6 @@ public class TweakConfigs
     public MaterialAllocationConfiguration MaterialAllocation { get; init; } = new();
     public MinimapAdjustmentsConfiguration MinimapAdjustments { get; init; } = new();
     public PortraitHelperConfiguration PortraitHelper { get; init; } = new();
-    public ScrollableTabsConfiguration ScrollableTabs { get; init; } = new();
-    public ShopItemIconsConfiguration ShopItemIcons { get; init; } = new();
 }
 
 public static class PluginConfigExtension
@@ -192,7 +190,5 @@ public static class PluginConfigExtension
         services.AddSingleton(pluginConfig.Tweaks.MaterialAllocation);
         services.AddSingleton(pluginConfig.Tweaks.MinimapAdjustments);
         services.AddSingleton(pluginConfig.Tweaks.PortraitHelper);
-        services.AddSingleton(pluginConfig.Tweaks.ScrollableTabs);
-        services.AddSingleton(pluginConfig.Tweaks.ShopItemIcons);
     }
 }
