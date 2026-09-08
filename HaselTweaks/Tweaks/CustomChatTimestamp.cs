@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using FFXIVClientStructs.FFXIV.Client.UI.Misc;
 
 namespace HaselTweaks.Tweaks;
@@ -5,28 +6,34 @@ namespace HaselTweaks.Tweaks;
 [RegisterSingleton<IHostedService>(Duplicate = DuplicateStrategy.Append), AutoConstruct]
 public unsafe partial class CustomChatTimestamp : ConfigurableTweak<CustomChatTimestampConfiguration>
 {
-    private readonly TextService _textService;
     private readonly IGameInteropProvider _gameInteropProvider;
     private readonly IGameConfig _gameConfig;
+    private readonly TextService _textService;
+    private readonly IFramework _framework;
 
-    private Hook<RaptureTextModule.Delegates.FormatAddonText2Int>? _formatAddonText2IntHook;
+    private Hook<RaptureTextModule.Delegates.FormatAddonText2Int> _formatAddonText2IntHook;
 
-    public override void OnEnable()
+    public override ValueTask OnEnable()
     {
-        _formatAddonText2IntHook = _gameInteropProvider.HookFromAddress<RaptureTextModule.Delegates.FormatAddonText2Int>(
-            RaptureTextModule.MemberFunctionPointers.FormatAddonText2Int,
-            FormatAddonText2IntDetour);
-        _formatAddonText2IntHook.Enable();
-        ReloadChat();
+        return new ValueTask(_framework.Run(() =>
+        {
+            _disposables = _formatAddonText2IntHook = _gameInteropProvider.EnabledHookFromAddress<RaptureTextModule.Delegates.FormatAddonText2Int>(
+                RaptureTextModule.MemberFunctionPointers.FormatAddonText2Int,
+                FormatAddonText2IntDetour);
+
+            ReloadChat();
+        }));
     }
 
-    public override void OnDisable()
+    public override ValueTask OnDisable()
     {
-        _formatAddonText2IntHook?.Dispose();
-        _formatAddonText2IntHook = null;
+        return new ValueTask(_framework.Run(() =>
+        {
+            DisposeAndNull(ref _disposables);
 
-        if (Status is TweakStatus.Enabled)
-            ReloadChat();
+            if (Status is TweakStatus.Enabled)
+                ReloadChat();
+        }));
     }
 
     private CStringPointer FormatAddonText2IntDetour(RaptureTextModule* thisPtr, uint addonRowId, int value)
@@ -45,7 +52,7 @@ public unsafe partial class CustomChatTimestamp : ConfigurableTweak<CustomChatTi
             }
         }
 
-        return _formatAddonText2IntHook!.Original(thisPtr, addonRowId, value);
+        return _formatAddonText2IntHook!.OriginalDisposeSafe(thisPtr, addonRowId, value);
     }
 
     private static void ReloadChat()

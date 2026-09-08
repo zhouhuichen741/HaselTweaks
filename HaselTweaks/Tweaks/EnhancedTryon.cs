@@ -1,8 +1,7 @@
-using Dalamud.Game.Agent;
+using System.Threading.Tasks;
 using Dalamud.Game.Agent.AgentArgTypes;
 using FFXIVClientStructs.FFXIV.Client.Game.Control;
 using FFXIVClientStructs.FFXIV.Client.UI.Agent;
-using AgentId = Dalamud.Game.Agent.AgentId;
 
 namespace HaselTweaks.Tweaks;
 
@@ -12,30 +11,34 @@ public unsafe partial class EnhancedTryon : ConfigurableTweak<EnhancedTryonConfi
     private readonly IAgentLifecycle _agentLifecycle;
     private bool _doUpdate;
 
-    public override void OnEnable()
+    public override ValueTask OnEnable()
     {
-        _agentLifecycle.RegisterListener(AgentEvent.PreUpdate, AgentId.Tryon, OnPreUpdate);
-        _agentLifecycle.RegisterListener(AgentEvent.PostUpdate, AgentId.Tryon, OnPostUpdate);
+        _disposables = DisposableBag.Create(
+            _agentLifecycle.OnPreUpdate(OnPreUpdate, AgentId.Tryon),
+            _agentLifecycle.OnPostUpdate(OnPostUpdate, AgentId.Tryon));
+
+        return ValueTask.CompletedTask;
     }
 
-    public override void OnDisable()
+    public override ValueTask OnDisable()
     {
-        _agentLifecycle.UnregisterListener(AgentEvent.PreUpdate, AgentId.Tryon, OnPreUpdate);
-        _agentLifecycle.UnregisterListener(AgentEvent.PostUpdate, AgentId.Tryon, OnPostUpdate);
+        DisposeAndNull(ref _disposables);
+
+        return ValueTask.CompletedTask;
     }
 
-    private void OnPreUpdate(AgentEvent type, AgentArgs args)
+    private void OnPreUpdate(AgentArgs args)
     {
-        var agent = args.GetAgentPointer<AgentTryon>();
+        var agent = args.GetAgent<AgentTryon>();
         _doUpdate = agent->CharaView.DoUpdate;
     }
 
-    private void OnPostUpdate(AgentEvent type, AgentArgs args)
+    private void OnPostUpdate(AgentArgs args)
     {
         if (!_doUpdate || !_config.KeepFacewearOn)
             return;
 
-        var agent = args.GetAgentPointer<AgentTryon>();
+        var agent = args.GetAgent<AgentTryon>();
         if (!agent->CharaView.HideOtherEquipment)
             return;
 

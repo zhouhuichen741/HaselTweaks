@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using FFXIVClientStructs.FFXIV.Client.UI;
 using FFXIVClientStructs.FFXIV.Client.UI.Agent;
 
@@ -8,19 +9,23 @@ public unsafe partial class MaterialAllocation : ConfigurableTweak<MaterialAlloc
 {
     private readonly IAddonLifecycle _addonLifecycle;
 
-    public override void OnEnable()
+    public override ValueTask OnEnable()
     {
-        _addonLifecycle.RegisterListener(AddonEvent.PostReceiveEvent, "MJICraftMaterialConfirmation", AddonMJICraftMaterialConfirmation_PostReceiveEvent);
-        _addonLifecycle.RegisterListener(AddonEvent.PreSetup, "MJICraftMaterialConfirmation", AddonMJICraftMaterialConfirmation_PreSetup);
+        _disposables = DisposableBag.Create(
+            _addonLifecycle.OnPostReceiveEvent(OnPostReceiveEvent, "MJICraftMaterialConfirmation"),
+            _addonLifecycle.OnPreSetup(OnPreSetup, "MJICraftMaterialConfirmation"));
+
+        return ValueTask.CompletedTask;
     }
 
-    public override void OnDisable()
+    public override ValueTask OnDisable()
     {
-        _addonLifecycle.UnregisterListener(AddonEvent.PostReceiveEvent, "MJICraftMaterialConfirmation", AddonMJICraftMaterialConfirmation_PostReceiveEvent);
-        _addonLifecycle.UnregisterListener(AddonEvent.PreSetup, "MJICraftMaterialConfirmation", AddonMJICraftMaterialConfirmation_PreSetup);
+        DisposeAndNull(ref _disposables);
+
+        return ValueTask.CompletedTask;
     }
 
-    private void AddonMJICraftMaterialConfirmation_PreSetup(AddonEvent type, AddonArgs args)
+    private void OnPreSetup(AddonArgs args)
     {
         if (_config.LastSelectedTab > 2)
             _config.LastSelectedTab = 2;
@@ -36,15 +41,12 @@ public unsafe partial class MaterialAllocation : ConfigurableTweak<MaterialAlloc
         }
     }
 
-    private void AddonMJICraftMaterialConfirmation_PostReceiveEvent(AddonEvent type, AddonArgs args)
+    private void OnPostReceiveEvent(AddonReceiveEventArgs args)
     {
-        if (type != AddonEvent.PostReceiveEvent || args is not AddonReceiveEventArgs receiveEventArgs)
+        if (args.EventParam is not > 0 or not < 4)
             return;
 
-        if (receiveEventArgs.EventParam is not > 0 or not < 4)
-            return;
-
-        _config.LastSelectedTab = (byte)(receiveEventArgs.EventParam - 1);
+        _config.LastSelectedTab = (byte)(args.EventParam - 1);
         _pluginConfig.Save();
     }
 }

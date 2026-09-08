@@ -1,4 +1,5 @@
 using System.Threading;
+using System.Threading.Tasks;
 using Dalamud.Game.Inventory;
 using Dalamud.Game.Inventory.InventoryEventArgTypes;
 using FFXIVClientStructs.FFXIV.Client.Game;
@@ -20,16 +21,21 @@ public unsafe partial class AutoOpenRecipe : Tweak
     private CancellationTokenSource? _checkCTS;
     private DateTime _lastTimeRecipeOpened = DateTime.MinValue;
 
-    public override void OnEnable()
+    public override ValueTask OnEnable()
     {
-        _gameInventory.ItemAddedExplicit += OnItemAddedExplicit;
+        _disposables = _gameInventory.OnItemAddedExplicit(OnItemAddedExplicit);
+
+        return ValueTask.CompletedTask;
     }
 
-    public override void OnDisable()
+    public override ValueTask OnDisable()
     {
-        _gameInventory.ItemAddedExplicit -= OnItemAddedExplicit;
         _checkCTS?.Cancel();
-        _checkCTS = null;
+
+        DisposeAndNull(ref _disposables);
+        DisposeAndNull(ref _checkCTS);
+
+        return ValueTask.CompletedTask;
     }
 
     private void OnItemAddedExplicit(InventoryItemAddedArgs data)
@@ -49,7 +55,7 @@ public unsafe partial class AutoOpenRecipe : Tweak
         _logger.LogDebug("Inventory item added: {item}", data.Item);
 
         _checkCTS?.Cancel();
-        _checkCTS = null;
+        DisposeAndNull(ref _checkCTS);
         _checkCTS = new();
 
         void action()

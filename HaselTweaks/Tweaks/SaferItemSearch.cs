@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Dalamud.Game.Network.Structures;
 using FFXIVClientStructs.FFXIV.Client.UI;
 
@@ -11,25 +12,33 @@ public unsafe partial class SaferItemSearch : Tweak
 
     private bool _isSearching;
 
-    public override void OnEnable()
+    public override ValueTask OnEnable()
     {
-        _addonLifecycle.RegisterListener(AddonEvent.PostRequestedUpdate, "ItemSearch", ItemSearch_PostRequestedUpdate);
-        _addonLifecycle.RegisterListener(AddonEvent.PostSetup, "RetainerSell", RetainerSell_PostSetup);
+        _disposables = DisposableBag.Create(
+            _addonLifecycle.OnPostRequestedUpdate(ItemSearch_PostRequestedUpdate, "ItemSearch"),
+            _addonLifecycle.OnPostSetup(RetainerSell_PostSetup, "RetainerSell"),
 
-        _marketBoardService.ListingsStart += OnListingsStart;
-        _marketBoardService.ListingsEnd += OnListingsEnd;
+            EventExtensions.Subscribe(
+                handler => _marketBoardService.ListingsStart += handler.Invoke,
+                handler => _marketBoardService.ListingsStart -= handler.Invoke,
+                OnListingsStart),
+
+            EventExtensions.Subscribe(
+                handler => _marketBoardService.ListingsEnd += handler.Invoke,
+                handler => _marketBoardService.ListingsEnd -= handler.Invoke,
+                OnListingsEnd));
+
+        return ValueTask.CompletedTask;
     }
 
-    public override void OnDisable()
+    public override ValueTask OnDisable()
     {
-        _addonLifecycle.UnregisterListener(AddonEvent.PostRequestedUpdate, "ItemSearch", ItemSearch_PostRequestedUpdate);
-        _addonLifecycle.UnregisterListener(AddonEvent.PostSetup, "RetainerSell", RetainerSell_PostSetup);
+        DisposeAndNull(ref _disposables);
 
-        _marketBoardService.ListingsStart -= OnListingsStart;
-        _marketBoardService.ListingsEnd -= OnListingsEnd;
+        return ValueTask.CompletedTask;
     }
 
-    private void ItemSearch_PostRequestedUpdate(AddonEvent type, AddonArgs args)
+    private void ItemSearch_PostRequestedUpdate(AddonArgs args)
     {
         var addon = args.GetAddon<AddonItemSearch>();
         if (addon == null)
@@ -41,7 +50,7 @@ public unsafe partial class SaferItemSearch : Tweak
         }
     }
 
-    private void RetainerSell_PostSetup(AddonEvent type, AddonArgs args)
+    private void RetainerSell_PostSetup(AddonArgs args)
     {
         UpdateRetainerSellButton(args.GetAddon<AddonRetainerSell>());
     }

@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using FFXIVClientStructs.FFXIV.Client.UI;
 using FFXIVClientStructs.FFXIV.Client.UI.Agent;
 using FFXIVClientStructs.FFXIV.Component.GUI;
@@ -9,21 +10,22 @@ public unsafe partial class SimpleAethernetList : Tweak
 {
     private readonly IAddonLifecycle _addonLifecycle;
 
-    public override void OnEnable()
+    public override ValueTask OnEnable()
     {
-        _addonLifecycle.RegisterListener(AddonEvent.PreReceiveEvent, "TelepotTown", OnPreReceiveEvent);
+        _disposables = _addonLifecycle.OnPreReceiveEvent(OnPreReceiveEvent, "TelepotTown");
+
+        return ValueTask.CompletedTask;
     }
 
-    public override void OnDisable()
+    public override ValueTask OnDisable()
     {
-        _addonLifecycle.UnregisterListener(AddonEvent.PreReceiveEvent, "TelepotTown", OnPreReceiveEvent);
+        DisposeAndNull(ref _disposables);
+
+        return ValueTask.CompletedTask;
     }
 
-    private void OnPreReceiveEvent(AddonEvent type, AddonArgs addonArgs)
+    private void OnPreReceiveEvent(AddonReceiveEventArgs args)
     {
-        if (addonArgs is not AddonReceiveEventArgs args)
-            return;
-
         if (args.EventType != AtkEventType.ListItemRollOver)
             return;
 

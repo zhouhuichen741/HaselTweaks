@@ -1,7 +1,9 @@
+using System.Threading.Tasks;
 using Dalamud.Game.Text.Evaluator;
 using FFXIVClientStructs.FFXIV.Client.Game;
 using FFXIVClientStructs.FFXIV.Client.Game.MJI;
 using FFXIVClientStructs.FFXIV.Client.Game.UI;
+using FFXIVClientStructs.FFXIV.Client.System.Framework;
 using FFXIVClientStructs.FFXIV.Client.UI.Agent;
 using FFXIVClientStructs.FFXIV.Component.GUI;
 using TerritoryIntendedUse = FFXIVClientStructs.FFXIV.Client.Enums.TerritoryIntendedUse;
@@ -11,44 +13,44 @@ namespace HaselTweaks.Tweaks;
 [RegisterSingleton<IHostedService>(Duplicate = DuplicateStrategy.Append), AutoConstruct]
 public unsafe partial class EnhancedExpBar : ConfigurableTweak<EnhancedExpBarConfiguration>
 {
-    private readonly TextService _textService;
     private readonly IClientState _clientState;
-    private readonly IAddonLifecycle _addonLifecycle;
     private readonly IGameInteropProvider _gameInteropProvider;
+    private readonly IAddonLifecycle _addonLifecycle;
+    private readonly TextService _textService;
     private readonly ExcelService _excelService;
+    private readonly IFramework _framework;
 
     private Hook<AgentHUD.Delegates.UpdateExp>? _updateExpHook;
     private byte _colorMultiplyRed = 100;
     private byte _colorMultiplyGreen = 100;
     private byte _colorMultiplyBlue = 100;
 
-    public override void OnEnable()
+    public override ValueTask OnEnable()
     {
-        _updateExpHook = _gameInteropProvider.HookFromAddress<AgentHUD.Delegates.UpdateExp>(
-            AgentHUD.MemberFunctionPointers.UpdateExp,
-            UpdateExpDetour);
-        _updateExpHook?.Enable();
+        return new ValueTask(_framework.Run(() =>
+        {
+            _disposables = DisposableBag.Create(
+                _updateExpHook = _gameInteropProvider.EnabledHookFromAddress<AgentHUD.Delegates.UpdateExp>(
+                    AgentHUD.MemberFunctionPointers.UpdateExp,
+                    UpdateExpDetour),
 
-        _clientState.LeavePvP += OnLeavePvP;
-        _clientState.TerritoryChanged += OnTerritoryChanged;
+                _addonLifecycle.OnPostRequestedUpdate(OnAddonExpPostRequestedUpdate, "_Exp"),
+                _clientState.OnLeavePvP(OnLeavePvP),
+                _clientState.OnTerritoryChanged(OnTerritoryChanged));
 
-        _addonLifecycle.RegisterListener(AddonEvent.PostRequestedUpdate, "_Exp", OnAddonExpPostRequestedUpdate);
-
-        TriggerReset();
+            TriggerReset();
+        }));
     }
 
-    public override void OnDisable()
+    public override ValueTask OnDisable()
     {
-        _clientState.LeavePvP -= OnLeavePvP;
-        _clientState.TerritoryChanged -= OnTerritoryChanged;
+        return new ValueTask(_framework.Run(() =>
+        {
+            DisposeAndNull(ref _disposables);
 
-        _addonLifecycle.UnregisterListener(AddonEvent.PostRequestedUpdate, "_Exp", OnAddonExpPostRequestedUpdate);
-
-        _updateExpHook?.Dispose();
-        _updateExpHook = null;
-
-        if (Status is TweakStatus.Enabled)
-            TriggerReset();
+            if (Status is TweakStatus.Enabled)
+                TriggerReset();
+        }));
     }
 
     private void OnLeavePvP()
@@ -59,7 +61,7 @@ public unsafe partial class EnhancedExpBar : ConfigurableTweak<EnhancedExpBarCon
 
     private void UpdateExpDetour(AgentHUD* thisPtr, NumberArrayData* expNumberArray, StringArrayData* expStringArray, StringArrayData* characterStringArray)
     {
-        _updateExpHook!.Original(thisPtr, expNumberArray, expStringArray, characterStringArray);
+        _updateExpHook!.OriginalDisposeSafe(thisPtr, expNumberArray, expStringArray, characterStringArray);
 
         if (!PlayerState.Instance()->IsLoaded || !_excelService.TryGetRow<ClassJob>(PlayerState.Instance()->CurrentClassJobId, out var classJob))
             return;
@@ -99,7 +101,7 @@ public unsafe partial class EnhancedExpBar : ConfigurableTweak<EnhancedExpBarCon
         }
     }
 
-    private void OnAddonExpPostRequestedUpdate(AddonEvent type, AddonArgs args)
+    private void OnAddonExpPostRequestedUpdate(AddonArgs args)
     {
         var addon = args.GetAddon<AtkUnitBase>();
 

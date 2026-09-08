@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Dalamud.Game.Gui.ContextMenu;
 using Dalamud.Game.Text;
 using FFXIVClientStructs.FFXIV.Client.UI.Agent;
@@ -15,7 +16,7 @@ public unsafe partial class SearchTheMarkets : Tweak
     private MenuItem? _menuItem;
     private ItemHandle _item;
 
-    public override void OnEnable()
+    public override ValueTask OnEnable()
     {
         _menuItem ??= new()
         {
@@ -29,19 +30,29 @@ public unsafe partial class SearchTheMarkets : Tweak
             }
         };
 
-        _contextMenu.OnMenuOpened += ContextMenu_OnMenuOpened;
-        _languageProvider.LanguageChanged += OnLanguageChange;
+        _disposables = DisposableBag.Create(
+            EventExtensions.Subscribe(
+                handler => _contextMenu.OnMenuOpened += handler.Invoke,
+                handler => _contextMenu.OnMenuOpened -= handler.Invoke,
+                ContextMenu_OnMenuOpened),
+
+            EventExtensions.Subscribe(
+                handler => _languageProvider.LanguageChanged += handler.Invoke,
+                handler => _languageProvider.LanguageChanged -= handler.Invoke,
+                OnLanguageChange));
+
+        return ValueTask.CompletedTask;
     }
 
-    public override void OnDisable()
+    public override ValueTask OnDisable()
     {
-        _contextMenu.OnMenuOpened -= ContextMenu_OnMenuOpened;
-        _languageProvider.LanguageChanged -= OnLanguageChange;
-
+        DisposeAndNull(ref _disposables);
         _menuItem = null;
+
+        return ValueTask.CompletedTask;
     }
 
-    private void OnLanguageChange(string langCode)
+    private void OnLanguageChange()
     {
         _menuItem?.Name = _textService.Translate("ItemContextMenu.SearchTheMarketsCN");
     }

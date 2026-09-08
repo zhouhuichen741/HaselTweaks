@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Dalamud.Game.ClientState.Conditions;
 using FFXIVClientStructs.FFXIV.Client.Game.Character;
 using FFXIVClientStructs.FFXIV.Client.Game.Control;
@@ -26,7 +27,7 @@ public unsafe partial class Commands : ConfigurableTweak<CommandsConfiguration>
     private CommandHandler? _glamourPlateCommandCommandHandler;
     private CommandHandler? _reloadUICommandCommandHandler;
 
-    public override void OnEnable()
+    public override ValueTask OnEnable()
     {
         _itemLinkCommandHandler = _commandService.AddCommand("itemlink", cmd => cmd
             .WithHelpTextKey("Commands.Config.EnableItemLinkCommand.Description")
@@ -60,30 +61,23 @@ public unsafe partial class Commands : ConfigurableTweak<CommandsConfiguration>
             .WithDisplayOrder(2)
             .WithHandler(OnReloadUICommand));
 
+        _disposables = DisposableBag.Create(
+            _itemLinkCommandHandler,
+            _whatMountCommandCommandHandler,
+            _whatEmoteCommandCommandHandler,
+            _whatBardingCommandCommandHandler,
+            _glamourPlateCommandCommandHandler,
+            _reloadUICommandCommandHandler);
+
         UpdateCommands(true);
+        return ValueTask.CompletedTask;
     }
 
-    public override void OnDisable()
+    public override ValueTask OnDisable()
     {
         UpdateCommands(false);
-
-        _itemLinkCommandHandler?.Dispose();
-        _itemLinkCommandHandler = null;
-
-        _whatMountCommandCommandHandler?.Dispose();
-        _whatMountCommandCommandHandler = null;
-
-        _whatEmoteCommandCommandHandler?.Dispose();
-        _whatEmoteCommandCommandHandler = null;
-
-        _whatBardingCommandCommandHandler?.Dispose();
-        _whatBardingCommandCommandHandler = null;
-
-        _glamourPlateCommandCommandHandler?.Dispose();
-        _glamourPlateCommandCommandHandler = null;
-
-        _reloadUICommandCommandHandler?.Dispose();
-        _reloadUICommandCommandHandler = null;
+        DisposeAndNull(ref _disposables);
+        return ValueTask.CompletedTask;
     }
 
     private void UpdateCommands(bool enable)

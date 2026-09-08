@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Dalamud.Utility;
 using FFXIVClientStructs.FFXIV.Client.Game;
 using FFXIVClientStructs.FFXIV.Client.Game.Character;
@@ -7,14 +8,15 @@ using FFXIVClientStructs.FFXIV.Component.GUI;
 namespace HaselTweaks.Tweaks;
 
 [RegisterSingleton<IHostedService>(Duplicate = DuplicateStrategy.Append), AutoConstruct]
-public unsafe partial class CastBarAetheryteNames : Tweak
+public partial class CastBarAetheryteNames : Tweak
 {
-    private readonly IGameInteropProvider _gameInteropProvider;
     private readonly IAddonLifecycle _addonLifecycle;
     private readonly IClientState _clientState;
+    private readonly IGameInteropProvider _gameInteropProvider;
+    private readonly ISeStringEvaluator _seStringEvaluator;
     private readonly ExcelService _excelService;
     private readonly TextService _textService;
-    private readonly ISeStringEvaluator _seStringEvaluator;
+    private readonly IFramework _framework;
     private readonly TeleportService _teleportService; // to update aetheryte list
 
     private Hook<ActionManager.Delegates.OpenCastBar>? _openCastBarHook;
@@ -23,32 +25,32 @@ public unsafe partial class CastBarAetheryteNames : Tweak
     private TeleportInfo? _teleportInfo;
     private bool _isCastingTeleport;
 
-    public override void OnEnable()
+    public override unsafe ValueTask OnEnable()
     {
-        _openCastBarHook = _gameInteropProvider.HookFromAddress<ActionManager.Delegates.OpenCastBar>(
-            ActionManager.MemberFunctionPointers.OpenCastBar,
-            OpenCastBarDetour);
+        return new ValueTask(_framework.Run(() =>
+        {
+            _disposables = DisposableBag.Create(
+                _openCastBarHook = _gameInteropProvider.EnabledHookFromAddress<ActionManager.Delegates.OpenCastBar>(
+                    ActionManager.MemberFunctionPointers.OpenCastBar,
+                    OpenCastBarDetour),
 
-        _teleportHook = _gameInteropProvider.HookFromAddress<Telepo.Delegates.Teleport>(
-            Telepo.MemberFunctionPointers.Teleport,
-            TeleportDetour);
+                _teleportHook = _gameInteropProvider.EnabledHookFromAddress<Telepo.Delegates.Teleport>(
+                    Telepo.MemberFunctionPointers.Teleport,
+                    TeleportDetour),
 
-        _openCastBarHook.Enable();
-        _teleportHook.Enable();
+                _addonLifecycle.OnPreRefresh(OnCastBarPreRefresh, "_CastBar"),
+                _clientState.OnTerritoryChanged(OnTerritoryChanged));
 
-        _addonLifecycle.RegisterListener(AddonEvent.PreRefresh, "_CastBar", OnCastBarPreRefresh);
-        _clientState.TerritoryChanged += OnTerritoryChanged;
+        }));
     }
 
-    public override void OnDisable()
+    public override ValueTask OnDisable()
     {
-        _clientState.TerritoryChanged -= OnTerritoryChanged;
-        _addonLifecycle.UnregisterListener(AddonEvent.PreRefresh, "_CastBar", OnCastBarPreRefresh);
-
-        _openCastBarHook?.Dispose();
-        _openCastBarHook = null;
-        _teleportHook?.Dispose();
-        _teleportHook = null;
+        return new ValueTask(_framework.Run(() =>
+        {
+            DisposeAndNull(ref _disposables);
+            Clear();
+        }));
     }
 
     private void OnTerritoryChanged(uint id)
@@ -62,7 +64,7 @@ public unsafe partial class CastBarAetheryteNames : Tweak
         _teleportInfo = null;
     }
 
-    private void OnCastBarPreRefresh(AddonEvent type, AddonArgs args)
+    private unsafe void OnCastBarPreRefresh(AddonArgs args)
     {
         if (!_isCastingTeleport || _teleportInfo == null)
         {
@@ -91,13 +93,13 @@ public unsafe partial class CastBarAetheryteNames : Tweak
         Clear();
     }
 
-    private void OpenCastBarDetour(ActionManager* thisPtr, BattleChara* character, ActionType actionType, uint actionId, uint spellId, uint extraParam, float castTimeElapsed, float castTimeTotal)
+    private unsafe void OpenCastBarDetour(ActionManager* thisPtr, BattleChara* character, ActionType actionType, uint actionId, uint spellId, uint extraParam, float castTimeElapsed, float castTimeTotal)
     {
         _isCastingTeleport = actionType == ActionType.Action && actionId == 5;
-        _openCastBarHook!.Original(thisPtr, character, actionType, actionId, spellId, extraParam, castTimeElapsed, castTimeTotal);
+        _openCastBarHook!.OriginalDisposeSafe(thisPtr, character, actionType, actionId, spellId, extraParam, castTimeElapsed, castTimeTotal);
     }
 
-    private bool TeleportDetour(Telepo* telepo, uint aetheryteID, byte subIndex)
+    private unsafe bool TeleportDetour(Telepo* telepo, uint aetheryteID, byte subIndex)
     {
         _teleportInfo = null;
 
@@ -110,6 +112,6 @@ public unsafe partial class CastBarAetheryteNames : Tweak
             }
         }
 
-        return _teleportHook!.Original(telepo, aetheryteID, subIndex);
+        return _teleportHook!.OriginalDisposeSafe(telepo, aetheryteID, subIndex);
     }
 }

@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Dalamud.Game.ClientState.Keys;
 using FFXIVClientStructs.FFXIV.Client.UI.Misc;
 
@@ -19,17 +20,21 @@ public unsafe partial class BackgroundMusicKeybind : ConfigurableTweak<Backgroun
         set => _gameConfig.System.Set("IsSndBgm", value);
     }
 
-    public override void OnEnable()
+    public override ValueTask OnEnable()
     {
-        _framework.Update += OnFrameworkUpdate;
+        _disposables = _framework.OnUpdate(OnFrameworkUpdate);
+
+        return ValueTask.CompletedTask;
     }
 
-    public override void OnDisable()
+    public override ValueTask OnDisable()
     {
-        _framework.Update -= OnFrameworkUpdate;
+        DisposeAndNull(ref _disposables);
+
+        return ValueTask.CompletedTask;
     }
 
-    private void OnFrameworkUpdate(IFramework framework)
+    private void OnFrameworkUpdate()
     {
         var allKeybindsPressed = true;
 

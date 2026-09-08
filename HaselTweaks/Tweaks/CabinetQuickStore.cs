@@ -1,43 +1,42 @@
+using System.Threading.Tasks;
+using FFXIVClientStructs.FFXIV.Component.GUI;
 using HaselTweaks.Windows;
 
 namespace HaselTweaks.Tweaks;
 
 [RegisterSingleton<IHostedService>(Duplicate = DuplicateStrategy.Append), AutoConstruct]
-public partial class CabinetQuickStore : ConfigurableTweak<CabinetQuickStoreConfiguration>
+public unsafe partial class CabinetQuickStore : ConfigurableTweak<CabinetQuickStoreConfiguration>
 {
     private readonly AddonObserver _addonObserver;
     private readonly WindowManager _windowManager;
 
-    public override void OnEnable()
+    public override ValueTask OnEnable()
     {
-        _addonObserver.AddonOpen += OnAddonOpen;
-        _addonObserver.AddonClose += OnAddonClose;
+        _disposables = DisposableBag.Create(
+            _addonObserver.OnShow(OnShow, "Cabinet"),
+            _addonObserver.OnHide(OnHide, "Cabinet"));
 
-        if (_addonObserver.IsAddonVisible("Cabinet"))
+        if (IsAddonOpen("Cabinet"))
             _windowManager.CreateOrOpen<CabinetQuickStoreWindow>();
+
+        return ValueTask.CompletedTask;
     }
 
-    public override void OnDisable()
+    public override ValueTask OnDisable()
     {
-        _addonObserver.AddonOpen -= OnAddonOpen;
-        _addonObserver.AddonClose -= OnAddonClose;
-
+        DisposeAndNull(ref _disposables);
         _windowManager.Close<CabinetQuickStoreWindow>();
+
+        return ValueTask.CompletedTask;
     }
 
-    private void OnAddonOpen(string addonName)
+    private void OnShow(AtkUnitBase* addon)
     {
-        if (addonName != "Cabinet")
-            return;
-
         _windowManager.CreateOrOpen<CabinetQuickStoreWindow>();
     }
 
-    private void OnAddonClose(string addonName)
+    private void OnHide(AtkUnitBase* addon)
     {
-        if (addonName != "Cabinet")
-            return;
-
         _windowManager.Close<CabinetQuickStoreWindow>();
     }
 }

@@ -1,5 +1,7 @@
-using Dalamud.Game.Inventory.InventoryEventArgTypes;
+using System.Threading.Tasks;
+using Dalamud.Game.Gui;
 using FFXIVClientStructs.FFXIV.Client.Game;
+using FFXIVClientStructs.FFXIV.Component.GUI;
 using HaselTweaks.Windows;
 
 namespace HaselTweaks.Tweaks;
@@ -7,13 +9,12 @@ namespace HaselTweaks.Tweaks;
 [RegisterSingleton<IHostedService>(Duplicate = DuplicateStrategy.Append), AutoConstruct]
 public unsafe partial class GlamourDresserAlert : ConfigurableTweak<GlamourDresserAlertConfiguration>
 {
-    private readonly IServiceProvider _serviceProvider;
-    private readonly IGameInventory _gameInventory;
     private readonly AddonObserver _addonObserver;
     private readonly ExcelService _excelService;
     private readonly ItemService _itemService;
     private readonly CabinetService _cabinetService;
     private readonly IFramework _framework;
+    private readonly IGameGui _gameGui;
     private readonly MirageService _mirageService;
 
     private GlamourDresserAlertWindow? _window;
@@ -31,47 +32,43 @@ public unsafe partial class GlamourDresserAlert : ConfigurableTweak<GlamourDress
         || DuplicateItemsInExistingSets.Count != 0
         || DuplicateItems.Count != 0;
 
-    public override void OnEnable()
+    public override ValueTask OnEnable()
     {
-        _addonObserver.AddonOpen += OnAddonOpen;
-        _addonObserver.AddonClose += OnAddonClose;
-        _gameInventory.InventoryChangedRaw += OnInventoryUpdate;
-        _framework.Update += OnFrameworkUpdate;
+        _disposables = DisposableBag.Create(
+            _addonObserver.OnShow(OnShow, "MiragePrismPrismBox"),
+            _addonObserver.OnHide(OnHide, "MiragePrismPrismBox"),
+            _framework.OnUpdate(OnFrameworkUpdate),
+            _gameGui.OnAgentUpdate(OnAgentUpdate));
+
+        return ValueTask.CompletedTask;
     }
 
-    public override void OnDisable()
+    public override ValueTask OnDisable()
     {
-        _addonObserver.AddonOpen -= OnAddonOpen;
-        _addonObserver.AddonClose -= OnAddonClose;
-        _gameInventory.InventoryChangedRaw -= OnInventoryUpdate;
-        _framework.Update -= OnFrameworkUpdate;
-
+        DisposeAndNull(ref _disposables);
+        DisposeAndNull(ref _window);
         _isPendingUpdate = false;
-        _window?.Dispose();
-        _window = null;
+        return ValueTask.CompletedTask;
     }
 
-    private void OnAddonOpen(string addonName)
+    private void OnShow(AtkUnitBase* addon)
     {
-        _isPendingUpdate |= addonName == "MiragePrismPrismBox";
+        _isPendingUpdate |= true;
     }
 
-    private void OnAddonClose(string addonName)
+    private void OnHide(AtkUnitBase* addon)
     {
-        if (addonName == "MiragePrismPrismBox")
-        {
-            _lastItemIds = null;
-            _isPendingUpdate = false;
-            _window?.Close();
-        }
+        _lastItemIds = null;
+        _isPendingUpdate = false;
+        _window?.Close();
     }
 
-    private void OnInventoryUpdate(IReadOnlyCollection<InventoryEventArgs> events)
+    private void OnAgentUpdate(AgentUpdateFlag flag)
     {
-        _isPendingUpdate |= _addonObserver.IsAddonVisible("MiragePrismPrismBox");
+        _isPendingUpdate |= flag.HasFlag(AgentUpdateFlag.InventoryUpdate);
     }
 
-    private void OnFrameworkUpdate(IFramework framework)
+    private void OnFrameworkUpdate()
     {
         var mirageManager = MirageManager.Instance();
         if (!mirageManager->PrismBoxLoaded)

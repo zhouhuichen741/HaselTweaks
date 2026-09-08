@@ -1,10 +1,9 @@
-using Dalamud.Game.Agent;
+using System.Threading.Tasks;
 using Dalamud.Game.Agent.AgentArgTypes;
 using FFXIVClientStructs.FFXIV.Client.System.Input;
 using FFXIVClientStructs.FFXIV.Client.UI;
 using FFXIVClientStructs.FFXIV.Client.UI.Agent;
 using HaselTweaks.Windows;
-using AgentId = Dalamud.Game.Agent.AgentId;
 
 namespace HaselTweaks.Tweaks;
 
@@ -17,29 +16,27 @@ public unsafe partial class AetherCurrentHelper : ConfigurableTweak<AetherCurren
 
     private AetherCurrentHelperWindow? _window;
 
-    public override void OnEnable()
+    public override ValueTask OnEnable()
     {
-        _agentLifecycle.RegisterListener(AgentEvent.PreReceiveEvent, AgentId.AetherCurrent, OnPreReceiveEvent);
+        _disposables = _agentLifecycle.OnPreReceiveEvent(OnPreReceiveEvent, AgentId.AetherCurrent);
+
+        return ValueTask.CompletedTask;
     }
 
-    public override void OnDisable()
+    public override ValueTask OnDisable()
     {
-        _agentLifecycle.UnregisterListener(AgentEvent.PreReceiveEvent, AgentId.AetherCurrent, OnPreReceiveEvent);
-        _window?.Dispose();
-        _window = null;
+        DisposeAndNull(ref _disposables);
+        DisposeAndNull(ref _window);
+
+        return ValueTask.CompletedTask;
     }
 
-    private void OnPreReceiveEvent(AgentEvent type, AgentArgs agentArgs)
+    private void OnPreReceiveEvent(AgentReceiveEventArgs args)
     {
-        if (agentArgs is not AgentReceiveEventArgs args)
-            return;
-
-        var agent = args.GetAgentPointer<AgentAetherCurrent>();
-        var values = args.GetAtkValues();
-
         if (UIInputData.Instance()->IsKeyDown(SeVirtualKey.SHIFT))
             return;
 
+        var values = args.GetAtkValues();
         if (values.Length < 2)
             return;
 
@@ -49,6 +46,7 @@ public unsafe partial class AetherCurrentHelper : ConfigurableTweak<AetherCurren
         if (!values[1].TryGetInt(out var buttonIndex))
             return;
 
+        var agent = args.GetAgent<AgentAetherCurrent>();
         var rawIndex = (uint)(buttonIndex + 6 * agent->TabIndex);
         var index = rawIndex + 1;
         if (index < 19)
@@ -66,6 +64,6 @@ public unsafe partial class AetherCurrentHelper : ConfigurableTweak<AetherCurren
 
         _window.CompFlgSet = compFlgSet;
 
-        agentArgs.PreventOriginal();
+        args.PreventOriginal();
     }
 }

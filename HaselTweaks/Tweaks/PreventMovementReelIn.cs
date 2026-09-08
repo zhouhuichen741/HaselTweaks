@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using FFXIVClientStructs.FFXIV.Client.Game.Event;
 
 namespace HaselTweaks.Tweaks;
@@ -6,21 +7,23 @@ namespace HaselTweaks.Tweaks;
 public unsafe partial class PreventMovementReelIn : Tweak
 {
     private readonly IGameInteropProvider _gameInteropProvider;
+    private readonly IFramework _framework;
+
     private Hook<FishingEventHandler.Delegates.CancelByPlayerMovement>? _hook;
 
-    public override void OnEnable()
+    public override ValueTask OnEnable()
     {
-        _hook = _gameInteropProvider.HookFromAddress<FishingEventHandler.Delegates.CancelByPlayerMovement>(
-            (nint)FishingEventHandler.StaticVirtualTablePointer->CancelByPlayerMovement,
-            CancelByPlayerMovementDetour);
-
-        _hook.Enable();
+        return new ValueTask(_framework.Run(() =>
+        {
+            _hook = _gameInteropProvider.EnabledHookFromAddress<FishingEventHandler.Delegates.CancelByPlayerMovement>(
+                (nint)FishingEventHandler.StaticVirtualTablePointer->CancelByPlayerMovement,
+                CancelByPlayerMovementDetour);
+        }));
     }
 
-    public override void OnDisable()
+    public override ValueTask OnDisable()
     {
-        _hook?.Dispose();
-        _hook = null;
+        return new ValueTask(_framework.Run(() => DisposeAndNull(ref _hook)));
     }
 
     private void CancelByPlayerMovementDetour(FishingEventHandler* thisPtr, bool a2, bool a3)

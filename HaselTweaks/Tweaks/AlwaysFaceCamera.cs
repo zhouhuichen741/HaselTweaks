@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using FFXIVClientStructs.FFXIV.Client.Game.Control;
 
 namespace HaselTweaks.Tweaks;
@@ -7,18 +8,22 @@ public unsafe partial class AlwaysFaceCamera : Tweak
 {
     private readonly IFramework _framework;
 
-    public override void OnEnable()
+    public override ValueTask OnEnable()
     {
-        _framework.Update += OnUpdate;
+        _disposables = _framework.OnUpdate(OnUpdate);
+
+        return ValueTask.CompletedTask;
     }
 
-    public override void OnDisable()
+    public override ValueTask OnDisable()
     {
-        _framework.Update -= OnUpdate;
+        DisposeAndNull(ref _disposables);
         DisableFaceCamera();
+
+        return ValueTask.CompletedTask;
     }
 
-    private void OnUpdate(IFramework framework)
+    private void OnUpdate()
     {
         var localPlayer = Control.GetLocalPlayer();
         if (localPlayer == null || localPlayer->InCombat || localPlayer->GetTargetId() != 0xE0000000)

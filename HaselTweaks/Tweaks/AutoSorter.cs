@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using FFXIVClientStructs.FFXIV.Client.Game;
 using FFXIVClientStructs.FFXIV.Client.Game.UI;
 using FFXIVClientStructs.FFXIV.Client.UI.Misc;
@@ -81,75 +82,61 @@ public unsafe partial class AutoSorter : ConfigurableTweak<AutoSorterConfigurati
         "soul",
     ];
 
+    private readonly IFramework _framework;
+    private readonly IClientState _clientState;
+    private readonly AddonObserver _addonObserver;
     private readonly TextService _textService;
     private readonly ExcelService _excelService;
-    private readonly IClientState _clientState;
-    private readonly IFramework _framework;
-    private readonly AddonObserver _addonObserver;
 
     private readonly Queue<IGrouping<string, AutoSorterConfiguration.SortingRule>> _queue = new();
     private bool _isBusy = false;
 
-    private bool IsRetainerInventoryOpen => _addonObserver.IsAddonVisible("InventoryRetainer") || _addonObserver.IsAddonVisible("InventoryRetainerLarge");
-    private bool IsInventoryBuddyOpen => _addonObserver.IsAddonVisible("InventoryBuddy");
+    private static bool IsArmouryBoardOpen => IsAddonOpen("ArmouryBoard");
+    private static bool IsInventoryBuddyOpen => IsAddonOpen("InventoryBuddy");
+    private static bool IsRetainerInventoryOpen => IsAddonOpen("InventoryRetainer") || IsAddonOpen("InventoryRetainerLarge");
+    private static bool IsInventoryOpen => IsAddonOpen("Inventory") || IsAddonOpen("InventoryLarge") || IsAddonOpen("InventoryExpansion");
 
-    public override void OnEnable()
+    public override ValueTask OnEnable()
     {
         _queue.Clear();
 
-        _clientState.Login += OnLogin;
-        _clientState.Logout += OnLogout;
-        _framework.Update += OnFrameworkUpdate;
-        _addonObserver.AddonOpen += OnAddonOpen;
-        _clientState.ClassJobChanged += OnClassJobChange;
-    }
+        _disposables = DisposableBag.Create(
+            _framework.OnUpdate(OnFrameworkUpdate),
+            _clientState.OnLogin(_queue.Clear),
+            _clientState.OnLogout(_queue.Clear),
+            _clientState.OnClassJobChanged(OnClassJobChange),
+            _addonObserver.OnShow(_ => OnOpenArmoury(), "ArmouryBoard"),
+            _addonObserver.OnShow(_ => OnOpenInventoryBuddy(), "InventoryBuddy"),
+            _addonObserver.OnShow(_ => OnOpenRetainer(), ["InventoryRetainer", "InventoryRetainerLarge"]),
+            _addonObserver.OnShow(_ => OnOpenInventory(), ["Inventory", "InventoryLarge", "InventoryExpansion"]));
 
-    public override void OnDisable()
-    {
-        _clientState.Login -= OnLogin;
-        _clientState.Logout -= OnLogout;
-        _framework.Update -= OnFrameworkUpdate;
-        _addonObserver.AddonOpen -= OnAddonOpen;
-        _clientState.ClassJobChanged -= OnClassJobChange;
-
-        _queue.Clear();
-    }
-
-    private void OnLogin()
-    {
-        _queue.Clear();
-    }
-
-    private void OnLogout(int type, int code)
-    {
-        _queue.Clear();
-    }
-
-    private void OnAddonOpen(string addonName)
-    {
-        switch (addonName)
+        return new ValueTask(_framework.Run(() =>
         {
-            case "ArmouryBoard":
+            if (IsArmouryBoardOpen)
                 OnOpenArmoury();
-                break;
-            case "InventoryBuddy":
+
+            if (IsInventoryBuddyOpen)
                 OnOpenInventoryBuddy();
-                break;
-            case "InventoryRetainer":
-            case "InventoryRetainerLarge":
+
+            if (IsRetainerInventoryOpen)
                 OnOpenRetainer();
-                break;
-            case "Inventory":
-            case "InventoryLarge":
-            case "InventoryExpansion":
+
+            if (IsInventoryOpen)
                 OnOpenInventory();
-                break;
-        }
+        }));
+    }
+
+    public override ValueTask OnDisable()
+    {
+        DisposeAndNull(ref _disposables);
+        _queue.Clear();
+
+        return ValueTask.CompletedTask;
     }
 
     private void OnClassJobChange(uint classJobId)
     {
-        if (_config.SortArmouryOnJobChange && _addonObserver.IsAddonVisible("ArmouryBoard"))
+        if (_config.SortArmouryOnJobChange && IsArmouryBoardOpen)
         {
             OnOpenArmoury();
         }
@@ -206,7 +193,7 @@ public unsafe partial class AutoSorter : ConfigurableTweak<AutoSorterConfigurati
         }
     }
 
-    private void OnFrameworkUpdate(IFramework framework)
+    private void OnFrameworkUpdate()
     {
         if (!_clientState.IsLoggedIn || _isBusy || _queue.Count == 0)
             return;

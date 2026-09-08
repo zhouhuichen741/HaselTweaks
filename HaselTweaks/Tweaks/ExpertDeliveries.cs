@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using FFXIVClientStructs.FFXIV.Client.UI.Agent;
 using FFXIVClientStructs.FFXIV.Component.GUI;
 
@@ -6,26 +7,26 @@ namespace HaselTweaks.Tweaks;
 [RegisterSingleton<IHostedService>(Duplicate = DuplicateStrategy.Append), AutoConstruct]
 public unsafe partial class ExpertDeliveries : Tweak
 {
+    private readonly IAddonLifecycle _addonLifecycle;
+    private readonly IGameInteropProvider _gameInteropProvider;
     private readonly AddonObserver _addonObserver;
 
-    public override void OnEnable()
+    public override ValueTask OnEnable()
     {
-        _addonObserver.AddonOpen += OnAddonOpen;
+        _disposables = _addonObserver.OnShow(OnShow, "GrandCompanySupplyList");
+
+        return ValueTask.CompletedTask;
     }
 
-    public override void OnDisable()
+    public override ValueTask OnDisable()
     {
-        _addonObserver.AddonOpen -= OnAddonOpen;
+        DisposeAndNull(ref _disposables);
+
+        return ValueTask.CompletedTask;
     }
 
-    public void OnAddonOpen(string addonName)
+    private void OnShow(AtkUnitBase* addon)
     {
-        if (addonName != "GrandCompanySupplyList")
-            return;
-
-        if (!TryGetAddon<AtkUnitBase>(addonName, out var addon))
-            return;
-
         // prevent item selection for controller users to reset to the first entry
         if (AgentGrandCompanySupply.Instance()->SelectedTab == 2)
             return;

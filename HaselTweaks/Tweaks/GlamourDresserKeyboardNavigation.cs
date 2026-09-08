@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Dalamud.Game.ClientState.Keys;
 using FFXIVClientStructs.FFXIV.Client.UI;
 using FFXIVClientStructs.FFXIV.Client.UI.Agent;
@@ -14,17 +15,19 @@ public unsafe partial class GlamourDresserKeyboardNavigation : Tweak
     private readonly IFramework _framework;
     private readonly IKeyState _keyState;
 
-    public override void OnEnable()
+    public override ValueTask OnEnable()
     {
-        _framework.Update += OnFrameworkUpdate;
+        _disposables = _framework.OnUpdate(OnFrameworkUpdate);
+        return ValueTask.CompletedTask;
     }
 
-    public override void OnDisable()
+    public override ValueTask OnDisable()
     {
-        _framework.Update -= OnFrameworkUpdate;
+        DisposeAndNull(ref _disposables);
+        return ValueTask.CompletedTask;
     }
 
-    private void OnFrameworkUpdate(IFramework framework)
+    private void OnFrameworkUpdate()
     {
         if (!TryGetAddon<AddonMiragePrismPrismBox>(AgentId.MiragePrismPrismBox, out var addonPrismBox))
             return;

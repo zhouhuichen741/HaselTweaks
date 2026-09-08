@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Dalamud.Utility;
 using FFXIVClientStructs.FFXIV.Client.Game.Event;
 using FFXIVClientStructs.FFXIV.Client.System.Scheduler;
@@ -30,44 +31,35 @@ public unsafe partial class ForcedCutsceneMusic : ConfigurableTweak<ForcedCutsce
     private IDebouncer? _restoreDebouncer;
     private bool _hasTask;
 
-    public override void OnEnable()
+    public override ValueTask OnEnable()
     {
-        _createCutSceneControllerHook = _gameInteropProvider.HookFromAddress<ScheduleManagement.Delegates.CreateCutSceneController>(
-            ScheduleManagement.MemberFunctionPointers.CreateCutSceneController,
-            CreateCutSceneControllerDetour);
+        return new ValueTask(_framework.Run(() =>
+        {
+            _disposables = DisposableBag.Create(
+                _createCutSceneControllerHook = _gameInteropProvider.EnabledHookFromAddress<ScheduleManagement.Delegates.CreateCutSceneController>(
+                    ScheduleManagement.MemberFunctionPointers.CreateCutSceneController,
+                    CreateCutSceneControllerDetour),
 
-        _cutSceneControllerDtorHook = _gameInteropProvider.HookFromAddress<CutSceneController.Delegates.Dtor>(
-            (nint)CutSceneController.StaticVirtualTablePointer->Dtor,
-            CutSceneControllerDtorDetour);
+                _cutSceneControllerDtorHook = _gameInteropProvider.EnabledHookFromAddress<CutSceneController.Delegates.Dtor>(
+                    (nint)CutSceneController.StaticVirtualTablePointer->Dtor,
+                    CutSceneControllerDtorDetour),
 
-        _createCutSceneControllerHook.Enable();
-        _cutSceneControllerDtorHook.Enable();
-
-        _unmuteDebouncer = _framework.CreateDebouncer(TimeSpan.FromMilliseconds(100), Unmute);
-        _restoreDebouncer = _framework.CreateDebouncer(TimeSpan.FromMilliseconds(100), Restore);
-
-        _framework.Update += OnUpdate;
-    }
-    public override void OnDisable()
-    {
-        _framework.Update -= OnUpdate;
-
-        _createCutSceneControllerHook?.Dispose();
-        _createCutSceneControllerHook = null;
-
-        _cutSceneControllerDtorHook?.Dispose();
-        _cutSceneControllerDtorHook = null;
-
-        _unmuteDebouncer?.Dispose();
-        _unmuteDebouncer = null;
-
-        _restoreDebouncer?.Dispose();
-        _restoreDebouncer = null;
-
-        _hasTask = false;
+                _unmuteDebouncer = _framework.CreateDebouncer(TimeSpan.FromMilliseconds(100), Unmute),
+                _restoreDebouncer = _framework.CreateDebouncer(TimeSpan.FromMilliseconds(100), Restore),
+                _framework.OnUpdate(OnUpdate));
+        }));
     }
 
-    private void OnUpdate(IFramework framework)
+    public override ValueTask OnDisable()
+    {
+        return new ValueTask(_framework.Run(() =>
+        {
+            DisposeAndNull(ref _disposables);
+            _hasTask = false;
+        }));
+    }
+
+    private void OnUpdate()
     {
         var hasTask = EventFramework.Instance()->EventSceneModule.TaskManager.Tasks.Any(IsCutsceneTask);
 

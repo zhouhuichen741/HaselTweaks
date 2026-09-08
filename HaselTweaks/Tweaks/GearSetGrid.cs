@@ -1,56 +1,58 @@
+using System.Threading.Tasks;
+using FFXIVClientStructs.FFXIV.Component.GUI;
 using HaselCommon.Services.Commands;
 using HaselTweaks.Windows;
 
 namespace HaselTweaks.Tweaks;
 
 [RegisterSingleton<IHostedService>(Duplicate = DuplicateStrategy.Append), AutoConstruct]
-public partial class GearSetGrid : ConfigurableTweak<GearSetGridConfiguration>
+public unsafe partial class GearSetGrid : ConfigurableTweak<GearSetGridConfiguration>
 {
-    private readonly CommandService _commandService;
     private readonly AddonObserver _addonObserver;
+    private readonly CommandService _commandService;
     private readonly GearSetGridWindow _window;
 
     private CommandHandler _gsgCommand;
 
-    public override void OnEnable()
+    public override ValueTask OnEnable()
     {
-        _gsgCommand = _commandService.AddCommand("gsg", cmd => cmd
-            .WithHelpTextKey("GearSetGrid.CommandHandlerHelpMessage")
-            .WithDisplayOrder(2)
-            .WithHandler(OnGsgCommand)
-            .SetEnabled(_config.RegisterCommand));
+        _disposables = DisposableBag.Create(
+            _gsgCommand = _commandService.AddCommand("gsg", cmd => cmd
+                .WithHelpTextKey("GearSetGrid.CommandHandlerHelpMessage")
+                .WithDisplayOrder(2)
+                .WithHandler(OnGsgCommand)
+                .SetEnabled(_config.RegisterCommand)),
 
-        _addonObserver.AddonOpen += OnAddonOpen;
-        _addonObserver.AddonClose += OnAddonClose;
+            _addonObserver.OnShow(OnShow, "GearSetList"),
+            _addonObserver.OnHide(OnHide, "GearSetList"));
 
         if (_config.AutoOpenWithGearSetList && IsAddonOpen("GearSetList"u8))
             _window.Open();
+
+        return ValueTask.CompletedTask;
     }
 
-    public override void OnDisable()
+    public override ValueTask OnDisable()
     {
-        _addonObserver.AddonOpen -= OnAddonOpen;
-        _addonObserver.AddonClose -= OnAddonClose;
-
-        _gsgCommand?.Dispose();
-
+        DisposeAndNull(ref _disposables);
         _window.Close();
-    }
-
-    private void OnAddonOpen(string addonName)
-    {
-        if (_config.AutoOpenWithGearSetList && addonName == "GearSetList")
-            _window.Open();
-    }
-
-    private void OnAddonClose(string addonName)
-    {
-        if (_config.AutoOpenWithGearSetList && addonName == "GearSetList")
-            _window.Close();
+        return ValueTask.CompletedTask;
     }
 
     private void OnGsgCommand(CommandContext ctx)
     {
         _window.Toggle();
+    }
+
+    private void OnShow(AtkUnitBase* addon)
+    {
+        if (_config.AutoOpenWithGearSetList)
+            _window.Open();
+    }
+
+    private void OnHide(AtkUnitBase* addon)
+    {
+        if (_config.AutoOpenWithGearSetList)
+            _window.Close();
     }
 }
