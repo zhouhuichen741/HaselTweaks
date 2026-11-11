@@ -10,7 +10,7 @@ public unsafe partial class AlwaysFaceCamera : Tweak
 
     public override ValueTask OnEnable()
     {
-        _disposables = _framework.OnUpdate(OnUpdate);
+        _disposables = [_framework.OnUpdate(OnUpdate)];
 
         return ValueTask.CompletedTask;
     }
@@ -23,7 +23,7 @@ public unsafe partial class AlwaysFaceCamera : Tweak
         return ValueTask.CompletedTask;
     }
 
-    private void OnUpdate()
+    private void OnUpdate(IFramework _)
     {
         var localPlayer = Control.GetLocalPlayer();
         if (localPlayer == null || localPlayer->InCombat || localPlayer->GetTargetId() != 0xE0000000)

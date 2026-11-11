@@ -25,11 +25,12 @@ public unsafe partial class InventoryHighlight : ConfigurableTweak<InventoryHigh
 
     public override ValueTask OnEnable()
     {
-        _disposables = DisposableBag.Create(
+        _disposables = [
             _clientState.OnLogin(OnLogin),
             _gameConfig.OnGameConfigChange(OnGameConfigChange),
             _framework.OnUpdate(OnFrameworkUpdate),
-            _addonLifecycle.OnPostRequestedUpdate(OnItemDetailPostRequestedUpdate, "ItemDetail"));
+            _addonLifecycle.OnPostRequestedUpdate(OnItemDetailPostRequestedUpdate, "ItemDetail"),
+        ];
 
         UpdateItemInventryWindowSizeTypes();
 
@@ -76,7 +77,7 @@ public unsafe partial class InventoryHighlight : ConfigurableTweak<InventoryHigh
         }
     }
 
-    private void OnFrameworkUpdate()
+    private void OnFrameworkUpdate(IFramework _)
     {
         _hoveredItemId = NormalizeItemId((uint)_gameGui.HoveredItem);
 

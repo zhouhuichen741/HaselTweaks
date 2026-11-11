@@ -43,7 +43,7 @@ public unsafe partial class EnhancedMaterialList : ConfigurableTweak<EnhancedMat
     {
         return new ValueTask(_framework.Run(() =>
         {
-            _disposables = DisposableBag.Create(
+            _disposables = [
                 _addonRecipeMaterialListSetupRowHook = _gameInteropProvider.EnabledHookFromSignature<AtkComponentListItemPopulator.PopulateDelegate>(
                     "48 89 5C 24 ?? 48 89 54 24 ?? 48 89 4C 24 ?? 55 56 57 41 54 41 55 41 56 41 57 48 83 EC 50 49 8B 08",
                     AddonRecipeMaterialListPopulateRowDetour),
@@ -59,7 +59,8 @@ public unsafe partial class EnhancedMaterialList : ConfigurableTweak<EnhancedMat
                 _addonObserver.OnShow(_ => _canRefreshRecipeTree = true, "RecipeTree"),
                 _framework.OnUpdate(OnFrameworkUpdate),
                 _clientState.OnLogin(OnLogin),
-                _gameInventory.OnInventoryChangedRaw(OnInventoryUpdate));
+                _gameInventory.OnInventoryChangedRaw(OnInventoryUpdate),
+            ];
 
             if (_clientState.IsLoggedIn)
                 OnLogin();
@@ -85,7 +86,7 @@ public unsafe partial class EnhancedMaterialList : ConfigurableTweak<EnhancedMat
         _timeOfRecipeTreeRefresh = DateTime.UtcNow;
     }
 
-    private void OnFrameworkUpdate()
+    private void OnFrameworkUpdate(IFramework _)
     {
         if (!_clientState.IsLoggedIn)
             return;

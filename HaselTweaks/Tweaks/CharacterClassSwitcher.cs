@@ -1,8 +1,5 @@
 using System.Threading.Tasks;
-using Dalamud.Utility;
 using FFXIVClientStructs.FFXIV.Client.Game;
-using FFXIVClientStructs.FFXIV.Client.Game.UI;
-using FFXIVClientStructs.FFXIV.Client.System.Framework;
 using FFXIVClientStructs.FFXIV.Client.UI;
 using FFXIVClientStructs.FFXIV.Client.UI.Misc;
 using FFXIVClientStructs.FFXIV.Component.GUI;
@@ -24,7 +21,7 @@ public partial class CharacterClassSwitcher : ConfigurableTweak<CharacterClassSw
     {
         return new ValueTask(_framework.Run(() =>
         {
-            _disposables = DisposableBag.Create(
+            _disposables = [
                 _showTooltipHook = _gameInteropProvider.EnabledHookFromAddress<AtkTooltipManager.Delegates.ShowTooltip>(
                     AtkTooltipManager.MemberFunctionPointers.ShowTooltip,
                     AtkTooltipManagerShowTooltipDetour),
@@ -36,8 +33,8 @@ public partial class CharacterClassSwitcher : ConfigurableTweak<CharacterClassSw
 
                 _addonLifecycle.OnPostSetup(OnPvPCharacterPostSetup, "PvPCharacter"),
                 _addonLifecycle.OnPostRequestedUpdate(OnPvPCharacterPostRequestedUpdate, "PvPCharacter"),
-                _addonLifecycle.OnPreReceiveEvent(OnPvPCharacterPreReceiveEvent, "PvPCharacter"));
-
+                _addonLifecycle.OnPreReceiveEvent(OnPvPCharacterPreReceiveEvent, "PvPCharacter"),
+            ];
         }));
     }
 

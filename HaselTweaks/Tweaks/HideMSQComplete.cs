@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using FFXIVClientStructs.FFXIV.Client.System.Framework;
+using FFXIVClientStructs.FFXIV.Client.Game.UI;
 using FFXIVClientStructs.FFXIV.Client.UI.Agent;
 using FFXIVClientStructs.FFXIV.Component.GUI;
 
@@ -10,10 +10,11 @@ public unsafe partial class HideMSQComplete : Tweak
 {
     private readonly IAddonLifecycle _addonLifecycle;
     private readonly IFramework _framework;
+    private readonly ExcelService _excelService;
 
     public override ValueTask OnEnable()
     {
-        _disposables = _addonLifecycle.OnPostRefresh(ScenarioTree_PostRefresh, "ScenarioTree");
+        _disposables = [_addonLifecycle.OnPostRefresh(OnPostRefresh, "ScenarioTree")];
 
         return new ValueTask(_framework.Run(Update));
     }
@@ -30,21 +31,29 @@ public unsafe partial class HideMSQComplete : Tweak
         return ValueTask.CompletedTask;
     }
 
-    private void ScenarioTree_PostRefresh(AddonArgs args)
+    private void OnPostRefresh(AddonArgs args)
     {
         Update();
     }
 
-    private static void Update()
+    private void Update()
     {
         var agent = AgentScenarioTree.Instance();
         if (agent->Data == null)
             return;
 
         var data = agent->Data;
-        var hasMainQuest = data->MainScenarioQuestIds[data->MSQPathIndex] != 0;
+        var mainQuest = data->MainScenarioQuestIds[data->MSQPathIndex];
+        var hasMainQuest = mainQuest != 0 && HasExpansionForQuest(mainQuest | 0x10000u);
         var hasJobQuest = data->JobQuestIds[data->JobQuestIndex] != 0;
         UpdateVisibility(hasMainQuest, hasJobQuest);
+    }
+
+    private bool HasExpansionForQuest(uint questId)
+    {
+        return _excelService.GetSheet<ScenarioTree>().HasRow(questId)
+            && _excelService.TryGetRow<Quest>(questId, out var quest)
+            && quest.Expansion.RowId <= PlayerState.Instance()->MaxExpansion;
     }
 
     private static void UpdateVisibility(bool hasMainQuest, bool hasJobQuest)
@@ -60,9 +69,6 @@ public unsafe partial class HideMSQComplete : Tweak
         var isInputHintShown = !hasMainQuest && lowerBox != null && lowerBox->Timeline != null && lowerBox->Timeline->ActiveLabelId == 102;
         addon->GetNodeById(9)->ToggleVisibility(!isInputHintShown); // AtkResNode (hide input hint)
 
-        if (!hasMainQuest && !hasJobQuest)
-            addon->Flags1A0 |= 0b1000_0000; // disable focusability
-        else
-            addon->Flags1A0 &= unchecked((byte)~0b1000_0000); // enable focusability
+        addon->DisableFocusability = !hasMainQuest && !hasJobQuest;
     }
 }

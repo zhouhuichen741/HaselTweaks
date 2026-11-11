@@ -1,10 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
-using Dalamud.Plugin;
-using Dalamud.Game;
-using Dalamud.Logging;
-using Microsoft.Extensions.Hosting;
-using System;
+using HaselCommon;
 
 namespace HaselTweaks;
 
@@ -12,7 +8,7 @@ namespace HaselTweaks;
 public sealed partial class Plugin : IAsyncDalamudPlugin
 {
     private readonly IDalamudPluginInterface _pluginInterface;
-    private IHost _host;
+    private Host _host;
     private bool _isDev;
 
     [AutoPostConstruct]
@@ -28,16 +24,10 @@ public sealed partial class Plugin : IAsyncDalamudPlugin
 #endif
 
         _host = new HostBuilder()
-            .UseContentRoot(_pluginInterface.AssemblyLocation.Directory!.FullName)
-            .ConfigureHostOptions(options =>
-            {
-                options.ServicesStartConcurrently = true;
-                options.ServicesStopConcurrently = true;
-            })
             .ConfigureServices(services =>
             {
-                services.AddDalamud(_pluginInterface);
-                services.AddConfig(PluginConfig.Load(_pluginInterface));
+                services.AddFallbackProvider(_pluginInterface);
+                services.AddSingleton(_pluginInterface);
                 services.AddHaselCommon();
                 services.AddHaselTweaks();
             })
@@ -61,7 +51,7 @@ public sealed partial class Plugin : IAsyncDalamudPlugin
         }
         finally
         {
-            _host.Dispose();
+            await _host.DisposeAsync().ConfigureAwait(false);
         }
     }
 }

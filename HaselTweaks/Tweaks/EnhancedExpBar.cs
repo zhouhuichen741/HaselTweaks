@@ -3,7 +3,6 @@ using Dalamud.Game.Text.Evaluator;
 using FFXIVClientStructs.FFXIV.Client.Game;
 using FFXIVClientStructs.FFXIV.Client.Game.MJI;
 using FFXIVClientStructs.FFXIV.Client.Game.UI;
-using FFXIVClientStructs.FFXIV.Client.System.Framework;
 using FFXIVClientStructs.FFXIV.Client.UI.Agent;
 using FFXIVClientStructs.FFXIV.Component.GUI;
 using TerritoryIntendedUse = FFXIVClientStructs.FFXIV.Client.Enums.TerritoryIntendedUse;
@@ -29,14 +28,15 @@ public unsafe partial class EnhancedExpBar : ConfigurableTweak<EnhancedExpBarCon
     {
         return new ValueTask(_framework.Run(() =>
         {
-            _disposables = DisposableBag.Create(
+            _disposables = [
                 _updateExpHook = _gameInteropProvider.EnabledHookFromAddress<AgentHUD.Delegates.UpdateExp>(
                     AgentHUD.MemberFunctionPointers.UpdateExp,
                     UpdateExpDetour),
 
                 _addonLifecycle.OnPostRequestedUpdate(OnAddonExpPostRequestedUpdate, "_Exp"),
                 _clientState.OnLeavePvP(OnLeavePvP),
-                _clientState.OnTerritoryChanged(OnTerritoryChanged));
+                _clientState.OnTerritoryChanged(OnTerritoryChanged),
+            ];
 
             TriggerReset();
         }));

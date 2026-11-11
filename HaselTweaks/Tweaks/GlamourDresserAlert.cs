@@ -34,11 +34,12 @@ public unsafe partial class GlamourDresserAlert : ConfigurableTweak<GlamourDress
 
     public override ValueTask OnEnable()
     {
-        _disposables = DisposableBag.Create(
+        _disposables = [
             _addonObserver.OnShow(OnShow, "MiragePrismPrismBox"),
             _addonObserver.OnHide(OnHide, "MiragePrismPrismBox"),
             _framework.OnUpdate(OnFrameworkUpdate),
-            _gameGui.OnAgentUpdate(OnAgentUpdate));
+            _gameGui.OnAgentUpdate(OnAgentUpdate),
+        ];
 
         return ValueTask.CompletedTask;
     }
@@ -68,7 +69,7 @@ public unsafe partial class GlamourDresserAlert : ConfigurableTweak<GlamourDress
         _isPendingUpdate |= flag.HasFlag(AgentUpdateFlag.InventoryUpdate);
     }
 
-    private void OnFrameworkUpdate()
+    private void OnFrameworkUpdate(IFramework _)
     {
         var mirageManager = MirageManager.Instance();
         if (!mirageManager->PrismBoxLoaded)

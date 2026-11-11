@@ -22,7 +22,7 @@ public unsafe partial class BackgroundMusicKeybind : ConfigurableTweak<Backgroun
 
     public override ValueTask OnEnable()
     {
-        _disposables = _framework.OnUpdate(OnFrameworkUpdate);
+        _disposables = [_framework.OnUpdate(OnFrameworkUpdate)];
 
         return ValueTask.CompletedTask;
     }
@@ -34,7 +34,7 @@ public unsafe partial class BackgroundMusicKeybind : ConfigurableTweak<Backgroun
         return ValueTask.CompletedTask;
     }
 
-    private void OnFrameworkUpdate()
+    private void OnFrameworkUpdate(IFramework _)
     {
         var allKeybindsPressed = true;
 

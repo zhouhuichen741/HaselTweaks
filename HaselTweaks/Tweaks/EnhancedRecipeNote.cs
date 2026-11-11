@@ -13,9 +13,10 @@ public unsafe partial class EnhancedRecipeNote : ConfigurableTweak<EnhancedRecip
 
     public override ValueTask OnEnable()
     {
-        _disposables = DisposableBag.Create(
+        _disposables = [
             _addonLifecycle.OnPreFinalize(OnRecipeNotePreFinalize, "RecipeNote"),
-            _clientState.OnLogin(OnLogin));
+            _clientState.OnLogin(OnLogin),
+        ];
 
         return ValueTask.CompletedTask;
     }
@@ -30,17 +31,16 @@ public unsafe partial class EnhancedRecipeNote : ConfigurableTweak<EnhancedRecip
     private void OnLogin()
     {
         var agent = AgentRecipeNote.Instance();
-        var haselAgent = (HaselAgentRecipeNote*)agent;
 
         using var tempStr = new Utf8String();
         using var rssb = new RentedSeStringBuilder();
 
-        HaselAgentRecipeNote.ClearHistory(&agent->RecipeSearchHistory);
+        AgentRecipeNote.ClearStdDequeUtf8String(&agent->RecipeSearchHistory);
 
         foreach (var term in _config.SearchHistory)
         {
             tempStr.SetString(rssb.Builder.Clear().Append(term).GetViewAsSpan());
-            haselAgent->AddRecipeSearchHistoryTerm(&tempStr);
+            agent->AddRecipeSearchHistoryTerm(&tempStr);
         }
     }
 

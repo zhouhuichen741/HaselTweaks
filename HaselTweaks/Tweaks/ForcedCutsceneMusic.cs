@@ -35,7 +35,7 @@ public unsafe partial class ForcedCutsceneMusic : ConfigurableTweak<ForcedCutsce
     {
         return new ValueTask(_framework.Run(() =>
         {
-            _disposables = DisposableBag.Create(
+            _disposables = [
                 _createCutSceneControllerHook = _gameInteropProvider.EnabledHookFromAddress<ScheduleManagement.Delegates.CreateCutSceneController>(
                     ScheduleManagement.MemberFunctionPointers.CreateCutSceneController,
                     CreateCutSceneControllerDetour),
@@ -46,7 +46,8 @@ public unsafe partial class ForcedCutsceneMusic : ConfigurableTweak<ForcedCutsce
 
                 _unmuteDebouncer = _framework.CreateDebouncer(TimeSpan.FromMilliseconds(100), Unmute),
                 _restoreDebouncer = _framework.CreateDebouncer(TimeSpan.FromMilliseconds(100), Restore),
-                _framework.OnUpdate(OnUpdate));
+                _framework.OnUpdate(OnUpdate),
+            ];
         }));
     }
 
@@ -59,7 +60,7 @@ public unsafe partial class ForcedCutsceneMusic : ConfigurableTweak<ForcedCutsce
         }));
     }
 
-    private void OnUpdate()
+    private void OnUpdate(IFramework _)
     {
         var hasTask = EventFramework.Instance()->EventSceneModule.TaskManager.Tasks.Any(IsCutsceneTask);
 
